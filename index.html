@@ -137,6 +137,28 @@ details.qa summary::-webkit-details-marker{display:none}
 details.qa .a{padding:0 15px 13px;font-size:14px;color:#2b3a5c}
 details.qa[open]{border-color:var(--marigold)}
 .disclaimer{max-width:1120px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--ink-soft)}
+/* ---------- wizard ---------- */
+#wiz{max-width:640px;margin:26px auto 60px;padding:0 16px}
+.wiz-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:0 2px 14px rgba(24,41,72,.06)}
+.wiz-dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
+.wiz-dots span{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.wiz-dots span.on{background:var(--marigold)}
+.wiz-dots span.done{background:var(--leaf)}
+.wstep{display:none}
+.wstep.on{display:block}
+.wstep h3{font-family:var(--disp);font-size:21px;font-weight:800;margin-bottom:4px}
+.wstep .wsub{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px}
+.wnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.wnav .btn{min-width:110px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:6px 0 4px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:20px;padding:8px 15px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+.chip.on{background:var(--marigold-soft);border-color:var(--marigold);color:var(--ink)}
+.chipbox{display:none;margin-top:12px;padding:12px;border:1px dashed var(--line);border-radius:9px}
+.chipbox.on{display:block}
+.chipbox .f{margin-top:8px}
+.wfoot{text-align:center;margin-top:14px;font-size:13px}
+.wfoot a{cursor:pointer;text-decoration:underline}
+.reopen{margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap}
 footer{background:var(--ink);color:#b9c4d9;text-align:center;padding:18px;font-size:13px}
 footer a{color:var(--marigold)}
 </style>
@@ -156,9 +178,81 @@ footer a{color:var(--marigold)}
   </div>
 </header>
 
-<main>
+<section id="wiz">
+  <div class="wiz-card">
+    <div class="wiz-dots" id="wizDots"></div>
+
+    <div class="wstep on" data-step="0">
+      <h3 data-i="w_t0">Let's start simple</h3>
+      <p class="wsub" data-i="w_s0">Two quick settings. Everything else adapts to you.</p>
+      <div class="f"><label data-i="l_regime">Tax regime</label>
+        <select id="w_regime"><option value="new" data-i="o_new">New regime (default)</option><option value="old" data-i="o_old">Old regime</option></select></div>
+      <div class="f"><label data-i="l_age">Age band</label>
+        <select id="w_age"><option value="lt60">&lt; 60</option><option value="s60">60 – 79</option><option value="s80">80+</option></select></div>
+    </div>
+
+    <div class="wstep" data-step="1">
+      <h3 data-i="w_t1">Salary</h3>
+      <p class="wsub" data-i="w_s1">Projected for the full year Apr 2026 – Mar 2027. No salary? Leave blank and continue.</p>
+      <div class="f"><label data-i="l_gsal">Gross salary (annual, projected)</label><input type="number" id="w_salary" min="0" placeholder="0"></div>
+      <div class="f"><label data-i="l_tdssal">TDS on salary (projected full year)</label><input type="number" id="w_tdsSalary" min="0" placeholder="0"></div>
+    </div>
+
+    <div class="wstep" data-step="2">
+      <h3 data-i="w_t2">What else do you earn?</h3>
+      <p class="wsub" data-i="w_s2">Tap everything that applies — only those get a field. This is what usually triggers advance tax.</p>
+      <div class="chips">
+        <button class="chip" data-chip="cint" data-i="c_int">FD / interest</button>
+        <button class="chip" data-chip="ccg" data-i="c_cg">Capital gains</button>
+        <button class="chip" data-chip="crent" data-i="c_rent">Rent</button>
+        <button class="chip" data-chip="cbiz" data-i="c_biz">Freelance / business</button>
+        <button class="chip" data-chip="cdiv" data-i="c_div">Dividends</button>
+      </div>
+      <div class="chipbox" id="box-cint">
+        <div class="f"><label data-i="w_int">Total interest for the year (FD + RD + savings)</label><input type="number" id="w_int" min="0" placeholder="0"></div>
+      </div>
+      <div class="chipbox" id="box-ccg">
+        <div class="f"><label data-i="w_stcg">Equity gains — held under 1 year (STCG)</label><input type="number" id="w_stcg" min="0" placeholder="0"></div>
+        <div class="f"><label data-i="w_ltcg">Equity gains — held over 1 year (LTCG)</label><input type="number" id="w_ltcg" min="0" placeholder="0"></div>
+        <div class="f"><label data-i="w_ltcgot">Other gains — US stocks / property / gold (long-term)</label><input type="number" id="w_ltcgot" min="0" placeholder="0"></div>
+        <div class="f"><label data-i="w_cgq">Sold (or planning to sell) mostly in</label><select id="w_cgq"></select></div>
+      </div>
+      <div class="chipbox" id="box-crent">
+        <div class="f"><label data-i="w_rent">Rent received for the year</label><input type="number" id="w_rent" min="0" placeholder="0"></div>
+      </div>
+      <div class="chipbox" id="box-cbiz">
+        <div class="f"><label data-i="w_biztype">Type of work</label>
+          <select id="w_biztype"><option value="44ada" data-i="w_prof">Profession / freelance (44ADA)</option><option value="44ad" data-i="w_trade">Trading / small business (44AD)</option></select></div>
+        <div class="f"><label data-i="l_receipts">Gross receipts (annual)</label><input type="number" id="w_receipts" min="0" placeholder="0"></div>
+      </div>
+      <div class="chipbox" id="box-cdiv">
+        <div class="f"><label data-i="l_div">Dividend income (annual)</label><input type="number" id="w_div" min="0" placeholder="0"></div>
+      </div>
+      <div class="f" id="w_otdsWrap" style="display:none"><label data-i="w_otds">TDS already deducted on the above (if any)</label><input type="number" id="w_otds" min="0" placeholder="0"></div>
+    </div>
+
+    <div class="wstep" data-step="3">
+      <h3 data-i="w_t3">Advance tax already paid</h3>
+      <p class="wsub" data-i="w_s3">Only challans paid as Advance Tax (100). Leave blank if none.</p>
+      <div id="w_paidFields"></div>
+    </div>
+
+    <div class="wnav">
+      <button class="btn ghost" id="wBack" onclick="wizGo(-1)" data-i="w_back">Back</button>
+      <button class="btn" id="wNext" onclick="wizGo(1)" data-i="w_next">Next</button>
+    </div>
+    <p class="wfoot"><a onclick="finishWizard(true)" data-i="w_skip">Skip — take me to the detailed form</a></p>
+  </div>
+</section>
+
+<main hidden>
 <!-- ================= INPUTS ================= -->
 <div class="inputs">
+<div class="reopen">
+  <button class="btn ghost" onclick="reopenWizard()" data-i="w_reopen">← Quick wizard</button>
+  <span class="hint" style="align-self:center" data-i="w_refine">Detailed mode — refine the estimate with NPS, deductions, TDS splits and more.</span>
+</div>
+
 
 <details class="sec" open id="sec-profile">
   <summary><span class="caret">▶</span><span data-i="s_profile">Profile</span><span class="tag">basics</span></summary>
@@ -775,7 +869,9 @@ function setLang(l){
     for(const n of el.childNodes){if(n.nodeType===3&&n.textContent.trim()){n.textContent=v+' ';return;}}
     el.insertBefore(document.createTextNode(v+' '),el.firstChild);
   });
-  fillQuarterSelects(); buildFaq(); syncBiz(); render();
+  fillQuarterSelects(); buildFaq(); syncBiz(); 
+  if(typeof fillWizCgq==='function'){fillWizCgq();$('wNext').textContent=WSTEP===WLAST?T('w_see'):T('w_next');if(WSTEP===3)buildPaidFields();}
+  render();
 }
 function fillQuarterSelects(){
   document.querySelectorAll('.qsel').forEach(s=>{
@@ -801,7 +897,111 @@ function syncDed(){
 function onEdit(e){if(e.target.matches('input,select')){if(e.target.id==='bizType')syncBiz();if(e.target.id==='regime')syncDed();render();}}
 document.addEventListener('input',onEdit);
 document.addEventListener('change',onEdit);
+/* ================= wizard ================= */
+Object.assign(I18N.en,{
+  w_t0:"Let's start simple", w_s0:"Two quick settings. Everything else adapts to you.",
+  w_t1:"Salary", w_s1:"Projected for the full year Apr 2026 – Mar 2027. No salary? Leave blank and continue.",
+  w_t2:"What else do you earn?", w_s2:"Tap everything that applies — only those get a field. This is what usually triggers advance tax.",
+  w_t3:"Advance tax already paid", w_s3:"Only challans paid as Advance Tax (100). Leave blank if none.",
+  c_int:"FD / interest", c_cg:"Capital gains", c_rent:"Rent", c_biz:"Freelance / business", c_div:"Dividends",
+  w_int:"Total interest for the year (FD + RD + savings)",
+  w_stcg:"Equity gains — held under 1 year (STCG)", w_ltcg:"Equity gains — held over 1 year (LTCG)",
+  w_ltcgot:"Other gains — US stocks / property / gold (long-term)", w_cgq:"Sold (or planning to sell) mostly in",
+  w_biztype:"Type of work", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
+  w_otds:"TDS already deducted on the above (if any)",
+  w_back:"Back", w_next:"Next", w_see:"See my estimate →", w_skip:"Skip — take me to the detailed form",
+  w_reopen:"← Quick wizard", w_refine:"Detailed mode — refine the estimate with NPS, deductions, TDS splits and more.",
+  w_paid_by:"Paid by", w_paid_since:"Paid since"
+});
+Object.assign(I18N.ta,{
+  w_t0:"Simple-a start pannalaam", w_s0:"Rendu quick settings dhaan. Meedhi ellam ungalukku etha maarum.",
+  w_t1:"Sambalam", w_s1:"Full year Apr 2026 – Mar 2027 projection. Sambalam illa-na blank vittu continue pannunga.",
+  w_t2:"Vera enna sambadhikkireenga?", w_s2:"Edhu apply aagudho adha tap pannunga — adhukku mattum field varum. Advance tax-a trigger pannuradhu idhu dhaan.",
+  w_t3:"Already katina advance tax", w_s3:"Advance Tax (100)-a katina challans mattum. Illa-na blank vidunga.",
+  c_int:"FD / vatti", c_cg:"Capital gains", c_rent:"Vaadagai", c_biz:"Freelance / business", c_div:"Dividends",
+  w_int:"Varusha motha vatti (FD + RD + savings)",
+  w_stcg:"Equity gains — 1 varusham-ku keezha (STCG)", w_ltcg:"Equity gains — 1 varusham mela (LTCG)",
+  w_ltcgot:"Vera gains — US stocks / property / gold (long-term)", w_cgq:"Eppo vithheenga (illa vikka plan)?",
+  w_biztype:"Enna maadhiri velai", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
+  w_otds:"Idhu mela already pidicha TDS (irundha)",
+  w_back:"Back", w_next:"Next", w_see:"En estimate paaru →", w_skip:"Skip — direct-a detailed form-ku po",
+  w_reopen:"← Quick wizard", w_refine:"Detailed mode — NPS, deductions, TDS splits ellam vachu estimate-a refine pannalaam.",
+  w_paid_by:"Ithukkulla katinadhu:", w_paid_since:"Idhukku apparam katinadhu:"
+});
+
+let WSTEP=0; const WLAST=3;
+function wizDots(){
+  $('wizDots').innerHTML=[0,1,2,3].map(i=>`<span class="${i<WSTEP?'done':i===WSTEP?'on':''}"></span>`).join('');
+}
+function wizGo(d){
+  const steps=document.querySelectorAll('.wstep');
+  if(WSTEP+d<0)return;
+  if(WSTEP+d>WLAST){finishWizard(false);return;}
+  steps[WSTEP].classList.remove('on'); WSTEP+=d; steps[WSTEP].classList.add('on');
+  $('wBack').style.visibility=WSTEP===0?'hidden':'visible';
+  $('wNext').textContent=WSTEP===WLAST?T('w_see'):T('w_next');
+  if(WSTEP===3)buildPaidFields();
+  wizDots();
+}
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  c.classList.toggle('on');
+  const box=$('box-'+c.dataset.chip); box.classList.toggle('on',c.classList.contains('on'));
+  if(!c.classList.contains('on'))box.querySelectorAll('input').forEach(i=>i.value='');
+  const anyTds=['cint','ccg','crent','cbiz','cdiv'].some(k=>document.querySelector(`[data-chip=${k}]`).classList.contains('on'));
+  $('w_otdsWrap').style.display=anyTds?'flex':'none';
+}));
+function buildPaidFields(){
+  const today=new Date(); let k=DUE.filter(d=>today>=d).length; // installment dates passed
+  let html='';
+  const lbls=[T('w_paid_by')+' 15 Jun 2026',T('w_paid_by')+' 15 Sep 2026',T('w_paid_by')+' 15 Dec 2026',T('w_paid_by')+' 15 Mar 2027'];
+  const n=Math.min(4,k+1);
+  for(let i=0;i<n;i++){
+    const lbl=(i===k&&k<4)?(k===0?lbls[0]:T('w_paid_since')+' 16 '+['Jun','Sep','Dec'][k-1]+' 2026'):lbls[i];
+    html+=`<div class="f"><label>${lbl}</label><input type="number" id="w_paid${i}" min="0" placeholder="0"></div>`;
+  }
+  $('w_paidFields').innerHTML=html;
+}
+function fillWizCgq(){
+  const s=$('w_cgq'); const cur=s.value||'even';
+  s.innerHTML=`<option value="even">${T('q_even')}</option><option value="1">${T('q1')}</option><option value="2">${T('q2')}</option><option value="3">${T('q3')}</option><option value="4">${T('q4')}</option>`;
+  s.value=cur;
+}
+function syncWizard(){
+  const wv=id=>{const el=$(id);return el?Math.max(0,Number(el.value)||0):0;};
+  $('regime').value=$('w_regime').value; $('age').value=$('w_age').value;
+  $('salary').value=$('w_salary').value; $('tdsSalary').value=$('w_tdsSalary').value;
+  const on=k=>document.querySelector(`[data-chip=${k}]`).classList.contains('on');
+  $('fdInt').value=on('cint')?$('w_int').value:'';
+  if(on('ccg')){
+    $('stcgEq').value=$('w_stcg').value; $('ltcgEq').value=$('w_ltcg').value; $('ltcgOt').value=$('w_ltcgot').value;
+    const q=$('w_cgq').value; $('stcgEqQ').value=q; $('ltcgEqQ').value=q; $('ltcgOtQ').value=q;
+  } else {$('stcgEq').value='';$('ltcgEq').value='';$('ltcgOt').value='';}
+  $('rent').value=on('crent')?$('w_rent').value:'';
+  if(on('cbiz')){ $('bizType').value=$('w_biztype').value; $('bizReceipts').value=$('w_receipts').value; }
+  else $('bizType').value='none';
+  syncBiz();
+  if(on('cbiz'))$('bizPct').value=$('w_biztype').value==='44ada'?50:8;
+  $('divAmt').value=on('cdiv')?$('w_div').value:'';
+  $('tdsInt').value=wv('w_otds')||'';
+  for(let i=0;i<4;i++){const el=$('w_paid'+i);if(el)$('paid'+(i+1)).value=el.value;}
+}
+function finishWizard(skip){
+  if(!skip)syncWizard();
+  $('wiz').hidden=true;
+  document.querySelector('main').hidden=false;
+  if(!skip){document.querySelectorAll('details.sec').forEach(dd=>dd.open=false);
+    render();
+    const res=document.querySelector('.results');
+    if(res.scrollIntoView)res.scrollIntoView({behavior:'smooth'});}
+  else render();
+}
+function reopenWizard(){
+  document.querySelector('main').hidden=true;
+  $('wiz').hidden=false;
+}
 fillQuarterSelects(); buildFaq(); syncDed(); syncBiz(); render();
+fillWizCgq(); wizDots(); $('wBack').style.visibility='hidden';
+
 </script>
 </body>
 </html>
