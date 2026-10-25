@@ -3,268 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MunVari — Advance Tax Estimator FY 2026-27 (India)</title>
-<meta name="description" content="Free advance tax calculator for FY 2026-27. Quarterly installments, 234B/234C interest, capital gains relief, both regimes. No login, no data leaves your browser.">
+<title>MunVari — Advance Tax Calculator FY 2026-27 | Due Dates, 234B/234C Interest</title>
+<meta name="description" content="Free advance tax calculator for FY 2026-27 (AY 2027-28). Find your next installment, 234B/234C interest, capital gains relief and old vs new regime in 60 seconds. No login — nothing leaves your browser.">
+<meta name="keywords" content="advance tax calculator, advance tax FY 2026-27, 234B 234C interest calculator, advance tax due date December 15, capital gains advance tax, Tanglish tax">
+<meta name="author" content="Babu Balasubramanian">
+<meta name="theme-color" content="#182948">
+<link rel="canonical" href="https://babubl.github.io/munvari/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://babubl.github.io/munvari/">
+<meta property="og:title" content="MunVari — Do you owe advance tax this quarter?">
+<meta property="og:description" content="Free FY 2026-27 advance tax calculator: next installment, 234B/234C interest, capital gains relief, old vs new regime. English + Tanglish. Nothing leaves your browser.">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MunVari — Advance Tax Calculator FY 2026-27">
+<meta name="twitter:description" content="Your next installment and interest risk in 60 seconds. Free, private, English + Tanglish.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23182948'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='34' font-weight='900' fill='%23e79c08' text-anchor='middle'%3E%E2%82%B9%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"MunVari","alternateName":"MunVari Advance Tax Estimator","url":"https://babubl.github.io/munvari/","applicationCategory":"FinanceApplication","operatingSystem":"Any (browser)","inLanguage":["en-IN","ta-Latn"],"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Free advance tax calculator for India, FY 2026-27: quarterly installments, Section 234B/234C interest, capital gains relief, old vs new regime comparison. All calculations run in the browser.","author":{"@type":"Person","name":"Babu Balasubramanian","url":"https://babubl.github.io"}}
+</script>
 <style>
 :root{
-  --ink:#182948;        /* challan navy */
-  --ink-soft:#3d4f74;
-  --paper:#f2f5f9;      /* cool ledger white */
-  --card:#ffffff;
-  --line:#d7deea;
-  --marigold:#e79c08;   /* due-now highlight */
-  --marigold-soft:#fdf3dc;
-  --leaf:#1d7a46;       /* paid */
-  --leaf-soft:#e3f2e9;
-  --alert:#c2472c;      /* shortfall */
-  --alert-soft:#fae8e3;
-  --mut:#69769158;
-  --radius:10px;
+  --ink:#182948; --ink-soft:#4a5b80; --paper:#f2f5f9; --card:#ffffff; --line:#d7deea; --line-2:#e8edf5;
+  --hdr:#182948; --hdr-2:#22375e; --hdr-ink:#eef2f9; --hdr-soft:#b9c4d9;
+  --marigold:#e79c08; --marigold-ink:#8a5a00; --marigold-soft:#fdf3dc;
+  --leaf:#1d7a46; --leaf-soft:#e3f2e9; --alert:#c2472c; --alert-soft:#fae8e3;
+  --sky:#2f6fd6; --sky-soft:#e6efff;
+  --shadow:0 1px 2px rgba(24,41,72,.05),0 6px 22px rgba(24,41,72,.06);
+  --radius:12px;
   --mono:'Spline Sans Mono',ui-monospace,monospace;
   --disp:'Bricolage Grotesque',sans-serif;
   --body:'Instrument Sans',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#e7ecf6; --ink-soft:#a3b2cf; --paper:#0d1424; --card:#151f36; --line:#2a3a5c; --line-2:#1f2c48;
+    --hdr:#0a1120; --hdr-2:#16223c; --hdr-ink:#eef2f9; --hdr-soft:#9fb0d0;
+    --marigold:#f0aa22; --marigold-ink:#f6c25a; --marigold-soft:#3a2c0c;
+    --leaf:#3cb371; --leaf-soft:#12301f; --alert:#ef7a5f; --alert-soft:#3a1c15;
+    --sky:#6ea1ff; --sky-soft:#16264a;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e7ecf6; --ink-soft:#a3b2cf; --paper:#0d1424; --card:#151f36; --line:#2a3a5c; --line-2:#1f2c48;
+  --hdr:#0a1120; --hdr-2:#16223c; --hdr-ink:#eef2f9; --hdr-soft:#9fb0d0;
+  --marigold:#f0aa22; --marigold-ink:#f6c25a; --marigold-soft:#3a2c0c;
+  --leaf:#3cb371; --leaf-soft:#12301f; --alert:#ef7a5f; --alert-soft:#3a1c15;
+  --sky:#6ea1ff; --sky-soft:#16264a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px}
-button{font-family:inherit;cursor:pointer}
-input,select{font-family:inherit;font-size:15px;color:var(--ink)}
-a{color:var(--ink-soft)}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;color:inherit}
+input,select{font-family:inherit;font-size:16px;color:var(--ink)}
+a{color:var(--sky)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--marigold);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--marigold);color:#231a02;padding:8px 12px;border-radius:8px;z-index:50}
+.skip:focus{left:8px}
 
-/* ---------- header ---------- */
-header{background:var(--ink);color:#eef2f9;padding:26px 20px 30px}
-.hwrap{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.brand h1{font-family:var(--disp);font-weight:800;font-size:clamp(26px,4vw,38px);letter-spacing:-.02em}
-.brand h1 span{color:var(--marigold)}
-.brand p{color:#b9c4d9;font-size:14px;margin-top:4px;max-width:560px}
-.fybadge{font-family:var(--mono);font-size:12px;background:#243a63;border:1px solid #3a5385;border-radius:6px;padding:3px 8px;display:inline-block;margin-top:10px;color:#d8e2f4}
-.langtog{display:flex;border:1px solid #3a5385;border-radius:8px;overflow:hidden}
-.langtog button{background:transparent;color:#b9c4d9;border:0;padding:8px 14px;font-size:13px;font-weight:600}
-.langtog button.on{background:var(--marigold);color:#231a02}
+/* ---------- header / hero ---------- */
+header{background:var(--hdr);color:var(--hdr-ink);position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:auto -10% -60% auto;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(231,156,8,.16),transparent 65%);pointer-events:none}
+.topbar{max-width:1160px;margin:0 auto;padding:16px 20px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+.logo{font-family:var(--disp);font-weight:800;font-size:24px;letter-spacing:-.02em;display:flex;align-items:center;gap:9px;color:var(--hdr-ink);text-decoration:none}
+.logo i{font-style:normal;width:30px;height:30px;border-radius:8px;background:var(--marigold);color:#231a02;display:grid;place-items:center;font-size:17px}
+.logo b{font-weight:800}.logo span{color:var(--marigold)}
+.tools{display:flex;gap:8px;align-items:center}
+.seg{display:flex;border:1px solid #3a5385;border-radius:9px;overflow:hidden}
+.seg button{background:transparent;color:var(--hdr-soft);border:0;padding:7px 12px;font-size:13px;font-weight:600}
+.seg button.on{background:var(--marigold);color:#231a02}
+.iconbtn{background:transparent;border:1px solid #3a5385;color:var(--hdr-soft);border-radius:9px;width:36px;height:34px;font-size:16px;display:grid;place-items:center}
+.hero{max-width:1160px;margin:0 auto;padding:34px 20px 38px;position:relative;z-index:1}
+.hero h1{font-family:var(--disp);font-weight:800;font-size:clamp(30px,5vw,50px);line-height:1.04;letter-spacing:-.03em;max-width:760px}
+.hero h1 em{font-style:normal;color:var(--marigold)}
+.hero p.lede{color:var(--hdr-soft);font-size:16.5px;margin-top:12px;max-width:620px}
+.countdown{margin-top:20px;display:inline-flex;align-items:center;gap:14px;background:var(--hdr-2);border:1px solid #3a5385;border-radius:14px;padding:10px 16px 10px 12px;flex-wrap:wrap}
+.cd-days{font-family:var(--mono);font-weight:600;font-size:28px;color:var(--marigold);line-height:1;background:rgba(231,156,8,.12);border-radius:10px;padding:8px 11px;text-align:center;min-width:64px}
+.cd-days small{display:block;font-family:var(--body);font-size:10.5px;color:var(--hdr-soft);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
+.cd-txt b{display:block;font-size:15px}
+.cd-txt span{font-size:13px;color:var(--hdr-soft)}
+.trust{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-size:13px;color:var(--hdr-soft)}
+.trust span::before{content:"✓ ";color:var(--marigold);font-weight:700}
+.fybadge{font-family:var(--mono);font-size:11.5px;color:var(--hdr-soft);margin-top:16px;opacity:.85}
+
+/* ---------- wizard ---------- */
+#wiz{max-width:660px;margin:-18px auto 50px;padding:0 16px;position:relative;z-index:2}
+.wiz-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;box-shadow:var(--shadow)}
+.wiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:var(--ink-soft);font-weight:600}
+.wiz-bar{height:5px;background:var(--line-2);border-radius:4px;overflow:hidden;margin-bottom:20px}
+.wiz-bar div{height:100%;background:var(--marigold);border-radius:4px;transition:width .3s}
+.welcome{display:none;background:var(--sky-soft);border:1px solid var(--sky);border-radius:10px;padding:10px 12px;font-size:13.5px;margin-bottom:16px;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.welcome.on{display:flex}
+.wstep{display:none}
+.wstep.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.wstep h2{font-family:var(--disp);font-size:23px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px}
+.wstep .wsub{font-size:14px;color:var(--ink-soft);margin-bottom:12px}
+.wnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.wnav .btn{min-width:120px}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin:6px 0 4px}
+.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:22px;padding:9px 15px;font-size:14px;font-weight:600;color:var(--ink-soft)}
+.chip::before{content:"+ ";opacity:.7}
+.chip[aria-pressed="true"]{background:var(--marigold-soft);border-color:var(--marigold);color:var(--ink)}
+.chip[aria-pressed="true"]::before{content:"✓ ";opacity:1;color:var(--marigold-ink)}
+.chipbox{display:none;margin-top:12px;padding:4px 14px 14px;border:1px dashed var(--line);border-radius:11px}
+.chipbox.on{display:block;animation:fade .2s ease}
+.chipbox h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-top:10px}
+.wfoot{text-align:center;margin-top:14px;font-size:13px}
+.linkbtn{background:none;border:0;text-decoration:underline;color:var(--ink-soft);font-size:13px;padding:2px}
+.segpick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.segpick.two{grid-template-columns:1fr 1fr}
+.segpick button{border:1.5px solid var(--line);background:var(--paper);border-radius:10px;padding:10px 8px;font-weight:600;font-size:14px;color:var(--ink-soft);text-align:center}
+.segpick button small{display:block;font-weight:500;font-size:11.5px;opacity:.85;margin-top:1px}
+.segpick button[aria-pressed="true"]{border-color:var(--marigold);background:var(--marigold-soft);color:var(--ink)}
+
+/* ---------- fields ---------- */
+.f{display:flex;flex-direction:column;gap:4px;margin-top:12px}
+.f label,.f .lbl{font-size:13px;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.inwrap{position:relative}
+.inwrap.rupee::before{content:"₹";position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-family:var(--mono);font-size:14px;pointer-events:none}
+.f input,.f select{border:1px solid var(--line);border-radius:9px;padding:10px 11px;background:var(--card);width:100%;transition:border-color .15s}
+.inwrap.rupee input{padding-left:26px}
+.f input:focus,.f select:focus{outline:2px solid var(--marigold);outline-offset:0;border-color:var(--marigold)}
+.f input[type=number]{font-family:var(--mono);font-size:15px}
+.amtw{font-family:var(--mono);font-size:11.5px;color:var(--marigold-ink);min-height:15px}
+.hint{font-size:12px;color:var(--ink-soft)}
+.why{background:var(--paper);color:var(--ink-soft);border:1px solid var(--line);width:18px;height:18px;border-radius:50%;font-size:11px;line-height:1;font-weight:700;flex:0 0 auto;display:inline-grid;place-items:center}
+.why:hover{background:var(--marigold-soft);border-color:var(--marigold)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr}}
+.rowline{display:grid;grid-template-columns:1.6fr 1fr;gap:12px;align-items:start}
+@media(max-width:520px){.rowline{grid-template-columns:1fr;gap:0}}
 
 /* ---------- layout ---------- */
-main{max-width:1120px;margin:0 auto;padding:22px 16px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
-@media(max-width:880px){main{grid-template-columns:1fr}}
-.results{position:sticky;top:14px}
-@media(max-width:880px){.results{position:static}}
+main{max-width:1160px;margin:0 auto;padding:26px 16px 60px;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:24px;align-items:start}
+@media(max-width:900px){main{grid-template-columns:1fr}.results{order:-1}}
+.results{padding-bottom:4px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar .remember{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-soft);margin-left:auto}
+.toolbar .remember input{width:16px;height:16px;accent-color:var(--marigold)}
 
-/* ---------- input cards ---------- */
-details.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+details.sec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
 details.sec summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 16px;font-weight:600;cursor:pointer;user-select:none}
 details.sec summary::-webkit-details-marker{display:none}
-details.sec summary .tag{font-family:var(--mono);font-size:11px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:2px 7px}
+details.sec summary .tag{font-family:var(--mono);font-size:11px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);border-radius:5px;padding:1px 7px}
 details.sec summary .sum-amt{margin-left:auto;font-family:var(--mono);font-size:13px;color:var(--ink-soft)}
-details.sec summary .caret{transition:transform .18s;color:var(--ink-soft);font-size:12px}
+details.sec summary .caret{transition:transform .18s;color:var(--ink-soft);font-size:11px}
 details.sec[open] summary .caret{transform:rotate(90deg)}
-.secbody{padding:4px 16px 16px;border-top:1px dashed var(--line)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
-@media(max-width:480px){.grid2{grid-template-columns:1fr}}
-.f{display:flex;flex-direction:column;gap:4px;margin-top:10px}
-.f label{font-size:12.5px;font-weight:600;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
-.f input,.f select{border:1px solid var(--line);border-radius:7px;padding:8px 10px;background:#fff;width:100%}
-.f input:focus,.f select:focus{outline:2px solid var(--marigold);outline-offset:1px;border-color:var(--marigold)}
-.f input[type=number]{font-family:var(--mono)}
-.hint{font-size:11.5px;color:var(--ink-soft);opacity:.85}
-.why{border:0;background:var(--paper);color:var(--ink-soft);border:1px solid var(--line);width:17px;height:17px;border-radius:50%;font-size:11px;line-height:1;font-weight:700;flex:0 0 auto}
-.why:hover{background:var(--marigold-soft);border-color:var(--marigold)}
-.rowline{display:flex;gap:10px;align-items:flex-end}
-.rowline .f{flex:1}
+.secbody{padding:2px 16px 16px;border-top:1px dashed var(--line)}
 
 /* ---------- results ---------- */
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px}
-.panel h2{font-family:var(--disp);font-size:19px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px}
-.verdict{border-radius:var(--radius);padding:16px 18px;margin-bottom:14px;border:1.5px solid}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.panel h3{font-family:var(--disp);font-size:18px;font-weight:800;letter-spacing:-.01em;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.panel h3 .pill{margin-left:auto;font-family:var(--body);font-size:11.5px;font-weight:700;border-radius:20px;padding:3px 10px}
+.verdict{border-radius:16px;padding:20px;margin-bottom:14px;border:1.5px solid;position:relative}
 .verdict.pay{background:var(--marigold-soft);border-color:var(--marigold)}
 .verdict.ok{background:var(--leaf-soft);border-color:var(--leaf)}
-.verdict.na{background:var(--paper);border-color:var(--line)}
-.verdict .v-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
-.verdict .v-amt{font-family:var(--mono);font-weight:600;font-size:clamp(24px,4vw,32px);margin:2px 0}
-.verdict .v-sub{font-size:13.5px;color:var(--ink-soft)}
+.verdict.na{background:var(--card);border-color:var(--line)}
+.v-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft)}
+.v-amt{font-family:var(--mono);font-weight:600;font-size:clamp(32px,5vw,44px);letter-spacing:-.02em;margin:4px 0 2px;line-height:1.1}
+.v-sub{font-size:14px;color:var(--ink-soft)}
+.v-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tagc{font-size:12px;font-weight:700;border-radius:20px;padding:4px 10px;background:var(--card);border:1px solid var(--line)}
+.tagc.bad{color:var(--alert);border-color:var(--alert)}
+.tagc.good{color:var(--leaf);border-color:var(--leaf)}
+.tagc.warn{color:var(--marigold-ink);border-color:var(--marigold)}
+.v-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.alerts{margin:-4px 0 14px;display:grid;gap:8px}
+.alert{font-size:13px;border-radius:10px;padding:9px 12px;border:1px solid var(--line);background:var(--card);display:flex;gap:8px}
+.alert.warn{border-color:var(--marigold);background:var(--marigold-soft)}
+.alert.info{border-color:var(--sky);background:var(--sky-soft)}
 
-/* installment rail — signature */
-.rail{margin:18px 0 6px}
-.rail-track{position:relative;height:5px;background:var(--line);border-radius:3px;margin:0 10px}
-.rail-fill{position:absolute;left:0;top:0;bottom:0;background:var(--leaf);border-radius:3px}
-.rail-stops{display:grid;grid-template-columns:repeat(4,1fr);margin-top:-13px}
-.stop{text-align:center}
-.stop .dot{width:22px;height:22px;border-radius:50%;margin:0 auto;border:2.5px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--ink-soft);position:relative;z-index:1}
+/* installment rail */
+.rail{margin:22px 4px 4px;position:relative;height:118px}
+.rail-track{position:absolute;left:0;right:0;top:11px;height:6px;background:var(--line-2);border-radius:4px}
+.rail-fill{position:absolute;left:0;top:0;bottom:0;background:var(--leaf);border-radius:4px;transition:width .4s}
+.rail-today{position:absolute;top:-8px;width:2px;height:24px;background:var(--sky);border-radius:2px}
+.rail-today span{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;font-weight:700;color:var(--sky);white-space:nowrap;text-transform:uppercase;letter-spacing:.04em}
+.stop{position:absolute;top:0;transform:translateX(-50%);text-align:center;width:25%}
+@media(max-width:420px){.stop .s-amt{font-size:11px}.stop .s-state{font-size:9.5px}}
+.stop .dot{width:28px;height:28px;border-radius:50%;margin:0 auto;border:2.5px solid var(--line);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--ink-soft);position:relative;z-index:1}
 .stop.paid .dot{background:var(--leaf);border-color:var(--leaf);color:#fff}
 .stop.short .dot{background:var(--alert);border-color:var(--alert);color:#fff}
-.stop.due .dot{background:var(--marigold);border-color:var(--marigold);color:#231a02;box-shadow:0 0 0 4px var(--marigold-soft)}
-.stop .s-pct{font-family:var(--mono);font-size:11px;color:var(--ink-soft);margin-top:6px}
-.stop .s-date{font-size:11.5px;font-weight:600}
-.stop .s-amt{font-family:var(--mono);font-size:12px;margin-top:1px}
+.stop.due .dot{background:var(--marigold);border-color:var(--marigold);color:#231a02;box-shadow:0 0 0 5px var(--marigold-soft)}
+.stop .s-date{font-size:12px;font-weight:700;margin-top:6px}
+.stop .s-pct{font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.stop .s-amt{font-family:var(--mono);font-size:12.5px;margin-top:1px}
 .stop .s-state{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.stop.paid .s-state{color:var(--leaf)}
-.stop.short .s-state{color:var(--alert)}
-.stop.due .s-state{color:#a76e00}
-.stop.up .s-state{color:var(--ink-soft)}
+.stop.skip{opacity:.5}
+.stop.paid .s-state{color:var(--leaf)} .stop.short .s-state{color:var(--alert)} .stop.due .s-state{color:var(--marigold-ink)} .stop.up .s-state{color:var(--ink-soft)}
+.plan{border-top:1px dashed var(--line);margin-top:6px;padding-top:12px}
+.plan h4{font-size:13px;font-weight:700;margin-bottom:6px}
+.plan-row{display:flex;justify-content:space-between;gap:10px;font-size:14px;padding:5px 0}
+.plan-row b{font-family:var(--mono);font-weight:600}
 
-/* waterfall table */
+/* driver bars */
+.stack{display:flex;height:16px;border-radius:8px;overflow:hidden;background:var(--line-2);margin:4px 0 14px}
+.stack div{height:100%}
+.drv{display:grid;grid-template-columns:12px 1fr auto;gap:9px;align-items:center;font-size:13.5px;padding:5px 0;border-bottom:1px dashed var(--line-2)}
+.drv:last-child{border-bottom:0}
+.drv i{width:12px;height:12px;border-radius:3px}
+.drv b{font-family:var(--mono);font-weight:600}
+.drv small{color:var(--ink-soft);font-size:12px;margin-left:6px}
+.insight{font-size:13.5px;background:var(--paper);border-radius:10px;padding:10px 12px;margin-top:12px}
+
+/* regime */
+.regime{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rbox{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+.rbox.win{border-color:var(--leaf);background:var(--leaf-soft)}
+.rbox .rn{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)}
+.rbox .rv{font-family:var(--mono);font-size:20px;font-weight:600;margin-top:2px}
+.rbox .rs{font-size:12px;color:var(--ink-soft)}
+.rbox .badge{position:absolute;top:-10px;right:10px;background:var(--leaf);color:#fff;font-size:10.5px;font-weight:700;border-radius:20px;padding:2px 9px;text-transform:uppercase;letter-spacing:.04em}
+.rnote{font-size:13px;color:var(--ink-soft);margin-top:10px}
+
+/* waterfall */
 table.wf{width:100%;border-collapse:collapse;font-size:13.5px}
-table.wf td{padding:6px 2px;border-bottom:1px dashed var(--line)}
-table.wf td:last-child{text-align:right;font-family:var(--mono)}
-table.wf tr.tot td{border-bottom:0;border-top:2px solid var(--ink);font-weight:700;padding-top:8px}
+table.wf td{padding:6px 2px;border-bottom:1px dashed var(--line-2)}
+table.wf td:last-child{text-align:right;font-family:var(--mono);white-space:nowrap}
+table.wf tr.tot td{border-bottom:0;border-top:2px solid var(--ink);font-weight:700;padding-top:9px}
 table.wf tr.sub td{color:var(--ink-soft)}
+table.wf tr.head td{font-weight:700;padding-top:12px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft)}
 .neg{color:var(--leaf)}
-.pos{color:var(--ink)}
 
 /* interest */
-.int-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13.5px}
-.int-row b{font-family:var(--mono);font-weight:600}
-.int-note{font-size:12px;color:var(--ink-soft);margin-top:8px}
+.int-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
+.int-row b{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.int-row.proj span{color:var(--ink-soft)}
+.int-note{font-size:12px;color:var(--ink-soft);margin-top:10px}
 .chip-ok{color:var(--leaf);font-weight:700}
 .chip-bad{color:var(--alert);font-weight:700}
+.saver{margin-top:12px;border-radius:10px;padding:11px 13px;background:var(--leaf-soft);border:1px solid var(--leaf);font-size:13.5px}
 
-/* share */
-.share{display:flex;gap:10px;flex-wrap:wrap}
-.btn{border:1.5px solid var(--ink);background:var(--ink);color:#fff;border-radius:8px;padding:9px 16px;font-weight:600;font-size:14px}
+/* buttons */
+.btn{border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 16px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:6px;justify-content:center;text-decoration:none}
 .btn.ghost{background:transparent;color:var(--ink)}
-.btn:focus-visible{outline:2px solid var(--marigold);outline-offset:2px}
-pre.card{background:var(--paper);border:1px dashed var(--line);border-radius:8px;padding:12px;font-family:var(--mono);font-size:12.5px;white-space:pre-wrap;margin-top:10px;display:none}
+.btn.sm{padding:7px 12px;font-size:13px;border-radius:9px}
+.btn.mari{background:var(--marigold);border-color:var(--marigold);color:#231a02}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.share{display:flex;gap:8px;flex-wrap:wrap}
+pre.card{background:var(--paper);border:1px dashed var(--line);border-radius:10px;padding:12px;font-family:var(--mono);font-size:13px;white-space:pre-wrap;margin-top:12px}
+details.howpay{margin-top:12px;font-size:13.5px}
+details.howpay summary{cursor:pointer;font-weight:700;color:var(--ink)}
+details.howpay ol{margin:8px 0 0 20px;display:grid;gap:4px}
 
 /* faq */
-#faq{max-width:1120px;margin:0 auto;padding:0 16px 70px}
-#faq h2{font-family:var(--disp);font-size:24px;font-weight:800;margin-bottom:6px}
-#faq .faq-sub{color:var(--ink-soft);font-size:14px;margin-bottom:16px}
-details.qa{background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:8px}
-details.qa summary{list-style:none;padding:12px 15px;font-weight:600;cursor:pointer;font-size:14.5px}
+#faq{max-width:1160px;margin:0 auto;padding:10px 16px 60px}
+#faq h2{font-family:var(--disp);font-size:28px;font-weight:800;letter-spacing:-.02em;margin-bottom:4px}
+#faq .faq-sub{color:var(--ink-soft);font-size:14.5px;margin-bottom:16px}
+.faqgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;align-items:start}
+@media(max-width:820px){.faqgrid{grid-template-columns:1fr}}
+details.qa{background:var(--card);border:1px solid var(--line);border-radius:11px}
+details.qa summary{list-style:none;padding:13px 15px;font-weight:600;cursor:pointer;font-size:14.5px;display:flex;gap:10px;justify-content:space-between}
+details.qa summary::after{content:"+";color:var(--ink-soft);font-weight:700}
+details.qa[open] summary::after{content:"–"}
 details.qa summary::-webkit-details-marker{display:none}
-details.qa .a{padding:0 15px 13px;font-size:14px;color:#2b3a5c}
+details.qa .a{padding:0 15px 14px;font-size:14px;color:var(--ink-soft)}
 details.qa[open]{border-color:var(--marigold)}
-.disclaimer{max-width:1120px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--ink-soft)}
-/* ---------- wizard ---------- */
-#wiz{max-width:640px;margin:26px auto 60px;padding:0 16px}
-.wiz-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 24px;box-shadow:0 2px 14px rgba(24,41,72,.06)}
-.wiz-dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px}
-.wiz-dots span{width:9px;height:9px;border-radius:50%;background:var(--line)}
-.wiz-dots span.on{background:var(--marigold)}
-.wiz-dots span.done{background:var(--leaf)}
-.wstep{display:none}
-.wstep.on{display:block}
-.wstep h3{font-family:var(--disp);font-size:21px;font-weight:800;margin-bottom:4px}
-.wstep .wsub{font-size:13.5px;color:var(--ink-soft);margin-bottom:16px}
-.wnav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
-.wnav .btn{min-width:110px}
-.chips{display:flex;flex-wrap:wrap;gap:9px;margin:6px 0 4px}
-.chip{border:1.5px solid var(--line);background:var(--paper);border-radius:20px;padding:8px 15px;font-size:14px;font-weight:600;color:var(--ink-soft)}
-.chip.on{background:var(--marigold-soft);border-color:var(--marigold);color:var(--ink)}
-.chipbox{display:none;margin-top:12px;padding:12px;border:1px dashed var(--line);border-radius:9px}
-.chipbox.on{display:block}
-.chipbox .f{margin-top:8px}
-.wfoot{text-align:center;margin-top:14px;font-size:13px}
-.wfoot a{cursor:pointer;text-decoration:underline}
-.reopen{margin-bottom:12px;display:flex;gap:10px;flex-wrap:wrap}
-footer{background:var(--ink);color:#b9c4d9;text-align:center;padding:18px;font-size:13px}
+.disclaimer{max-width:1160px;margin:0 auto;padding:0 16px 40px;font-size:12px;color:var(--ink-soft)}
+footer{background:var(--hdr);color:var(--hdr-soft);padding:22px 16px;font-size:13px}
+footer .fw{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 footer a{color:var(--marigold)}
+
+/* mobile sticky bar */
+.mbar{position:fixed;left:10px;right:10px;bottom:10px;z-index:30;background:var(--hdr);color:var(--hdr-ink);border-radius:14px;padding:10px 14px;display:none;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 8px 30px rgba(0,0,0,.25);font-size:13.5px}
+.mbar b{font-family:var(--mono);color:var(--marigold);font-size:16px}
+.mbar.on{display:flex}
+@media(min-width:901px){.mbar{display:none!important}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:all .25s;z-index:60}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* print */
+@media print{
+  header .topbar .tools,.trust,.countdown,#wiz,.inputs,.mbar,.v-actions,.share,#faq,.toast,.skip,footer .fw a{display:none!important}
+  body{background:#fff;color:#000;font-size:12px}
+  header{background:#fff;color:#000}
+  .hero{padding:10px 0}.hero h1{font-size:22px}.hero p.lede{color:#333}
+  main{display:block;padding:0}
+  .results{position:static;max-height:none;overflow:visible}
+  .panel,.verdict{break-inside:avoid;box-shadow:none}
+}
 </style>
 </head>
 <body>
+<a class="skip" href="#wiz" data-i="skip">Skip to calculator</a>
 <header>
-  <div class="hwrap">
-    <div class="brand">
-      <h1>Mun<span>Vari</span></h1>
-      <p data-i="tagline">Advance tax estimator for India — quarterly installments, 234B/234C interest, capital gains relief. All calculations run in your browser; nothing is uploaded.</p>
-      <span class="fybadge">FY 2026-27 · AY 2027-28 · Income-tax Act, 2025</span>
+  <div class="topbar">
+    <a class="logo" href="./" aria-label="MunVari home"><i>₹</i><b>Mun<span>Vari</span></b></a>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Language">
+        <button id="lang-en" class="on" aria-pressed="true" onclick="setLang('en')">English</button>
+        <button id="lang-ta" aria-pressed="false" onclick="setLang('ta')">Tanglish</button>
+      </div>
+      <button class="iconbtn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
     </div>
-    <div class="langtog" role="group" aria-label="Language">
-      <button id="lang-en" class="on" onclick="setLang('en')">English</button>
-      <button id="lang-ta" onclick="setLang('ta')">Tanglish</button>
+  </div>
+  <div class="hero">
+    <h1><span data-i="h1a">Do you owe</span> <em data-i="h1b">advance tax</em> <span data-i="h1c">this quarter?</span></h1>
+    <p class="lede" data-i="lede">Salary TDS rarely covers FD interest, capital gains, rent or freelance income. Get your exact next installment and interest risk in about 60 seconds.</p>
+    <div class="countdown" id="countdown" aria-live="polite"></div>
+    <div class="trust">
+      <span data-i="tr1">No login</span><span data-i="tr2">Nothing leaves your browser</span><span data-i="tr3">Old vs new regime</span><span data-i="tr4">234B / 234C interest</span><span data-i="tr5">English + Tanglish</span>
     </div>
+    <div class="fybadge">FY 2026-27 · AY 2027-28 · Income-tax Act, 2025 · <span data-i="rates">Budget 2026 rates</span></div>
   </div>
 </header>
 
-<section id="wiz">
+<section id="wiz" aria-labelledby="wizTitle">
   <div class="wiz-card">
-    <div class="wiz-dots" id="wizDots"></div>
+    <div class="welcome" id="welcome">
+      <span data-i="wb_txt">Welcome back — your last estimate is saved on this device.</span>
+      <button class="btn sm" onclick="finishWizard(true)" data-i="wb_btn">Open it →</button>
+    </div>
+    <div class="wiz-top"><span id="wizCount"></span><button class="linkbtn" onclick="finishWizard(true)" data-i="w_skip">Skip to detailed form</button></div>
+    <div class="wiz-bar"><div id="wizBar" style="width:25%"></div></div>
+    <h2 class="sr" id="wizTitle">Quick estimate</h2>
 
     <div class="wstep on" data-step="0">
-      <h3 data-i="w_t0">Let's start simple</h3>
-      <p class="wsub" data-i="w_s0">Two quick settings. Everything else adapts to you.</p>
-      <div class="f"><label data-i="l_regime">Tax regime</label>
-        <select id="w_regime"><option value="new" data-i="o_new">New regime (default)</option><option value="old" data-i="o_old">Old regime</option></select></div>
-      <div class="f"><label data-i="l_age">Age band</label>
-        <select id="w_age"><option value="lt60">&lt; 60</option><option value="s60">60 – 79</option><option value="s80">80+</option></select></div>
+      <h2 data-i="w_t0">Let's start simple</h2>
+      <p class="wsub" data-i="w_s0">Two quick settings. Not sure about the regime? Pick new — you can compare both at the end.</p>
+      <div class="f"><span class="lbl" data-i="l_regime">Tax regime</span>
+        <div class="segpick two" data-pick="w_regime">
+          <button type="button" data-v="new" aria-pressed="true"><span data-i="o_new_s">New regime</span><small data-i="o_new_d">Default · ₹12L rebate</small></button>
+          <button type="button" data-v="old" aria-pressed="false"><span data-i="o_old_s">Old regime</span><small data-i="o_old_d">80C, HRA, home loan</small></button>
+        </div></div>
+      <div class="f"><span class="lbl" data-i="l_age">Age</span>
+        <div class="segpick" data-pick="w_age">
+          <button type="button" data-v="lt60" aria-pressed="true">&lt; 60</button>
+          <button type="button" data-v="s60" aria-pressed="false">60 – 79</button>
+          <button type="button" data-v="s80" aria-pressed="false">80+</button>
+        </div></div>
+      <input type="hidden" id="w_regime" value="new"><input type="hidden" id="w_age" value="lt60">
     </div>
 
     <div class="wstep" data-step="1">
-      <h3 data-i="w_t1">Salary</h3>
-      <p class="wsub" data-i="w_s1">Projected for the full year Apr 2026 – Mar 2027. No salary? Leave blank and continue.</p>
-      <div class="f"><label data-i="l_gsal">Gross salary (annual, projected)</label><input type="number" id="w_salary" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_tdssal">TDS on salary (projected full year)</label><input type="number" id="w_tdsSalary" min="0" placeholder="0"></div>
+      <h2 data-i="w_t1">Salary</h2>
+      <p class="wsub" data-i="w_s1">Full year April 2026 – March 2027 (projected). No salary? Leave blank and continue.</p>
+      <div class="f"><label for="w_salary" data-i="l_gsal">Gross salary (annual, projected)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_salary" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="w_tdsSalary" data-i="l_tdssal">TDS on salary (projected full year)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_tdsSalary" min="0" placeholder="0"></div><span class="hint" data-i="h_tdssal">Monthly TDS on your payslip × 12 is a good estimate.</span></div>
     </div>
 
     <div class="wstep" data-step="2">
-      <h3 data-i="w_t2">What else do you earn?</h3>
+      <h2 data-i="w_t2">What else do you earn?</h2>
       <p class="wsub" data-i="w_s2">Tap everything that applies — only those get a field. This is what usually triggers advance tax.</p>
       <div class="chips">
-        <button class="chip" data-chip="cint" data-i="c_int">FD / interest</button>
-        <button class="chip" data-chip="ccg" data-i="c_cg">Capital gains</button>
-        <button class="chip" data-chip="crent" data-i="c_rent">Rent</button>
-        <button class="chip" data-chip="cbiz" data-i="c_biz">Freelance / business</button>
-        <button class="chip" data-chip="cdiv" data-i="c_div">Dividends</button>
+        <button type="button" class="chip" data-chip="cint" aria-pressed="false" data-i="c_int">FD / interest</button>
+        <button type="button" class="chip" data-chip="ccg" aria-pressed="false" data-i="c_cg">Shares / MF gains</button>
+        <button type="button" class="chip" data-chip="crent" aria-pressed="false" data-i="c_rent">Rent</button>
+        <button type="button" class="chip" data-chip="cbiz" aria-pressed="false" data-i="c_biz">Freelance / business</button>
+        <button type="button" class="chip" data-chip="cdiv" aria-pressed="false" data-i="c_div">Dividends</button>
       </div>
       <div class="chipbox" id="box-cint">
-        <div class="f"><label data-i="w_int">Total interest for the year (FD + RD + savings)</label><input type="number" id="w_int" min="0" placeholder="0"></div>
+        <div class="f"><label for="w_int" data-i="w_int">Total interest for the year (FD + RD + savings)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_int" min="0" placeholder="0"></div></div>
       </div>
       <div class="chipbox" id="box-ccg">
-        <div class="f"><label data-i="w_stcg">Equity gains — held under 1 year (STCG)</label><input type="number" id="w_stcg" min="0" placeholder="0"></div>
-        <div class="f"><label data-i="w_ltcg">Equity gains — held over 1 year (LTCG)</label><input type="number" id="w_ltcg" min="0" placeholder="0"></div>
-        <div class="f"><label data-i="w_ltcgot">Other gains — US stocks / property / gold (long-term)</label><input type="number" id="w_ltcgot" min="0" placeholder="0"></div>
-        <div class="f"><label data-i="w_cgq">Sold (or planning to sell) mostly in</label><select id="w_cgq"></select></div>
+        <div class="f"><label for="w_stcg" data-i="w_stcg">Equity / equity MF gains — held under 1 year (STCG)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_stcg" min="0" placeholder="0"></div></div>
+        <div class="f"><label for="w_ltcg" data-i="w_ltcg">Equity / equity MF gains — held over 1 year (LTCG)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_ltcg" min="0" placeholder="0"></div><span class="hint" data-i="h_ltcg125">First ₹1.25 lakh of this is tax-free.</span></div>
+        <div class="f"><label for="w_ltcgot" data-i="w_ltcgot">Other long-term gains — US stocks / property / gold</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_ltcgot" min="0" placeholder="0"></div></div>
+        <div class="f"><label for="w_cgq" data-i="w_cgq">Sold (or planning to sell) mostly in</label><select id="w_cgq" class="qsel"></select></div>
       </div>
       <div class="chipbox" id="box-crent">
-        <div class="f"><label data-i="w_rent">Rent received for the year</label><input type="number" id="w_rent" min="0" placeholder="0"></div>
+        <div class="f"><label for="w_rent" data-i="w_rent">Rent received for the year</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_rent" min="0" placeholder="0"></div></div>
       </div>
       <div class="chipbox" id="box-cbiz">
-        <div class="f"><label data-i="w_biztype">Type of work</label>
+        <div class="f"><label for="w_biztype" data-i="w_biztype">Type of work</label>
           <select id="w_biztype"><option value="44ada" data-i="w_prof">Profession / freelance (44ADA)</option><option value="44ad" data-i="w_trade">Trading / small business (44AD)</option></select></div>
-        <div class="f"><label data-i="l_receipts">Gross receipts (annual)</label><input type="number" id="w_receipts" min="0" placeholder="0"></div>
+        <div class="f"><label for="w_receipts" data-i="l_receipts">Gross receipts (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_receipts" min="0" placeholder="0"></div></div>
       </div>
       <div class="chipbox" id="box-cdiv">
-        <div class="f"><label data-i="l_div">Dividend income (annual)</label><input type="number" id="w_div" min="0" placeholder="0"></div>
+        <div class="f"><label for="w_div" data-i="l_div">Dividend income (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_div" min="0" placeholder="0"></div></div>
       </div>
-      <div class="f" id="w_otdsWrap" style="display:none"><label data-i="w_otds">TDS already deducted on the above (if any)</label><input type="number" id="w_otds" min="0" placeholder="0"></div>
+      <div class="f" id="w_otdsWrap" style="display:none"><label for="w_otds" data-i="w_otds">TDS already deducted on the above (if any)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_otds" min="0" placeholder="0"></div><span class="hint" data-i="h_ais">Check your AIS / Form 26AS on the income-tax portal.</span></div>
     </div>
 
     <div class="wstep" data-step="3">
-      <h3 data-i="w_t3">Advance tax already paid</h3>
-      <p class="wsub" data-i="w_s3">Only challans paid as Advance Tax (100). Leave blank if none.</p>
+      <h2 data-i="w_t3">Advance tax already paid</h2>
+      <p class="wsub" data-i="w_s3">Only challans paid as Advance Tax (100) for AY 2027-28. Leave blank if none.</p>
       <div id="w_paidFields"></div>
     </div>
 
     <div class="wnav">
-      <button class="btn ghost" id="wBack" onclick="wizGo(-1)" data-i="w_back">Back</button>
-      <button class="btn" id="wNext" onclick="wizGo(1)" data-i="w_next">Next</button>
+      <button type="button" class="btn ghost" id="wBack" onclick="wizGo(-1)" data-i="w_back">Back</button>
+      <button type="button" class="btn mari" id="wNext" onclick="wizGo(1)" data-i="w_next">Next</button>
     </div>
-    <p class="wfoot"><a onclick="finishWizard(true)" data-i="w_skip">Skip — take me to the detailed form</a></p>
   </div>
 </section>
 
-<main hidden>
+<main id="app" hidden>
 <!-- ================= INPUTS ================= -->
 <div class="inputs">
-<div class="reopen">
-  <button class="btn ghost" onclick="reopenWizard()" data-i="w_reopen">← Quick wizard</button>
-  <span class="hint" style="align-self:center" data-i="w_refine">Detailed mode — refine the estimate with NPS, deductions, TDS splits and more.</span>
+<div class="toolbar">
+  <button class="btn ghost sm" onclick="reopenWizard()" data-i="w_reopen">← Quick wizard</button>
+  <label class="remember"><input type="checkbox" id="remember"> <span data-i="remember">Remember on this device</span></label>
+  <button class="linkbtn" onclick="clearAll()" data-i="clear">Clear all</button>
 </div>
-
+<p class="hint" style="margin-bottom:10px" data-i="w_refine">Detailed mode — refine with NPS, deductions, TDS splits and the quarter each gain lands in. Results update as you type.</p>
 
 <details class="sec" open id="sec-profile">
   <summary><span class="caret">▶</span><span data-i="s_profile">Profile</span><span class="tag">basics</span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_regime">Tax regime <button class="why" onclick="openFaq('q-regime')" aria-label="Explain">?</button></label>
+      <div class="f"><label for="regime"><span data-i="l_regime">Tax regime</span> <button class="why" onclick="openFaq('q-regime')" aria-label="Explain regimes">?</button></label>
         <select id="regime"><option value="new" data-i="o_new">New regime (default)</option><option value="old" data-i="o_old">Old regime</option></select></div>
-      <div class="f"><label data-i="l_age">Age band</label>
+      <div class="f"><label for="age" data-i="l_age">Age</label>
         <select id="age"><option value="lt60">&lt; 60</option><option value="s60">60 – 79</option><option value="s80">80+</option></select></div>
-      <div class="f"><label data-i="l_resident">Residential status</label>
+      <div class="f"><label for="resident" data-i="l_resident">Residential status</label>
         <select id="resident"><option value="r" data-i="o_res">Resident</option><option value="nr" data-i="o_nres">Non-resident</option></select></div>
-      <div class="f"><label data-i="l_paymonth">Planned self-assessment payment month <button class="why" onclick="openFaq('q-234b')" aria-label="Explain">?</button></label>
+      <div class="f"><label for="payMonth"><span data-i="l_paymonth">If anything's left, you'll pay it in</span> <button class="why" onclick="openFaq('q-234b')" aria-label="Explain 234B">?</button></label>
         <select id="payMonth">
           <option value="4">Apr 2027</option><option value="5">May 2027</option><option value="6">Jun 2027</option>
           <option value="7" selected>Jul 2027</option><option value="8">Aug 2027</option><option value="9">Sep 2027</option>
@@ -277,12 +431,12 @@ footer a{color:var(--marigold)}
   <summary><span class="caret">▶</span><span data-i="s_salary">Salary</span><span class="sum-amt" id="sum-salary"></span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_gsal">Gross salary (annual, projected) <button class="why" onclick="openFaq('q-salaried')" aria-label="Explain">?</button></label>
-        <input type="number" id="salary" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_nps">Employer NPS — 80CCD(2)</label>
-        <input type="number" id="empNps" min="0" placeholder="0"><span class="hint" data-i="h_nps">Up to 14% of basic+DA (new regime), 10% (old)</span></div>
-      <div class="f"><label data-i="l_tdssal">TDS on salary (projected full year)</label>
-        <input type="number" id="tdsSalary" min="0" placeholder="0"></div>
+      <div class="f"><label for="salary"><span data-i="l_gsal">Gross salary (annual, projected)</span> <button class="why" onclick="openFaq('q-salaried')" aria-label="Explain">?</button></label>
+        <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="salary" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="tdsSalary" data-i="l_tdssal">TDS on salary (projected full year)</label>
+        <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsSalary" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="empNps" data-i="l_nps">Employer NPS — 80CCD(2)</label>
+        <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="empNps" min="0" placeholder="0"></div><span class="hint" data-i="h_nps">Up to 14% of basic+DA (new regime), 10% (old)</span></div>
     </div>
   </div>
 </details>
@@ -291,12 +445,9 @@ footer a{color:var(--marigold)}
   <summary><span class="caret">▶</span><span data-i="s_interest">Interest income</span><span class="sum-amt" id="sum-interest"></span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_fdint">FD / RD / bond interest (annual)</label>
-        <input type="number" id="fdInt" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_svint">Savings account interest</label>
-        <input type="number" id="savInt" min="0" placeholder="0"><span class="hint" data-i="h_80tta">Old regime: 80TTA ₹10K / 80TTB ₹50K (seniors) applied automatically</span></div>
-      <div class="f"><label data-i="l_tdsint">TDS on interest</label>
-        <input type="number" id="tdsInt" min="0" placeholder="0"></div>
+      <div class="f"><label for="fdInt" data-i="l_fdint">FD / RD / bond interest (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="fdInt" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="savInt" data-i="l_svint">Savings account interest</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="savInt" min="0" placeholder="0"></div><span class="hint" data-i="h_80tta">Old regime: 80TTA ₹10K / 80TTB ₹50K (seniors) applied automatically</span></div>
+      <div class="f"><label for="tdsInt" data-i="l_tdsint">TDS on interest</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsInt" min="0" placeholder="0"></div></div>
     </div>
   </div>
 </details>
@@ -305,14 +456,10 @@ footer a{color:var(--marigold)}
   <summary><span class="caret">▶</span><span data-i="s_rent">Rental income</span><span class="sum-amt" id="sum-rent"></span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_rent">Rent received (annual) <button class="why" onclick="openFaq('q-rent')" aria-label="Explain">?</button></label>
-        <input type="number" id="rent" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_muni">Municipal taxes paid</label>
-        <input type="number" id="muniTax" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_hloan">Home loan interest (let-out property)</label>
-        <input type="number" id="rentLoanInt" min="0" placeholder="0"><span class="hint" data-i="h_setoff">Loss set-off against other income capped at ₹2,00,000</span></div>
-      <div class="f"><label data-i="l_tdsrent">TDS on rent</label>
-        <input type="number" id="tdsRent" min="0" placeholder="0"></div>
+      <div class="f"><label for="rent"><span data-i="l_rent">Rent received (annual)</span> <button class="why" onclick="openFaq('q-rent')" aria-label="Explain">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="rent" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="muniTax" data-i="l_muni">Municipal taxes paid</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="muniTax" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="rentLoanInt" data-i="l_hloan">Home loan interest (let-out property)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="rentLoanInt" min="0" placeholder="0"></div><span class="hint" data-i="h_setoff">Old regime: loss set-off capped at ₹2L. New regime: no set-off against other income.</span></div>
+      <div class="f"><label for="tdsRent" data-i="l_tdsrent">TDS on rent</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsRent" min="0" placeholder="0"></div></div>
     </div>
   </div>
 </details>
@@ -320,15 +467,15 @@ footer a{color:var(--marigold)}
 <details class="sec" id="sec-cg">
   <summary><span class="caret">▶</span><span data-i="s_cg">Capital gains</span><span class="sum-amt" id="sum-cg"></span></summary>
   <div class="secbody">
-    <span class="hint" data-i="h_cgq">Pick the installment period in which each gain was / will be realised — this drives the Section 234C relief. <button class="why" onclick="openFaq('q-cgrelief')" aria-label="Explain">?</button></span>
-    <div class="rowline"><div class="f"><label data-i="l_stcg_eq">STCG — listed equity / equity MF (111A, 20%)</label><input type="number" id="stcgEq" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_when">Realised in</label><select id="stcgEqQ" class="qsel"></select></div></div>
-    <div class="rowline"><div class="f"><label data-i="l_ltcg_eq">LTCG — listed equity / equity MF (112A, 12.5% over ₹1.25L) <button class="why" onclick="openFaq('q-ltcg')" aria-label="Explain">?</button></label><input type="number" id="ltcgEq" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_when">Realised in</label><select id="ltcgEqQ" class="qsel"></select></div></div>
-    <div class="rowline"><div class="f"><label data-i="l_stcg_ot">STCG — other assets (debt MF, US stocks &lt; 24m, property &lt; 24m — slab rate)</label><input type="number" id="stcgOt" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_when">Realised in</label><select id="stcgOtQ" class="qsel"></select></div></div>
-    <div class="rowline"><div class="f"><label data-i="l_ltcg_ot">LTCG — other assets (property, US stocks ≥ 24m, gold — 12.5%)</label><input type="number" id="ltcgOt" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_when">Realised in</label><select id="ltcgOtQ" class="qsel"></select></div></div>
+    <p class="hint" style="margin-top:10px"><span data-i="h_cgq">Pick the quarter each gain was / will be realised — this drives the Section 234C relief.</span> <button class="why" onclick="openFaq('q-cgrelief')" aria-label="Explain">?</button></p>
+    <div class="rowline"><div class="f"><label for="stcgEq" data-i="l_stcg_eq">STCG — listed equity / equity MF (111A, 20%)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="stcgEq" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="stcgEqQ" data-i="l_when">Realised in</label><select id="stcgEqQ" class="qsel"></select></div></div>
+    <div class="rowline"><div class="f"><label for="ltcgEq"><span data-i="l_ltcg_eq">LTCG — listed equity / equity MF (112A, 12.5% over ₹1.25L)</span> <button class="why" onclick="openFaq('q-ltcg')" aria-label="Explain">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="ltcgEq" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="ltcgEqQ" data-i="l_when">Realised in</label><select id="ltcgEqQ" class="qsel"></select></div></div>
+    <div class="rowline"><div class="f"><label for="stcgOt" data-i="l_stcg_ot">STCG — other assets (debt MF, US stocks &lt; 24m — slab rate)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="stcgOt" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="stcgOtQ" data-i="l_when">Realised in</label><select id="stcgOtQ" class="qsel"></select></div></div>
+    <div class="rowline"><div class="f"><label for="ltcgOt"><span data-i="l_ltcg_ot">LTCG — other assets (property, US stocks ≥ 24m, gold — 12.5%)</span> <button class="why" onclick="openFaq('q-usstocks')" aria-label="Explain">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="ltcgOt" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="ltcgOtQ" data-i="l_when">Realised in</label><select id="ltcgOtQ" class="qsel"></select></div></div>
   </div>
 </details>
 
@@ -336,17 +483,17 @@ footer a{color:var(--marigold)}
   <summary><span class="caret">▶</span><span data-i="s_div">Dividends</span><span class="sum-amt" id="sum-div"></span></summary>
   <div class="secbody">
     <div class="rowline">
-      <div class="f"><label data-i="l_div">Dividend income (annual)</label><input type="number" id="divAmt" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_when">Mostly received in</label><select id="divQ" class="qsel"></select></div>
+      <div class="f"><label for="divAmt" data-i="l_div">Dividend income (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="divAmt" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="divQ" data-i="l_when2">Mostly received in</label><select id="divQ" class="qsel"></select></div>
     </div>
-    <div class="f"><label data-i="l_tdsdiv">TDS on dividend</label><input type="number" id="tdsDiv" min="0" placeholder="0"><span class="hint" data-i="h_divtds">Companies deduct 10% TDS if dividend exceeds ₹10,000/year</span></div>
+    <div class="f"><label for="tdsDiv" data-i="l_tdsdiv">TDS on dividend</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsDiv" min="0" placeholder="0"></div><span class="hint" data-i="h_divtds">Companies deduct 10% TDS if dividend exceeds ₹10,000/year</span></div>
   </div>
 </details>
 
 <details class="sec" id="sec-biz">
   <summary><span class="caret">▶</span><span data-i="s_biz">Business / profession</span><span class="sum-amt" id="sum-biz"></span></summary>
   <div class="secbody">
-    <div class="f"><label data-i="l_biztype">Type <button class="why" onclick="openFaq('q-44ada')" aria-label="Explain">?</button></label>
+    <div class="f"><label for="bizType"><span data-i="l_biztype">Type</span> <button class="why" onclick="openFaq('q-44ada')" aria-label="Explain">?</button></label>
       <select id="bizType">
         <option value="none" data-i="o_bnone">None</option>
         <option value="44ada" data-i="o_b44ada">Profession — presumptive 44ADA (50% of receipts)</option>
@@ -354,20 +501,20 @@ footer a{color:var(--marigold)}
         <option value="reg" data-i="o_breg">Regular books — net profit</option>
       </select></div>
     <div class="grid2" id="bizFields" style="display:none">
-      <div class="f" id="f-receipts"><label data-i="l_receipts">Gross receipts (annual)</label><input type="number" id="bizReceipts" min="0" placeholder="0"></div>
-      <div class="f" id="f-deemed"><label data-i="l_deemed">Deemed / declared profit %</label><input type="number" id="bizPct" min="0" max="100" value="50"></div>
-      <div class="f" id="f-profit" style="display:none"><label data-i="l_netprofit">Net profit (annual)</label><input type="number" id="bizProfit" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_tdsbiz">TDS on receipts (194J / 194C etc.)</label><input type="number" id="tdsBiz" min="0" placeholder="0"></div>
+      <div class="f" id="f-receipts"><label for="bizReceipts" data-i="l_receipts">Gross receipts (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="bizReceipts" min="0" placeholder="0"></div></div>
+      <div class="f" id="f-deemed"><label for="bizPct" data-i="l_deemed">Deemed / declared profit %</label><input type="number" inputmode="decimal" id="bizPct" min="0" max="100" value="50"></div>
+      <div class="f" id="f-profit" style="display:none"><label for="bizProfit" data-i="l_netprofit">Net profit (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="bizProfit" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="tdsBiz" data-i="l_tdsbiz">TDS on receipts (194J / 194C etc.)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsBiz" min="0" placeholder="0"></div></div>
     </div>
   </div>
 </details>
 
 <details class="sec" id="sec-other">
-  <summary><span class="caret">▶</span><span data-i="s_other">Other income</span><span class="sum-amt" id="sum-other"></span></summary>
+  <summary><span class="caret">▶</span><span data-i="s_other">Other income &amp; TCS</span><span class="sum-amt" id="sum-other"></span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_otherinc">Any other taxable income (annual)</label><input type="number" id="otherInc" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_tcs">TCS credit (foreign remittance, car etc.)</label><input type="number" id="tcs" min="0" placeholder="0"></div>
+      <div class="f"><label for="otherInc" data-i="l_otherinc">Any other taxable income (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="otherInc" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="tcs" data-i="l_tcs">TCS credit (foreign remittance, car etc.)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tcs" min="0" placeholder="0"></div></div>
     </div>
   </div>
 </details>
@@ -375,14 +522,14 @@ footer a{color:var(--marigold)}
 <details class="sec" id="sec-ded">
   <summary><span class="caret">▶</span><span data-i="s_ded">Deductions (old regime)</span><span class="sum-amt" id="sum-ded"></span></summary>
   <div class="secbody">
-    <span class="hint" id="dedHint" data-i="h_dednew">You are on the new regime — only standard deduction (₹75,000) and employer NPS apply. Switch to old regime to use these.</span>
+    <p class="hint" id="dedHint" style="margin-top:10px"></p>
     <div class="grid2" id="dedFields">
-      <div class="f"><label>80C (PF, PPF, ELSS, LIC…)</label><input type="number" id="d80c" min="0" placeholder="0"><span class="hint">Max ₹1,50,000</span></div>
-      <div class="f"><label>80CCD(1B) — NPS self</label><input type="number" id="d80ccd1b" min="0" placeholder="0"><span class="hint">Max ₹50,000</span></div>
-      <div class="f"><label>80D — health insurance</label><input type="number" id="d80d" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_hra">HRA exemption</label><input type="number" id="dHra" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_selfocc">24(b) — self-occupied home loan interest</label><input type="number" id="dSelfOcc" min="0" placeholder="0"><span class="hint">Max ₹2,00,000</span></div>
-      <div class="f"><label data-i="l_othded">Other deductions</label><input type="number" id="dOther" min="0" placeholder="0"></div>
+      <div class="f"><label for="d80c">80C (PF, PPF, ELSS, LIC…)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="d80c" min="0" placeholder="0"></div><span class="hint" data-i="h_max150">Max ₹1,50,000</span></div>
+      <div class="f"><label for="d80ccd1b">80CCD(1B) — NPS self</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="d80ccd1b" min="0" placeholder="0"></div><span class="hint" data-i="h_max50">Max ₹50,000</span></div>
+      <div class="f"><label for="d80d" data-i="l_80d">80D — health insurance</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="d80d" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="dHra" data-i="l_hra">HRA exemption</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="dHra" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="dSelfOcc" data-i="l_selfocc">24(b) — self-occupied home loan interest</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="dSelfOcc" min="0" placeholder="0"></div><span class="hint" data-i="h_max200">Max ₹2,00,000</span></div>
+      <div class="f"><label for="dOther" data-i="l_othded">Other deductions</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="dOther" min="0" placeholder="0"></div></div>
     </div>
   </div>
 </details>
@@ -391,48 +538,52 @@ footer a{color:var(--marigold)}
   <summary><span class="caret">▶</span><span data-i="s_paid">Advance tax already paid</span><span class="sum-amt" id="sum-paid"></span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label data-i="l_p1">Paid by 15 Jun 2026</label><input type="number" id="paid1" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_p2">Paid 16 Jun – 15 Sep 2026</label><input type="number" id="paid2" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_p3">Paid 16 Sep – 15 Dec 2026</label><input type="number" id="paid3" min="0" placeholder="0"></div>
-      <div class="f"><label data-i="l_p4">Paid 16 Dec 2026 – 15 Mar 2027</label><input type="number" id="paid4" min="0" placeholder="0"></div>
+      <div class="f"><label for="paid1" data-i="l_p1">Paid by 15 Jun 2026</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="paid1" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="paid2" data-i="l_p2">Paid 16 Jun – 15 Sep 2026</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="paid2" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="paid3" data-i="l_p3">Paid 16 Sep – 15 Dec 2026</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="paid3" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="paid4" data-i="l_p4">Paid 16 Dec 2026 – 15 Mar 2027</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="paid4" min="0" placeholder="0"></div></div>
     </div>
-    <span class="hint" data-i="h_howpay">Pay online: incometax.gov.in → e-Pay Tax → Advance Tax (100). <button class="why" onclick="openFaq('q-howpay')" aria-label="Explain">?</button></span>
   </div>
 </details>
-
 </div>
 
 <!-- ================= RESULTS ================= -->
-<div class="results">
-  <div class="verdict na" id="verdict">
-    <div class="v-label" data-i="v_waiting">Enter your income details</div>
-    <div class="v-amt">—</div>
-    <div class="v-sub" data-i="v_waiting_sub">Your quarterly schedule will appear here.</div>
+<div class="results" id="results" aria-live="polite">
+  <div class="verdict na" id="verdict"></div>
+  <div class="alerts" id="alerts"></div>
+
+  <div class="panel">
+    <h3 data-i="r_schedule">Installment schedule</h3>
+    <div class="rail" id="rail"></div>
+    <div class="plan" id="plan"></div>
+  </div>
+
+  <div class="panel" id="drvPanel">
+    <h3 data-i="r_drivers">What's driving your tax</h3>
+    <div id="drivers"></div>
   </div>
 
   <div class="panel">
-    <h2 data-i="r_schedule">Installment schedule</h2>
-    <div class="rail">
-      <div class="rail-track"><div class="rail-fill" id="railFill" style="width:0%"></div></div>
-      <div class="rail-stops" id="railStops"></div>
-    </div>
+    <h3><span data-i="r_regime">Old vs new regime</span> <button class="why" onclick="openFaq('q-regime')" aria-label="Explain">?</button></h3>
+    <div id="regimeBox"></div>
   </div>
 
   <div class="panel">
-    <h2 data-i="r_computation">Tax computation</h2>
-    <table class="wf" id="wfTable"></table>
-  </div>
-
-  <div class="panel">
-    <h2 data-i="r_interest">Interest exposure <button class="why" onclick="openFaq('q-234c')" aria-label="Explain">?</button></h2>
+    <h3><span data-i="r_interest">Interest exposure</span> <button class="why" onclick="openFaq('q-234c')" aria-label="Explain">?</button></h3>
     <div id="intBox"></div>
   </div>
 
   <div class="panel">
-    <h2 data-i="r_share">Share</h2>
+    <h3 data-i="r_computation">Tax computation</h3>
+    <table class="wf" id="wfTable"></table>
+  </div>
+
+  <div class="panel">
+    <h3 data-i="r_share">Save &amp; share</h3>
     <div class="share">
-      <button class="btn" id="btnCopy" onclick="copyCard()" data-i="b_copy">Copy score card</button>
-      <button class="btn ghost" onclick="toggleCard()" data-i="b_preview">Preview</button>
+      <button class="btn" onclick="copyCard()" data-i="b_copy">Copy score card</button>
+      <button class="btn ghost" onclick="downloadIcs()" data-i="b_ics">Add reminders (.ics)</button>
+      <button class="btn ghost" onclick="window.print()" data-i="b_print">Print / PDF</button>
     </div>
     <pre class="card" id="shareCard"></pre>
   </div>
@@ -440,438 +591,642 @@ footer a{color:var(--marigold)}
 </main>
 
 <section id="faq">
-  <h2 data-i="faq_h">How this works</h2>
-  <p class="faq-sub" data-i="faq_sub">Plain-language answers to the 18 most common advance tax questions. Tap any ? in the form to jump here.</p>
-  <div id="faqList"></div>
+  <h2 data-i="faq_h">How advance tax works</h2>
+  <p class="faq-sub" id="faqSub"></p>
+  <div class="faqgrid" id="faqList"></div>
 </section>
 
-<p class="disclaimer" data-i="disc">MunVari is an educational estimator, not tax advice. Slab rates per Budget 2026 (unchanged from Budget 2025) under the Income-tax Act, 2025. Surcharge marginal relief is approximated near thresholds; indexation elections for pre-July-2024 property, AMT, foreign tax credits and clubbing are not modelled. Verify final figures with the official e-filing portal or a professional before payment.</p>
+<p class="disclaimer" data-i="disc">MunVari is an educational estimator, not tax advice.</p>
 
-<footer>Built by <a href="https://babubl.github.io" rel="author">Babu</a> · MunVari v1.0 · <span data-i="ft">No trackers, no login — everything stays in your browser.</span></footer>
+<footer><div class="fw">
+  <span>Built by <a href="https://babubl.github.io" rel="author">Babu</a> · MunVari v2.0 · <span data-i="ft">No trackers, no login — everything stays in your browser.</span></span>
+  <span data-i="ft2">Rates verified for FY 2026-27 (Budget 2026).</span>
+</div></footer>
+
+<div class="mbar" id="mbar" role="status"><span id="mbarTxt"></span><button class="btn mari sm" onclick="document.getElementById('verdict').scrollIntoView({behavior:'smooth',block:'center'})" data-i="mbar_btn">Details</button></div>
+<div class="toast" id="toast" role="status"></div>
+
 <script>
 /* ================= i18n ================= */
 const I18N = {
  en:{
-  tagline:"Advance tax estimator for India — quarterly installments, 234B/234C interest, capital gains relief. All calculations run in your browser; nothing is uploaded.",
+  skip:"Skip to calculator", h1a:"Do you owe", h1b:"advance tax", h1c:"this quarter?",
+  lede:"Salary TDS rarely covers FD interest, capital gains, rent or freelance income. Get your exact next installment and interest risk in about 60 seconds.",
+  tr1:"No login", tr2:"Nothing leaves your browser", tr3:"Old vs new regime", tr4:"234B / 234C interest", tr5:"English + Tanglish", rates:"Budget 2026 rates",
+  cd_days:"days left", cd_today:"due today", cd_next:"Next installment", cd_cum:"of your year's tax, cumulative", cd_over:"FY 2026-27 installments are over", cd_over_sub:"Pay any balance as self-assessment tax before filing to stop 234B interest.",
+  wb_txt:"Welcome back — your last estimate is saved on this device.", wb_btn:"Open it →",
+  w_step:"Step", w_of:"of",
   s_profile:"Profile", s_salary:"Salary", s_interest:"Interest income", s_rent:"Rental income", s_cg:"Capital gains",
-  s_div:"Dividends", s_biz:"Business / profession", s_other:"Other income", s_ded:"Deductions (old regime)", s_paid:"Advance tax already paid",
-  l_regime:"Tax regime", l_age:"Age band", l_resident:"Residential status", l_paymonth:"Planned self-assessment payment month",
+  s_div:"Dividends", s_biz:"Business / profession", s_other:"Other income & TCS", s_ded:"Deductions (old regime)", s_paid:"Advance tax already paid",
+  l_regime:"Tax regime", l_age:"Age", l_resident:"Residential status", l_paymonth:"If anything's left, you'll pay it in",
   o_new:"New regime (default)", o_old:"Old regime", o_res:"Resident", o_nres:"Non-resident",
+  o_new_s:"New regime", o_new_d:"Default · ₹12L rebate", o_old_s:"Old regime", o_old_d:"80C, HRA, home loan",
   l_gsal:"Gross salary (annual, projected)", l_nps:"Employer NPS — 80CCD(2)", l_tdssal:"TDS on salary (projected full year)",
+  h_tdssal:"Monthly TDS on your payslip × 12 is a good estimate.",
   h_nps:"Up to 14% of basic+DA (new regime), 10% (old)",
   l_fdint:"FD / RD / bond interest (annual)", l_svint:"Savings account interest", l_tdsint:"TDS on interest",
   h_80tta:"Old regime: 80TTA ₹10K / 80TTB ₹50K (seniors) applied automatically",
   l_rent:"Rent received (annual)", l_muni:"Municipal taxes paid", l_hloan:"Home loan interest (let-out property)", l_tdsrent:"TDS on rent",
-  h_setoff:"Loss set-off against other income capped at ₹2,00,000",
-  h_cgq:"Pick the installment period in which each gain was / will be realised — this drives the Section 234C relief.",
+  h_setoff:"Old regime: loss set-off capped at ₹2L. New regime: no set-off against other income.",
+  h_cgq:"Pick the quarter each gain was / will be realised — this drives the Section 234C relief.",
   l_stcg_eq:"STCG — listed equity / equity MF (111A, 20%)", l_ltcg_eq:"LTCG — listed equity / equity MF (112A, 12.5% over ₹1.25L)",
   l_stcg_ot:"STCG — other assets (debt MF, US stocks < 24m — slab rate)", l_ltcg_ot:"LTCG — other assets (property, US stocks ≥ 24m, gold — 12.5%)",
-  l_when:"Realised in", l_div:"Dividend income (annual)", l_tdsdiv:"TDS on dividend",
-  h_divtds:"Companies deduct 10% TDS if dividend exceeds ₹10,000/year",
+  l_when:"Realised in", l_when2:"Mostly received in", l_div:"Dividend income (annual)", l_tdsdiv:"TDS on dividend",
+  h_divtds:"Companies deduct 10% TDS if dividend exceeds ₹10,000/year", h_ltcg125:"First ₹1.25 lakh of this is tax-free.",
   l_biztype:"Type", o_bnone:"None", o_b44ada:"Profession — presumptive 44ADA (50% of receipts)", o_b44ad:"Business — presumptive 44AD (6% / 8%)", o_breg:"Regular books — net profit",
   l_receipts:"Gross receipts (annual)", l_deemed:"Deemed / declared profit %", l_netprofit:"Net profit (annual)", l_tdsbiz:"TDS on receipts (194J / 194C etc.)",
   l_otherinc:"Any other taxable income (annual)", l_tcs:"TCS credit (foreign remittance, car etc.)",
-  h_dednew:"You are on the new regime — only standard deduction (₹75,000) and employer NPS apply. Switch to old regime to use these.",
+  h_dednew:"You're on the new regime — only standard deduction (₹75,000) and employer NPS apply. These fields still feed the old-vs-new comparison.",
   h_dedold:"Old regime deductions. Standard deduction ₹50,000 is applied automatically to salary.",
-  l_hra:"HRA exemption", l_selfocc:"24(b) — self-occupied home loan interest", l_othded:"Other deductions",
+  l_80d:"80D — health insurance", l_hra:"HRA exemption", l_selfocc:"24(b) — self-occupied home loan interest", l_othded:"Other deductions",
+  h_max150:"Max ₹1,50,000", h_max50:"Max ₹50,000", h_max200:"Max ₹2,00,000",
   l_p1:"Paid by 15 Jun 2026", l_p2:"Paid 16 Jun – 15 Sep 2026", l_p3:"Paid 16 Sep – 15 Dec 2026", l_p4:"Paid 16 Dec 2026 – 15 Mar 2027",
-  h_howpay:"Pay online: incometax.gov.in → e-Pay Tax → Advance Tax (100).",
+  remember:"Remember on this device", clear:"Clear all", cleared:"All inputs cleared",
   v_waiting:"Enter your income details", v_waiting_sub:"Your quarterly schedule will appear here.",
-  v_na:"Advance tax not applicable", v_pay:"Pay by", v_done:"All installments covered", 
-  v_na_sub_10k:"Net tax after TDS is ₹10,000 or less — pay any balance as self-assessment tax when filing.",
-  v_na_sub_senior:"Resident senior citizens with no business income are exempt from advance tax (Sec 207).",
-  v_done_sub:"Nothing more due this year. Balance, if any, settles at filing.",
-  r_schedule:"Installment schedule", r_computation:"Tax computation", r_interest:"Interest exposure", r_share:"Share",
-  b_copy:"Copy score card", b_preview:"Preview", copied:"Copied!",
-  st_paid:"Paid", st_short:"Short", st_due:"Due now", st_up:"Upcoming", st_next:"Next",
+  v_na:"Advance tax not applicable", v_pay:"Pay by", v_done:"You're on track", v_over:"Year's installments are over",
+  v_na_sub_10k:"Your tax after TDS is ₹10,000 or less — pay any balance as self-assessment tax when you file.",
+  v_na_sub_senior:"Resident senior citizens with no business income are exempt from advance tax (Sec 207). Pay at filing with no 234B/234C interest.",
+  v_done_sub:"Nothing more due this year. Any small balance settles at filing.",
+  v_next_ok:"Next target", v_cum:"cumulative", v_days:"days left", v_today:"Due today",
+  v_paidpct:"paid of year's tax", v_risk:"interest at risk", v_norisk:"No interest so far",
+  v_over_sub:"Pay the balance as self-assessment tax now — 234B interest runs at 1% a month from April.",
+  b_howpay:"How to pay", b_portal:"Tax portal", b_remind:"Add reminders",
+  hp1:"Go to incometax.gov.in → e-Pay Tax (no login needed).", hp2:"Enter PAN and mobile → OTP.", hp3:"Income Tax → Assessment Year 2027-28 → Advance Tax (100).", hp4:"Pay by net banking, UPI or card. Save the CRN / challan receipt.",
+  r_schedule:"Installment schedule", r_computation:"Tax computation", r_interest:"Interest exposure", r_share:"Save & share", r_drivers:"What's driving your tax", r_regime:"Old vs new regime",
+  b_copy:"Copy score card", b_ics:"Add reminders (.ics)", b_print:"Print / PDF", copied:"Score card copied", ics_ok:"Calendar file downloaded",
+  st_paid:"Paid", st_short:"Short", st_due:"Due next", st_up:"Upcoming", today:"Today",
+  plan_h:"Your catch-up plan", plan_by:"Pay by", plan_more:"more", plan_none:"Nothing more to pay this year.", plan_presump:"Presumptive income: one installment, 100% by 15 Mar 2027.",
   wf_normal:"Tax on slab-rate income", wf_stcg:"Tax on STCG @20% (111A)", wf_ltcg:"Tax on LTCG @12.5%",
   wf_rebate:"87A rebate", wf_sur:"Surcharge", wf_cess:"Health & education cess @4%", wf_total:"Total tax liability",
-  wf_tds:"Less: TDS", wf_tcs:"Less: TCS", wf_net:"Advance tax payable", wf_ti:"Total taxable income",
-  int_234c:"234C — installment shortfall", int_234b:"234B — projected (if unpaid till", int_none:"No interest exposure so far. 🎯",
-  int_sh:"safe-harbour met", int_paid_note:"234B applies only if total advance paid stays below 90% of the final liability.",
-  faq_h:"How this works", faq_sub:"Plain-language answers to the 18 most common advance tax questions. Tap any ? in the form to jump here.",
-  disc:"MunVari is an educational estimator, not tax advice. Slab rates per Budget 2026 (unchanged from Budget 2025) under the Income-tax Act, 2025. Surcharge marginal relief is approximated near thresholds; indexation elections for pre-July-2024 property, AMT, foreign tax credits and clubbing are not modelled. Verify final figures with the official e-filing portal or a professional before payment.",
-  ft:"No trackers, no login — everything stays in your browser.",
-  q_even:"Spread evenly", q1:"Q1 (by 15 Jun)", q2:"Q2 (by 15 Sep)", q3:"Q3 (by 15 Dec)", q4:"Q4 (by 15 Mar)"
+  wf_tds:"Less: TDS", wf_tcs:"Less: TCS", wf_net:"Advance tax for the year", wf_ti:"Total income", wf_gti:"Slab-rate income (after deductions)",
+  wf_h_inc:"Income", wf_h_tax:"Tax",
+  int_234c:"234C — installments missed so far", int_234b:"234B — if nothing more is paid till", int_none:"No interest exposure so far. 🎯",
+  int_sh:"safe harbour met", int_paid_note:"234B applies only if advance tax paid by 31 March stays below 90% of the year's tax. 234C is 1% a month on each installment's shortfall.",
+  int_proj:"234C — future installments, if you pay nothing more", int_total:"Total interest at risk",
+  saver:"Pay {amt} by {date} and you avoid about {sav} of interest.",
+  drv_layer:"Each income is layered on top of salary — so its bar shows the extra tax it adds.",
+  drv_ins_cover:"Your TDS covers {cov} of the {tot} tax. The gap of {gap} is what advance tax is for — mostly from {src}.",
+  drv_ins_full:"TDS covers your whole tax bill — the extra income isn't creating an advance-tax gap.",
+  drv_tds:"TDS / TCS credit", drv_none:"Add income to see what's driving your tax.",
+  src_sal:"Salary", src_int:"Interest", src_rent:"Rent", src_biz:"Business / freelance", src_div:"Dividends", src_cg:"Capital gains", src_oth:"Other income",
+  rg_new:"New regime", rg_old:"Old regime", rg_better:"Lower tax", rg_same:"Both regimes give the same tax.",
+  rg_save:"The {r} saves you {amt} for the year.", rg_current:"you're on this",
+  rg_nodeds:"Old regime is shown with no deductions. Add 80C, 80D, HRA etc. under Deductions to compare fairly.",
+  rg_note:"Salaried taxpayers choose the regime when filing; switching changes your installments too.",
+  al_44ada:"44ADA applies only up to ₹75 lakh receipts (if cash receipts ≤ 5%). Above that, use regular books.",
+  al_44ad:"44AD applies only up to ₹3 crore turnover (if cash receipts ≤ 5%).",
+  al_tdsmore:"Your TDS/TCS exceeds the estimated tax — you're likely due a refund at filing, not advance tax.",
+  al_ltcgfree:"Your equity LTCG is within the ₹1.25 lakh yearly exemption — no tax on it.",
+  al_salonly:"Salary only? Your employer's TDS normally covers it. Advance tax kicks in when other income adds tax that isn't deducted.",
+  al_nr:"Non-residents: no 87A rebate and no basic-exemption adjustment against capital gains.",
+  faq_h:"How advance tax works", faq_sub:"Plain-language answers to the {n} most common advance tax questions. Tap any ? to jump here.",
+  disc:"MunVari is an educational estimator, not tax advice. Slab rates per Budget 2026 (unchanged from Budget 2025) under the Income-tax Act, 2025. Surcharge marginal relief is approximated near thresholds; indexation for pre-July-2024 property, AMT, foreign tax credits, clubbing and loss carry-forward are not modelled. Verify final figures on the official e-filing portal or with a tax professional before paying.",
+  ft:"No trackers, no login — everything stays in your browser.", ft2:"Rates verified for FY 2026-27 (Budget 2026).", mbar_btn:"Details",
+  q_even:"Spread evenly", q1:"Q1 (by 15 Jun)", q2:"Q2 (16 Jun – 15 Sep)", q3:"Q3 (16 Sep – 15 Dec)", q4:"Q4 (16 Dec – 15 Mar)",
+  w_t0:"Let's start simple", w_s0:"Two quick settings. Not sure about the regime? Pick new — you can compare both at the end.",
+  w_t1:"Salary", w_s1:"Full year April 2026 – March 2027 (projected). No salary? Leave blank and continue.",
+  w_t2:"What else do you earn?", w_s2:"Tap everything that applies — only those get a field. This is what usually triggers advance tax.",
+  w_t3:"Advance tax already paid", w_s3:"Only challans paid as Advance Tax (100) for AY 2027-28. Leave blank if none.",
+  c_int:"FD / interest", c_cg:"Shares / MF gains", c_rent:"Rent", c_biz:"Freelance / business", c_div:"Dividends",
+  w_int:"Total interest for the year (FD + RD + savings)",
+  w_stcg:"Equity / equity MF gains — held under 1 year (STCG)", w_ltcg:"Equity / equity MF gains — held over 1 year (LTCG)",
+  w_ltcgot:"Other long-term gains — US stocks / property / gold", w_cgq:"Sold (or planning to sell) mostly in", w_rent:"Rent received for the year",
+  w_biztype:"Type of work", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
+  w_otds:"TDS already deducted on the above (if any)", h_ais:"Check your AIS / Form 26AS on the income-tax portal.",
+  w_back:"Back", w_next:"Next", w_see:"See my estimate →", w_skip:"Skip to detailed form",
+  w_reopen:"← Quick wizard", w_refine:"Detailed mode — refine with NPS, deductions, TDS splits and the quarter each gain lands in. Results update as you type.",
+  w_paid_by:"Paid by", w_paid_since:"Paid since", w_paid_btw:"Paid"
  },
  ta:{
-  tagline:"India-ku advance tax estimator — quarterly installments, 234B/234C interest, capital gains relief ellam inga. Ellame ungal browser-laye nadakkum; edhuvum upload aagadhu.",
+  skip:"Calculator-ku po", h1a:"Indha quarter", h1b:"advance tax", h1c:"kattanuma?",
+  lede:"Salary TDS-la FD vatti, capital gains, vaadagai, freelance income cover aagaadhu. 60 seconds-la ungal next installment evlo, interest risk evlo-nu theriyum.",
+  tr1:"Login venaam", tr2:"Data browser-a vittu pogaadhu", tr3:"Old vs new regime", tr4:"234B / 234C interest", tr5:"English + Tanglish", rates:"Budget 2026 rates",
+  cd_days:"naal irukku", cd_today:"inniki dhaan due", cd_next:"Next installment", cd_cum:"varusha tax-la, cumulative", cd_over:"FY 2026-27 installments mudinjadhu", cd_over_sub:"Balance irundha filing-ku munnadi self-assessment tax-a kattunga — 234B interest nikkum.",
+  wb_txt:"Welcome back — ungal last estimate indha device-la save aagirukku.", wb_btn:"Open pannu →",
+  w_step:"Step", w_of:"/",
   s_profile:"Profile", s_salary:"Sambalam", s_interest:"Vatti varumaanam", s_rent:"Vaadagai varumaanam", s_cg:"Capital gains",
-  s_div:"Dividends", s_biz:"Business / thozhil", s_other:"Vera varumaanam", s_ded:"Deductions (old regime)", s_paid:"Already katina advance tax",
-  l_regime:"Tax regime", l_age:"Vayasu", l_resident:"Residential status", l_paymonth:"Self-assessment tax eppo kattuveenga?",
+  s_div:"Dividends", s_biz:"Business / thozhil", s_other:"Vera varumaanam & TCS", s_ded:"Deductions (old regime)", s_paid:"Already katina advance tax",
+  l_regime:"Tax regime", l_age:"Vayasu", l_resident:"Residential status", l_paymonth:"Meedhi irundha eppo kattuveenga?",
   o_new:"New regime (default)", o_old:"Old regime", o_res:"Resident", o_nres:"Non-resident",
+  o_new_s:"New regime", o_new_d:"Default · ₹12L rebate", o_old_s:"Old regime", o_old_d:"80C, HRA, home loan",
   l_gsal:"Motha sambalam (varusham, projected)", l_nps:"Employer NPS — 80CCD(2)", l_tdssal:"Sambalathula TDS (full year projection)",
+  h_tdssal:"Payslip-la monthly TDS × 12 podhum.",
   h_nps:"Basic+DA-la 14% varaikkum (new regime), 10% (old)",
   l_fdint:"FD / RD / bond vatti (varusham)", l_svint:"Savings account vatti", l_tdsint:"Vatti mela TDS",
   h_80tta:"Old regime: 80TTA ₹10K / 80TTB ₹50K (seniors) automatic-a apply aagum",
   l_rent:"Vaadagai vandhadhu (varusham)", l_muni:"Municipal tax katinadhu", l_hloan:"Home loan vatti (let-out veedu)", l_tdsrent:"Vaadagai mela TDS",
-  h_setoff:"Vera income-oda set-off max ₹2,00,000 dhaan",
+  h_setoff:"Old regime: loss set-off max ₹2L. New regime: vera income-oda set-off kidaiyaadhu.",
   h_cgq:"Ovvoru gain-um endha quarter-la realise aachu-nu select pannunga — idhu 234C relief-ku romba mukkiyam.",
   l_stcg_eq:"STCG — listed equity / equity MF (111A, 20%)", l_ltcg_eq:"LTCG — listed equity / equity MF (112A, ₹1.25L mela 12.5%)",
   l_stcg_ot:"STCG — vera assets (debt MF, US stocks < 24m — slab rate)", l_ltcg_ot:"LTCG — vera assets (property, US stocks ≥ 24m, gold — 12.5%)",
-  l_when:"Endha quarter?", l_div:"Dividend varumaanam (varusham)", l_tdsdiv:"Dividend mela TDS",
-  h_divtds:"₹10,000/varusham thaandina company 10% TDS pidikkum",
+  l_when:"Endha quarter?", l_when2:"Mostly endha quarter?", l_div:"Dividend varumaanam (varusham)", l_tdsdiv:"Dividend mela TDS",
+  h_divtds:"₹10,000/varusham thaandina company 10% TDS pidikkum", h_ltcg125:"Idhula first ₹1.25 lakh tax-free.",
   l_biztype:"Type", o_bnone:"Illa", o_b44ada:"Profession — presumptive 44ADA (receipts-la 50%)", o_b44ad:"Business — presumptive 44AD (6% / 8%)", o_breg:"Regular books — net profit",
   l_receipts:"Motha receipts (varusham)", l_deemed:"Deemed / declared profit %", l_netprofit:"Net profit (varusham)", l_tdsbiz:"Receipts mela TDS (194J / 194C)",
   l_otherinc:"Vera edhavadhu taxable income", l_tcs:"TCS credit (foreign remittance, car)",
-  h_dednew:"Neenga new regime-la irukkeenga — standard deduction (₹75,000) & employer NPS mattum dhaan. Old regime-ku maathina indha deductions use pannalam.",
+  h_dednew:"Neenga new regime-la irukkeenga — standard deduction (₹75,000) & employer NPS mattum dhaan. Aana indha fields old-vs-new comparison-ku use aagum.",
   h_dedold:"Old regime deductions. Standard deduction ₹50,000 sambalathula automatic-a apply aagum.",
-  l_hra:"HRA exemption", l_selfocc:"24(b) — sondha veetu home loan vatti", l_othded:"Vera deductions",
+  l_80d:"80D — health insurance", l_hra:"HRA exemption", l_selfocc:"24(b) — sondha veetu home loan vatti", l_othded:"Vera deductions",
+  h_max150:"Max ₹1,50,000", h_max50:"Max ₹50,000", h_max200:"Max ₹2,00,000",
   l_p1:"15 Jun 2026-kulla katinadhu", l_p2:"16 Jun – 15 Sep 2026", l_p3:"16 Sep – 15 Dec 2026", l_p4:"16 Dec 2026 – 15 Mar 2027",
-  h_howpay:"Online-la kattunga: incometax.gov.in → e-Pay Tax → Advance Tax (100).",
+  remember:"Indha device-la nyaabagam vachukko", clear:"Ellam clear", cleared:"Ellaa inputs-um clear aachu",
   v_waiting:"Ungal income details podunga", v_waiting_sub:"Quarterly schedule inga varum.",
-  v_na:"Advance tax thevai illa", v_pay:"Ithukkulla kattunga:", v_done:"Ellaa installments-um mudinjadhu",
+  v_na:"Advance tax thevai illa", v_pay:"Ithukkulla kattunga:", v_done:"Correct-a poreenga 👍", v_over:"Indha varusha installments mudinjadhu",
   v_na_sub_10k:"TDS pochu net tax ₹10,000-kku keezha — balance-a filing pannumbodhu self-assessment tax-a kattunga.",
-  v_na_sub_senior:"Business income illadha resident senior citizens-ku advance tax kidaiyaadhu (Sec 207).",
-  v_done_sub:"Indha varusham vera onnum kattanum-nu illa. Balance irundha filing-la settle aagum.",
-  r_schedule:"Installment schedule", r_computation:"Tax kanakku", r_interest:"Interest risk", r_share:"Share",
-  b_copy:"Score card copy", b_preview:"Preview", copied:"Copy aachu!",
-  st_paid:"Katiyaachu", st_short:"Kammi", st_due:"Ippo due", st_up:"Varapporadhu", st_next:"Next",
+  v_na_sub_senior:"Business income illadha resident senior citizens-ku advance tax kidaiyaadhu (Sec 207). Filing-la kattunga, 234B/234C interest illa.",
+  v_done_sub:"Indha varusham vera onnum kattanum-nu illa. Chinna balance irundha filing-la settle aagum.",
+  v_next_ok:"Next target", v_cum:"cumulative", v_days:"naal irukku", v_today:"Inniki dhaan due",
+  v_paidpct:"varusha tax-la katiyaachu", v_risk:"interest risk", v_norisk:"Ippo varaikkum interest illa",
+  v_over_sub:"Balance-a ippove self-assessment tax-a kattunga — April-la irundhu 234B 1%/month odum.",
+  b_howpay:"Eppadi kattaradhu", b_portal:"Tax portal", b_remind:"Reminder podu",
+  hp1:"incometax.gov.in → e-Pay Tax (login venaam).", hp2:"PAN & mobile podunga → OTP.", hp3:"Income Tax → Assessment Year 2027-28 → Advance Tax (100).", hp4:"Net banking, UPI illa card-la kattunga. CRN / challan receipt-a save pannunga.",
+  r_schedule:"Installment schedule", r_computation:"Tax kanakku", r_interest:"Interest risk", r_share:"Save & share", r_drivers:"Tax edhanaala varudhu?", r_regime:"Old vs new regime",
+  b_copy:"Score card copy", b_ics:"Reminder podu (.ics)", b_print:"Print / PDF", copied:"Score card copy aachu", ics_ok:"Calendar file download aachu",
+  st_paid:"Katiyaachu", st_short:"Kammi", st_due:"Adutha due", st_up:"Varapporadhu", today:"Inniki",
+  plan_h:"Ungal catch-up plan", plan_by:"Ithukkulla:", plan_more:"innum", plan_none:"Indha varusham vera onnum kattanum-nu illa.", plan_presump:"Presumptive income: oru installment dhaan, 15 Mar 2027-kulla 100%.",
   wf_normal:"Slab-rate income mela tax", wf_stcg:"STCG @20% (111A)", wf_ltcg:"LTCG @12.5%",
   wf_rebate:"87A rebate", wf_sur:"Surcharge", wf_cess:"Health & education cess @4%", wf_total:"Motha tax",
-  wf_tds:"Minus: TDS", wf_tcs:"Minus: TCS", wf_net:"Advance tax kattanum", wf_ti:"Motha taxable income",
-  int_234c:"234C — installment kammi", int_234b:"234B — projected (kattaama irundha, varai", int_none:"Ippo varaikkum interest risk illa. 🎯",
-  int_sh:"safe-harbour ok", int_paid_note:"Final tax-la 90%-kku keezha advance kattina dhaan 234B varum.",
-  faq_h:"Idhu eppadi velai seiyudhu", faq_sub:"Advance tax pathi 18 common kelvigal — simple Tanglish-la. Form-la ? click panna inga varuveenga.",
-  disc:"MunVari oru educational estimator dhaan, tax advice illa. Budget 2026 slab rates (Budget 2025-la irundhu maatram illa), Income-tax Act 2025 padi. Surcharge marginal relief threshold pakkathula approximate dhaan; pre-July-2024 property indexation, AMT, foreign tax credit, clubbing model pannala. Kattura munnadi official portal-la illa professional-kitta verify pannunga.",
-  ft:"Tracker illa, login illa — ellame ungal browser-la dhaan.",
-  q_even:"Evenly spread", q1:"Q1 (15 Jun-kulla)", q2:"Q2 (15 Sep-kulla)", q3:"Q3 (15 Dec-kulla)", q4:"Q4 (15 Mar-kulla)"
+  wf_tds:"Minus: TDS", wf_tcs:"Minus: TCS", wf_net:"Varusha advance tax", wf_ti:"Motha income", wf_gti:"Slab-rate income (deductions pochu)",
+  wf_h_inc:"Income", wf_h_tax:"Tax",
+  int_234c:"234C — ippo varaikkum miss aana installments", int_234b:"234B — innum onnum kattaama irundha, varai", int_none:"Ippo varaikkum interest risk illa. 🎯",
+  int_sh:"safe harbour ok", int_paid_note:"31 March-kulla katina advance tax, varusha tax-la 90%-kku keezha irundha dhaan 234B varum. 234C = ovvoru installment shortfall mela 1%/month.",
+  int_proj:"234C — innum onnum kattaama irundha, varapora installments", int_total:"Motha interest risk",
+  saver:"{date}-kulla {amt} kattina, kitta thatta {sav} interest mich-am.",
+  drv_layer:"Ovvoru income-um salary mela adukka paduthu — adhanaala bar adhu extra-va serkura tax-a kaattum.",
+  drv_ins_cover:"Ungal TDS {tot} tax-la {cov} cover pannudhu. Meedhi {gap} dhaan advance tax — perumbaalum {src}-naala.",
+  drv_ins_full:"TDS ungal full tax-a cover pannudhu — extra income advance-tax gap create pannala.",
+  drv_tds:"TDS / TCS credit", drv_none:"Income podunga — tax edhanaala-nu kaattuvom.",
+  src_sal:"Sambalam", src_int:"Vatti", src_rent:"Vaadagai", src_biz:"Business / freelance", src_div:"Dividends", src_cg:"Capital gains", src_oth:"Vera income",
+  rg_new:"New regime", rg_old:"Old regime", rg_better:"Kammi tax", rg_same:"Rendu regime-layum same tax dhaan.",
+  rg_save:"{r}-la varushathukku {amt} mich-am.", rg_current:"ippo idhula irukkeenga",
+  rg_nodeds:"Old regime deductions illaama kaattudhu. Fair comparison-ku Deductions-la 80C, 80D, HRA podunga.",
+  rg_note:"Salaried-ku regime-a filing-la choose pannalaam; maathina installments-um maarum.",
+  al_44ada:"44ADA ₹75 lakh receipts varaikkum dhaan (cash ≤ 5% irundha). Adhukku mela regular books.",
+  al_44ad:"44AD ₹3 crore turnover varaikkum dhaan (cash ≤ 5% irundha).",
+  al_tdsmore:"Ungal TDS/TCS estimated tax-a vida jaasthi — filing-la refund varalaam, advance tax illa.",
+  al_ltcgfree:"Ungal equity LTCG ₹1.25 lakh exemption-kulla irukku — tax illa.",
+  al_salonly:"Sambalam mattum-a? Employer TDS podhum. Vera income tax serkkumbodhu dhaan advance tax varum.",
+  al_nr:"Non-residents: 87A rebate illa, capital gains-ku basic-exemption adjustment-um illa.",
+  faq_h:"Advance tax eppadi velai seiyudhu", faq_sub:"Advance tax pathi {n} common kelvigal — simple Tanglish-la. ? click panna inga varuveenga.",
+  disc:"MunVari oru educational estimator dhaan, tax advice illa. Budget 2026 slab rates (Budget 2025-la irundhu maatram illa), Income-tax Act 2025 padi. Surcharge marginal relief threshold pakkathula approximate dhaan; pre-July-2024 property indexation, AMT, foreign tax credit, clubbing, loss carry-forward model pannala. Kattura munnadi official portal-la illa tax professional-kitta verify pannunga.",
+  ft:"Tracker illa, login illa — ellame ungal browser-la dhaan.", ft2:"FY 2026-27 rates verify panniyaachu (Budget 2026).", mbar_btn:"Details",
+  q_even:"Evenly spread", q1:"Q1 (15 Jun-kulla)", q2:"Q2 (16 Jun – 15 Sep)", q3:"Q3 (16 Sep – 15 Dec)", q4:"Q4 (16 Dec – 15 Mar)",
+  w_t0:"Simple-a start pannalaam", w_s0:"Rendu quick settings dhaan. Regime theriyalaiya? New select pannunga — kadaisila rendayum compare pannalaam.",
+  w_t1:"Sambalam", w_s1:"Full year April 2026 – March 2027 projection. Sambalam illa-na blank vittu continue pannunga.",
+  w_t2:"Vera enna sambadhikkireenga?", w_s2:"Edhu apply aagudho adha tap pannunga — adhukku mattum field varum. Advance tax-a trigger pannuradhu idhu dhaan.",
+  w_t3:"Already katina advance tax", w_s3:"AY 2027-28-ku Advance Tax (100)-a katina challans mattum. Illa-na blank vidunga.",
+  c_int:"FD / vatti", c_cg:"Shares / MF gains", c_rent:"Vaadagai", c_biz:"Freelance / business", c_div:"Dividends",
+  w_int:"Varusha motha vatti (FD + RD + savings)",
+  w_stcg:"Equity / MF gains — 1 varusham-ku keezha (STCG)", w_ltcg:"Equity / MF gains — 1 varusham mela (LTCG)",
+  w_ltcgot:"Vera long-term gains — US stocks / property / gold", w_cgq:"Eppo vithheenga (illa vikka plan)?", w_rent:"Varusha vaadagai",
+  w_biztype:"Enna maadhiri velai", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
+  w_otds:"Idhu mela already pidicha TDS (irundha)", h_ais:"Income-tax portal-la AIS / Form 26AS paarunga.",
+  w_back:"Back", w_next:"Next", w_see:"En estimate paaru →", w_skip:"Detailed form-ku po",
+  w_reopen:"← Quick wizard", w_refine:"Detailed mode — NPS, deductions, TDS splits, endha quarter-la gain-nu ellam vachu refine pannalaam. Type panna panna result maarum.",
+  w_paid_by:"Ithukkulla katinadhu:", w_paid_since:"Idhukku apparam katinadhu:", w_paid_btw:"Katinadhu:"
  }
 };
 
-/* ================= FAQ (18 explanations) ================= */
+/* ================= FAQ ================= */
 const FAQ = [
- {id:"q-what", en:["What is advance tax and who must pay it?","If your total tax for the year, after TDS/TCS credit, exceeds ₹10,000, the law wants you to pay it during the year in four installments — not as one lump at filing. Salary earners usually escape because employer TDS covers everything; the moment you add capital gains, FD interest, rent or freelance income, you can cross the ₹10,000 line without realising it."],
-     ta:["Advance tax na enna? Yaaru kattanum?","Varusha motha tax-la TDS/TCS pochu ₹10,000-kku mela irundha, adha varusham mulukka 4 installments-la kattanum — filing time-la oru lump-a illa. Salary mattum irundha employer TDS pothum; aana capital gains, FD vatti, vaadagai, freelance income add aana theriyaamale ₹10,000 line-a thaandiduveenga."]},
+ {id:"q-what", en:["What is advance tax and who must pay it?","If your total tax for the year, after TDS/TCS credit, is ₹10,000 or more, the law wants you to pay it during the year in four installments — not as one lump at filing. Salary earners usually escape because employer TDS covers everything; the moment you add capital gains, FD interest, rent or freelance income, you can cross the ₹10,000 line without realising it."],
+     ta:["Advance tax na enna? Yaaru kattanum?","Varusha motha tax-la TDS/TCS pochu ₹10,000 illa adhukku mela irundha, adha varusham mulukka 4 installments-la kattanum — filing time-la oru lump-a illa. Salary mattum irundha employer TDS pothum; aana capital gains, FD vatti, vaadagai, freelance income add aana theriyaamale ₹10,000 line-a thaandiduveenga."]},
  {id:"q-dates", en:["What are the due dates and percentages?","Cumulative targets: 15% of the year's tax by 15 June, 45% by 15 September, 75% by 15 December, and 100% by 15 March. Each installment is a running total, so a shortfall early can be caught up later — but interest may apply on the gap months."],
      ta:["Due dates & percentage enna?","Cumulative targets: 15 June-kulla 15%, 15 Sep-kulla 45%, 15 Dec-kulla 75%, 15 Mar-kulla 100%. Idhu running total — munnadi kammi aana apparam catch-up pannalam, aana gap months-ku interest varalam."]},
- {id:"q-234c", en:["How does Section 234C interest work?","Miss an installment target and you pay simple interest at 1% per month on the shortfall — for 3 months on the June, September and December installments, and 1 month on the March one. It is computed on the shortfall rounded down to the nearest ₹100, so the amounts are usually annoying rather than devastating — but they compound across quarters if you keep skipping."],
+ {id:"q-catchup", en:["I missed June and September. Is it over?","Not at all. Advance tax is cumulative — pay the full 75% target by 15 December and the only damage is 234C interest on the two earlier shortfalls (1% × 3 months each). Reaching 90%+ by 31 March also keeps 234B fully away. The worst strategy is giving up and paying everything at filing: that stacks 234C on all installments plus 234B from April."],
+     ta:["June & September miss panniten. Mudinjadhaa?","Illave illa. Advance tax cumulative — 15 Dec-kulla full 75% target-a kattina, damage 234C interest mattum dhaan (rendu shortfall-ku 1% × 3 months). 31 March-kulla 90%+ reach panna 234B-um varaadhu. Worst strategy: vittutu filing-la ellam kattaradhu — adhula ellaa installment-kum 234C plus April-la irundhu 234B serum."]},
+ {id:"q-234c", en:["How does Section 234C interest work?","Miss an installment target and you pay simple interest at 1% per month on the shortfall — for 3 months on the June, September and December installments, and 1 month on the March one. It is computed on the shortfall rounded down to the nearest ₹100, so the amounts are usually annoying rather than devastating — but they add up across quarters if you keep skipping."],
      ta:["234C interest eppadi velai seiyudhu?","Installment target miss panna, shortfall mela 1%/month simple interest — June, Sep, Dec installments-ku 3 months, March-ku 1 month. Shortfall-a ₹100-ku round down panni calculate pannuvaanga. Amount periya adi illa, aana quarter after quarter miss panna serndhu perusaagum."]},
- {id:"q-234b", en:["What is Section 234B then?","A second, separate meter. If your total advance tax paid by 31 March is less than 90% of the final assessed tax, interest runs at 1% per month on the whole unpaid balance from 1 April until you actually pay (self-assessment tax or assessment). Filing in July means four months of interest. This is why the estimator asks when you plan to pay."],
-     ta:["Appo 234B enna?","Idhu innoru separate meter. 31 March-kulla katina motha advance tax, final tax-la 90%-kku kammi-na, April 1-la irundhu neenga kattura varaikkum full balance mela 1%/month interest odum. July-la file panna 4 months interest. Adhaan indha tool 'eppo kattuveenga'-nu kekkudhu."]},
+ {id:"q-234b", en:["What is Section 234B then?","A second, separate meter. If your total advance tax paid by 31 March is less than 90% of the final assessed tax, interest runs at 1% per month on the whole unpaid balance from 1 April until you actually pay. Paying in July means four months of interest. This is why the detailed form asks when you plan to pay any balance."],
+     ta:["Appo 234B enna?","Idhu innoru separate meter. 31 March-kulla katina motha advance tax, final tax-la 90%-kku kammi-na, April 1-la irundhu neenga kattura varaikkum full balance mela 1%/month interest odum. July-la katina 4 months interest. Adhaan detailed form 'eppo kattuveenga'-nu kekkudhu."]},
  {id:"q-safeharbour", en:["The 12% / 36% safe harbour","Small mercy in the law: no 234C interest on the June installment if you have paid at least 12% (instead of 15%), and none on September if you have paid at least 36% (instead of 45%). December and March get no such cushion."],
      ta:["12% / 36% safe harbour","Law-la oru chinna concession: June installment-la 12% (15% badhila) katirundha 234C interest illa; Sep-la 36% (45% badhila) katirundha adhukum illa. Dec & March-ku indha cushion kidaiyaadhu."]},
- {id:"q-cgrelief", en:["I sold shares in January — was I supposed to predict that in June?","No. For capital gains (and dividends), Section 234C has a relief: no interest for installments that fell before the gain arose, as long as you pay the tax on it within the remaining installments. That is why this estimator asks which quarter each gain lands in — a January gain only raises your December and March targets, not June or September."],
-     ta:["January-la share vithen — adha June-laye predict pannanuma?","Illa. Capital gains (and dividends)-ku 234C-la relief irukku: gain vara munnadi irundha installments-ku interest illa — aana adhukku apparam irukka installments-la andha tax-a katrukkanum. Adhaan indha tool 'endha quarter'-nu kekkudhu. January gain, Dec & March targets-a mattum dhaan yethum; June/Sep-a illa."]},
- {id:"q-salaried", en:["I'm salaried — does my TDS cover me?","For pure salary, almost always yes. The trap: your employer does not know about your FD interest, capital gains, rent or side income unless you declare it. Tax on those, above ₹10,000 total, is your job to pay quarterly. Alternative: declare other income to your employer and let them deduct extra TDS — that also stops 234C."],
-     ta:["Naan salaried — en TDS podhuma?","Salary mattum-na almost always podhum. Trap enna-na: ungal FD vatti, capital gains, vaadagai, side income pathi employer-ku theriyaadhu. Adhu mela tax ₹10,000 thaandina, quarterly kattaradhu ungal velai. Alternative: employer-kitta other income declare pannunga — avanga extra TDS pidippanga, 234C-um varaadhu."]},
- {id:"q-44ada", en:["Freelancer on 44ADA / small business on 44AD?","Presumptive taxpayers get the best deal in the whole chapter: skip all three early installments and pay 100% in one shot by 15 March. Miss that single date and 234C charges just 1% for one month. This estimator switches to single-installment mode automatically when you pick 44ADA/44AD."],
-     ta:["44ADA freelancer / 44AD small business?","Presumptive taxpayers-ku indha chapter-laye best deal: first 3 installments skip pannalaam, 15 March-kulla 100% one shot-la kattalaam. Andha oru date miss panna kooda 1% one month interest dhaan. 44ADA/44AD select panna indha tool automatic-a single-installment mode-ku maarum."]},
- {id:"q-rent", en:["How is rental income taxed here?","Rent minus municipal taxes gives the annual value; a flat 30% standard deduction comes off that (no bills needed), then home-loan interest on the let-out property. If the result is a loss, only ₹2 lakh of it can offset your other income this year — the rest carries forward against future house property income."],
-     ta:["Vaadagai income eppadi tax aagum?","Rent minus municipal tax = annual value. Adhula flat 30% standard deduction (bill venaam), apparam let-out property home loan vatti. Loss vandha, indha varusham vera income-oda ₹2 lakh mattum dhaan set-off; meedhi carry forward aagum."]},
+ {id:"q-cgrelief", en:["I sold shares in January — was I supposed to predict that in June?","No. For capital gains (and dividends), Section 234C has a relief: no interest for installments that fell before the gain arose, as long as you pay the tax on it within the remaining installments. That is why this estimator asks which quarter each gain lands in — a January gain only raises your March target, not June, September or December."],
+     ta:["January-la share vithen — adha June-laye predict pannanuma?","Illa. Capital gains (and dividends)-ku 234C-la relief irukku: gain vara munnadi irundha installments-ku interest illa — aana adhukku apparam irukka installments-la andha tax-a katrukkanum. Adhaan indha tool 'endha quarter'-nu kekkudhu. January gain March target-a mattum dhaan yethum."]},
+ {id:"q-salaried", en:["I'm salaried — does my TDS cover me?","For pure salary, almost always yes. The trap: your employer doesn't know about your FD interest, capital gains, rent or side income unless you declare it. Tax on those, if the balance crosses ₹10,000, is your job to pay quarterly. Alternative: declare other income to your employer and let them deduct extra TDS — that also stops 234C."],
+     ta:["Naan salaried — en TDS podhuma?","Salary mattum-na almost always podhum. Trap enna-na: ungal FD vatti, capital gains, vaadagai, side income pathi employer-ku theriyaadhu. Adhu mela tax balance ₹10,000 thaandina, quarterly kattaradhu ungal velai. Alternative: employer-kitta other income declare pannunga — avanga extra TDS pidippanga, 234C-um varaadhu."]},
+ {id:"q-44ada", en:["Freelancer on 44ADA / small business on 44AD?","Presumptive taxpayers get the best deal in the whole chapter: skip the three early installments and pay 100% in one shot by 15 March. Miss that single date and 234C charges just 1% for one month. This estimator switches to single-installment mode automatically when you pick 44ADA/44AD. Limits: ₹75 lakh receipts for 44ADA and ₹3 crore turnover for 44AD, when cash receipts are within 5%."],
+     ta:["44ADA freelancer / 44AD small business?","Presumptive taxpayers-ku indha chapter-laye best deal: first 3 installments skip pannalaam, 15 March-kulla 100% one shot-la kattalaam. Andha oru date miss panna kooda 1% one month interest dhaan. 44ADA/44AD select panna indha tool automatic-a single-installment mode-ku maarum. Limit: 44ADA ₹75 lakh, 44AD ₹3 crore (cash 5%-kulla irundha)."]},
+ {id:"q-rent", en:["How is rental income taxed here?","Rent minus municipal taxes gives the annual value; a flat 30% standard deduction comes off that (no bills needed), then home-loan interest on the let-out property. In the old regime, a resulting loss can offset other income up to ₹2 lakh this year. In the new regime it can't offset salary or other heads at all — it only carries forward against future house-property income."],
+     ta:["Vaadagai income eppadi tax aagum?","Rent minus municipal tax = annual value. Adhula flat 30% standard deduction (bill venaam), apparam let-out property home loan vatti. Old regime-la loss vandha vera income-oda ₹2 lakh varaikkum set-off. New regime-la salary-oda set-off kidaiyaadhu — future house-property income-ku mattum carry forward."]},
  {id:"q-ltcg", en:["The ₹1.25 lakh LTCG exemption","Long-term gains on listed equity and equity mutual funds are tax-free up to ₹1.25 lakh per year, then taxed at 12.5%. The exemption is per financial year across all your equity LTCG combined — not per fund, not per trade. Other long-term assets (property, gold, US stocks held 24+ months) get the 12.5% rate but no ₹1.25 lakh exemption."],
      ta:["₹1.25 lakh LTCG exemption","Listed equity & equity MF long-term gains varusham ₹1.25 lakh varaikkum tax-free, adhukku mela 12.5%. Exemption per financial year — ella equity LTCG-um serthu — per fund illa, per trade illa. Vera long-term assets-ku (property, gold, 24+ months US stocks) 12.5% rate dhaan, aana ₹1.25L exemption kidaiyaadhu."]},
- {id:"q-usstocks", en:["What about my US stocks?","Gains on US equity are always taxed at slab rates if held under 24 months, and at 12.5% (long-term, no ₹1.25L exemption) if held 24 months or more — 112A applies only to Indian listed shares. US dividends are taxed at your slab, with credit for the 25% US withholding via Form 67 / DTAA at filing (not modelled here). Enter US gains under 'other assets'."],
-     ta:["US stocks-ku enna?","US equity gains: 24 months-ku keezha vachirundha slab rate; 24+ months-na 12.5% (₹1.25L exemption illa — 112A Indian listed shares-ku mattum). US dividends slab rate-la tax; 25% US withholding-ku Form 67 / DTAA credit filing-la (inga model pannala). US gains-a 'other assets'-la podunga."]},
- {id:"q-regime", en:["Does the regime choice change advance tax?","The schedule and interest rules are identical in both regimes; only the tax amount differs. New regime: bigger slabs, ₹75K standard deduction, ₹60K rebate up to ₹12L income, almost no other deductions. Old regime: smaller slabs but 80C, 80D, HRA, home-loan interest and friends. Toggle both here and see which produces the smaller quarterly cheque."],
-     ta:["Regime choice advance tax-a maathuma?","Schedule & interest rules rendu regime-layum same; tax amount dhaan vithyaasam. New regime: periya slabs, ₹75K standard deduction, ₹12L varaikkum ₹60K rebate, vera deductions almost illa. Old regime: chinna slabs aana 80C, 80D, HRA, home loan vatti ellam undu. Rendayum inga toggle panni endha quarterly cheque chinnadhu-nu paarunga."]},
- {id:"q-rebate", en:["Why doesn't the 87A rebate apply to my capital gains?","The up-to-₹60,000 rebate under the new regime wipes out tax on slab-rate income when your taxable income is within ₹12 lakh. But it does not apply against tax on special-rate income — STCG under 111A and LTCG under 112A stay payable even below ₹12 lakh. Many first-time investors discover this at filing; better to discover it here."],
-     ta:["87A rebate en capital gains-ku apply aagala?","New regime-la ₹60,000 varaikkum rebate, ₹12 lakh-kulla irundha slab-rate income tax-a full-a azhichidum. Aana special-rate income-ku apply aagaadhu — 111A STCG & 112A LTCG tax ₹12 lakh-kku keezha irundhaalum kattanum. Neraya pudhu investors idha filing-la dhaan kandupidikkiraanga; inga munnadiye theriyanum."]},
- {id:"q-surcharge", en:["Surcharge — the tax on tax","Above ₹50 lakh total income, a surcharge of 10% applies on your tax; 15% above ₹1 crore; 25% above ₹2 crore (the cap under the new regime; the old regime still has 37% above ₹5 crore). One protection: surcharge on capital gains and dividend tax is capped at 15% regardless of income. Marginal relief smooths the cliff just above each threshold — this tool approximates it."],
-     ta:["Surcharge — tax mela tax","Total income ₹50 lakh thaandina tax mela 10% surcharge; ₹1 crore mela 15%; ₹2 crore mela 25% (new regime cap; old regime-la ₹5 crore mela 37% innum irukku). Oru protection: capital gains & dividend tax mela surcharge max 15% dhaan, income evlo irundhaalum. Threshold pakkathla marginal relief cliff-a smooth pannum — inga approximate dhaan."]},
- {id:"q-senior", en:["Senior citizen exemption (Sec 207)","A resident aged 60 or more with no business or professional income is fully exempt from advance tax — whatever the tax amount. Pay it all as self-assessment tax at filing with zero 234B/234C interest. Relevant if you're estimating for a parent: their FD interest and capital gains alone don't trigger the quarterly treadmill."],
-     ta:["Senior citizen exemption (Sec 207)","60 vayasu mela resident, business/professional income illa-na — advance tax completely exempt, tax evlo irundhaalum. Filing time-la self-assessment tax-a kattalaam, 234B/234C interest zero. Appa/amma-ku estimate panreenga-na idhu mukkiyam: avanga FD vatti & capital gains mattum quarterly treadmill-a trigger pannaadhu."]},
- {id:"q-howpay", en:["How do I actually pay?","incometax.gov.in → e-Pay Tax → enter PAN → New Payment → Income Tax → Advance Tax (100) → pick AY 2027-28 → pay via net banking / UPI / debit card. The challan (CRN) is generated instantly and auto-populates in your AIS/26AS within days. Keep the CRN; you'll reference it at filing."],
-     ta:["Actually eppadi kattaradhu?","incometax.gov.in → e-Pay Tax → PAN podunga → New Payment → Income Tax → Advance Tax (100) → AY 2027-28 select → net banking / UPI / debit card-la kattunga. Challan (CRN) instant-a generate aagum, AIS/26AS-la sila naatkalla auto-reflect aagum. CRN-a vachukkonga; filing-la venum."]},
- {id:"q-catchup", en:["I missed June and September. Is it over?","Not at all. Advance tax is cumulative — pay the full 75% target by 15 December and the only damage is 234C interest on the two earlier shortfalls (1% × 3 months each). Reaching 90%+ by 31 March also keeps 234B fully away. The worst strategy is giving up and paying everything at filing: that stacks 234C on three installments plus 234B from April."],
-     ta:["June & September miss panniten. Mudinjadhaa?","Illave illa. Advance tax cumulative — 15 Dec-kulla full 75% target-a kattina, damage 234C interest mattum dhaan (rendu shortfall-ku 1% × 3 months). 31 March-kulla 90%+ reach panna 234B-um varaadhu. Worst strategy: vittutu filing-la ellam kattaradhu — adhula 3 installment 234C plus April-la irundhu 234B serum."]},
- {id:"q-act2025", en:["Which law is this — I keep hearing about a new Act","From 1 April 2026 the Income-tax Act, 2025 replaces the 1961 Act. Rates, regimes, due dates and interest logic are unchanged for FY 2026-27; section numbers are renumbered (this tool keeps the familiar 234B/234C/111A/112A labels everyone still uses). 'Tax Year' also replaces the FY/AY jargon — but portals and challans still show AY 2027-28 for now."],
-     ta:["Idhu endha law — pudhu Act-nu kekkiren","1 April 2026-la irundhu Income-tax Act 2025, 1961 Act-a replace pannudhu. FY 2026-27-ku rates, regimes, due dates, interest logic maaralai; section numbers dhaan renumber aagirukku (indha tool ellarum use panra 234B/234C/111A/112A labels-aye vachirukku). 'Tax Year'-nu pudhu word FY/AY jargon-a replace pannudhu — aana portals-la ippodhaikku AY 2027-28 dhaan kaattum."]}
+ {id:"q-usstocks", en:["What about my US stocks?","Gains on US equity are taxed at slab rates if held under 24 months, and at 12.5% (long-term, no ₹1.25L exemption) if held 24 months or more — 112A applies only to Indian listed shares. US dividends are taxed at your slab, with credit for US withholding via Form 67 / DTAA at filing (not modelled here). Enter US gains under 'other assets'."],
+     ta:["US stocks-ku enna?","US equity gains: 24 months-ku keezha vachirundha slab rate; 24+ months-na 12.5% (₹1.25L exemption illa — 112A Indian listed shares-ku mattum). US dividends slab rate-la tax; US withholding-ku Form 67 / DTAA credit filing-la (inga model pannala). US gains-a 'other assets'-la podunga."]},
+ {id:"q-regime", en:["Does the regime choice change advance tax?","The schedule and interest rules are identical in both regimes; only the tax amount differs. New regime: bigger slabs, ₹75K standard deduction, rebate up to ₹60K when total income is within ₹12L, almost no other deductions. Old regime: smaller slabs but 80C, 80D, HRA, home-loan interest and friends. The comparison card shows both side by side using your inputs."],
+     ta:["Regime choice advance tax-a maathuma?","Schedule & interest rules rendu regime-layum same; tax amount dhaan vithyaasam. New regime: periya slabs, ₹75K standard deduction, total income ₹12L-kulla irundha ₹60K varaikkum rebate, vera deductions almost illa. Old regime: chinna slabs aana 80C, 80D, HRA, home loan vatti ellam undu. Comparison card ungal inputs vachu rendayum side-by-side kaattum."]},
+ {id:"q-rebate", en:["Why doesn't the 87A rebate cover my capital gains?","Two rules trip people up. First, eligibility is tested on total income — including capital gains. ₹10 lakh salary-income plus ₹3 lakh of LTCG is ₹13 lakh, so no rebate at all. Second, even when you're within ₹12 lakh, the rebate can't be used against tax on STCG (111A) or LTCG (112A) — that tax stays payable. Many first-time investors discover this at filing; better to discover it here."],
+     ta:["87A rebate en capital gains-ku cover aagala?","Rendu rules. Onnu: eligibility total income vachu dhaan — capital gains-um serthu. ₹10 lakh slab income + ₹3 lakh LTCG = ₹13 lakh, rebate-e kidaiyaadhu. Rendu: ₹12 lakh-kulla irundhaalum, STCG (111A) / LTCG (112A) tax-ku rebate use panna mudiyaadhu. Neraya pudhu investors idha filing-la dhaan kandupidikkiraanga; inga munnadiye theriyanum."]},
+ {id:"q-surcharge", en:["Surcharge — the tax on tax","Above ₹50 lakh total income, a surcharge of 10% applies on your tax; 15% above ₹1 crore; 25% above ₹2 crore (the cap under the new regime; the old regime still has 37% above ₹5 crore). Surcharge on capital gains and dividend tax is capped at 15% regardless of income. Marginal relief smooths the cliff just above each threshold — this tool approximates it."],
+     ta:["Surcharge — tax mela tax","Total income ₹50 lakh thaandina tax mela 10% surcharge; ₹1 crore mela 15%; ₹2 crore mela 25% (new regime cap; old regime-la ₹5 crore mela 37% innum irukku). Capital gains & dividend tax mela surcharge max 15% dhaan. Threshold pakkathla marginal relief cliff-a smooth pannum — inga approximate dhaan."]},
+ {id:"q-senior", en:["Senior citizen exemption (Sec 207)","A resident aged 60 or more with no business or professional income is fully exempt from advance tax — whatever the amount. Pay it all as self-assessment tax at filing with zero 234B/234C interest. Relevant if you're estimating for a parent: their FD interest and capital gains alone don't trigger the quarterly treadmill."],
+     ta:["Senior citizen exemption (Sec 207)","60 vayasu mela resident, business/professional income illa-na — advance tax completely exempt, tax evlo irundhaalum. Filing time-la self-assessment tax-a kattalaam, 234B/234C interest zero. Appa/amma-ku estimate panreenga-na idhu mukkiyam."]},
+ {id:"q-howpay", en:["How do I actually pay?","incometax.gov.in → e-Pay Tax → enter PAN and mobile (OTP) → Income Tax → Assessment Year 2027-28 → Advance Tax (100) → pay via net banking, UPI or debit card. The challan (CRN) is generated instantly and shows in your AIS/26AS within days. Keep the CRN; you'll reference it at filing."],
+     ta:["Actually eppadi kattaradhu?","incometax.gov.in → e-Pay Tax → PAN & mobile (OTP) → Income Tax → Assessment Year 2027-28 → Advance Tax (100) → net banking / UPI / debit card-la kattunga. Challan (CRN) instant-a generate aagum, AIS/26AS-la sila naatkalla varum. CRN-a vachukkonga; filing-la venum."]},
+ {id:"q-act2025", en:["Which law is this — I keep hearing about a new Act","From 1 April 2026 the Income-tax Act, 2025 replaces the 1961 Act. Rates, regimes, due dates, the ₹10,000 threshold and interest logic are unchanged for FY 2026-27; section numbers are renumbered (this tool keeps the familiar 234B/234C/111A/112A labels everyone still searches for). 'Tax Year' also replaces the FY/AY jargon — but portals and challans may still show AY 2027-28."],
+     ta:["Idhu endha law — pudhu Act-nu kekkiren","1 April 2026-la irundhu Income-tax Act 2025, 1961 Act-a replace pannudhu. FY 2026-27-ku rates, regimes, due dates, ₹10,000 threshold, interest logic maaralai; section numbers dhaan renumber aagirukku (indha tool ellarum search panra 234B/234C/111A/112A labels-aye vachirukku). 'Tax Year'-nu pudhu word FY/AY-a replace pannudhu — aana portals-la AY 2027-28-nu kaattalaam."]}
 ];
+
 /* ================= helpers ================= */
 let LANG='en';
 const $=id=>document.getElementById(id);
-const num=id=>Math.max(0,Number($(id).value)||0);
-const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const num=id=>{const el=$(id);return el?Math.max(0,Number(el.value)||0):0;};
+const fmt=n=>(n<0?'−':'')+'₹'+Math.round(Math.abs(n)).toLocaleString('en-IN');
 const T=k=>(I18N[LANG][k]!==undefined?I18N[LANG][k]:I18N.en[k]);
-const DUE=[new Date(2026,5,15),new Date(2026,8,15),new Date(2026,11,15),new Date(2027,2,15)];
-const DUE_LBL=['15 Jun 26','15 Sep 26','15 Dec 26','15 Mar 27'];
+const tpl=(s,o)=>s.replace(/\{(\w+)\}/g,(_,k)=>o[k]!==undefined?o[k]:'');
+const words=n=>{n=Number(n)||0;if(n>=1e7)return '₹'+(n/1e7).toFixed(n%1e7?2:0)+' Cr';if(n>=1e5)return '₹'+(n/1e5).toFixed(n%1e5?2:0).replace(/\.?0+$/,'')+' L';if(n>=1e3)return '₹'+(n/1e3).toFixed(1).replace(/\.0$/,'')+'K';return n?'₹'+n:'';};
+const DUE=[new Date(2026,5,15,23,59,59),new Date(2026,8,15,23,59,59),new Date(2026,11,15,23,59,59),new Date(2027,2,15,23,59,59)];
+const DUE_LBL=['15 Jun 2026','15 Sep 2026','15 Dec 2026','15 Mar 2027'];
+const DUE_SHORT=['15 Jun','15 Sep','15 Dec','15 Mar'];
 const PCT=[0.15,0.45,0.75,1.00];
+const FY_START=new Date(2026,3,1), FY_END=new Date(2027,2,31,23,59,59);
+function NOW(){const p=new URLSearchParams(location.search).get('today');if(p){const d=new Date(p+'T12:00:00');if(!isNaN(d))return d;}return new Date();}
 
 /* ================= tax engine ================= */
+function exLimit(regime,age){return regime==='new'?400000:(age==='s80'?500000:(age==='s60'?300000:250000));}
 function slabTax(x,regime,age){
   let s;
   if(regime==='new') s=[[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[Infinity,.30]];
-  else{
-    const ex=age==='s80'?500000:(age==='s60'?300000:250000);
-    s=[[ex,0],[500000,.05],[1000000,.20],[Infinity,.30]];
-  }
+  else s=[[exLimit('old',age),0],[500000,.05],[1000000,.20],[Infinity,.30]];
   let t=0,prev=0;
   for(const[cap,r]of s){ if(x>prev) t+=(Math.min(x,cap)-prev)*r; prev=cap; if(x<=cap)break; }
   return Math.max(0,t);
 }
-
-/* Compute full tax for income realised in quarters <= qMax (CG & dividend gated; rest always in) */
+/* Full tax for income realised in quarters <= qMax (capital gains & dividends gated by quarter; everything else accrues fully) */
 function computeTax(inp,qMax){
-  const inQ=q=>q==='even'?(qMax/4):(Number(q)<=qMax?1:0); // fraction included
+  if(qMax===undefined) qMax=4;
+  const inQ=q=>q==='even'?(qMax/4):(Number(q)<=qMax?1:0);
+  const isNew=inp.regime==='new', res=inp.resident==='r';
   const stcgEq=inp.stcgEq*inQ(inp.stcgEqQ), ltcgEq=inp.ltcgEq*inQ(inp.ltcgEqQ);
   const stcgOt=inp.stcgOt*inQ(inp.stcgOtQ), ltcgOt=inp.ltcgOt*inQ(inp.ltcgOtQ);
   const div=inp.div*inQ(inp.divQ);
-
-  // salary head
-  const sd=inp.regime==='new'?75000:50000;
-  const salHead=Math.max(0,inp.salary-(inp.salary>0?sd:0)-inp.empNps-(inp.regime==='old'?inp.dHra:0));
-  // interest head w/ 80TTA-TTB as deduction later (old regime)
-  const intHead=inp.fdInt+inp.savInt;
-  // house property
+  // heads
+  const sd=isNew?75000:50000;
+  const sal=inp.salary>0?Math.max(0,inp.salary-Math.min(inp.salary,sd)-(isNew?0:inp.dHra)):0;
+  const intH=inp.fdInt+inp.savInt;
   const nav=Math.max(0,inp.rent-inp.muniTax);
-  let hp=nav-0.30*nav-inp.rentLoanInt;
-  if(inp.regime==='old') hp-=Math.min(200000,inp.dSelfOcc);
-  const hpSetoff=Math.max(hp,-200000); // set-off cap
-  // business
+  let hp=nav*0.7-inp.rentLoanInt;
+  if(!isNew) hp-=Math.min(200000,inp.dSelfOcc);
+  const hpUsed=isNew?Math.max(0,hp):Math.max(hp,-200000);   // new regime: no inter-head set-off of HP loss
   let biz=0;
   if(inp.bizType==='44ada'||inp.bizType==='44ad') biz=inp.bizReceipts*inp.bizPct/100;
   else if(inp.bizType==='reg') biz=inp.bizProfit;
-  // gross normal income (before chapter VI-A), incl slab-rate STCG-other
-  let gross=salHead+intHead+hpSetoff+biz+inp.otherInc+div+stcgOt;
-  // chapter VI-A (old regime only)
-  let ded=0;
-  if(inp.regime==='old'){
+  const gti=Math.max(0,sal+intH+hpUsed+biz+inp.otherInc+div+stcgOt);
+  // Chapter VI-A (only against slab-rate income)
+  let ded=inp.empNps;
+  if(!isNew){
     ded+=Math.min(150000,inp.d80c)+Math.min(50000,inp.d80ccd1b)+inp.d80d+inp.dOther;
-    if(inp.age==='lt60') ded+=Math.min(10000,inp.savInt);
-    else ded+=Math.min(50000,inp.fdInt+inp.savInt); // 80TTB
+    ded+=inp.age==='lt60'?Math.min(10000,inp.savInt):Math.min(50000,inp.fdInt+inp.savInt);
   }
-  const normalTI=Math.max(0,gross-ded);
-  const ltcgEqTaxable=Math.max(0,ltcgEq-125000);
-  const totalTI=normalTI+stcgEq+ltcgEqTaxable+ltcgOt;
-
-  // basic exemption spill: unused exemption absorbs LTCG/STCG for residents
-  let normalTax=slabTax(normalTI,inp.regime,inp.age);
-  const exLimit=inp.regime==='new'?400000:(inp.age==='s80'?500000:(inp.age==='s60'?300000:250000));
-  let spill=(inp.resident==='r')?Math.max(0,exLimit-normalTI):0;
-  const ltcgAdj=Math.max(0,ltcgEqTaxable+ltcgOt-spill); spill=Math.max(0,spill-(ltcgEqTaxable+ltcgOt));
-  const stcgAdj=Math.max(0,stcgEq-spill);
-  let stcgTax=stcgAdj*0.20, ltcgTax=ltcgAdj*0.125;
-
-  // 87A rebate (residents, normal income only)
+  ded=Math.min(ded,gti);
+  const normalTI=gti-ded;
+  const totalIncome=normalTI+stcgEq+ltcgEq+ltcgOt;     // 112A gains count fully in total income
+  const normalTax=slabTax(normalTI,inp.regime,inp.age);
+  // unused basic exemption absorbs special-rate gains (residents) — highest rate first
+  let spill=res?Math.max(0,exLimit(inp.regime,inp.age)-normalTI):0;
+  const stcgTaxable=Math.max(0,stcgEq-spill); spill=Math.max(0,spill-stcgEq);
+  const ltRaw=Math.max(0,ltcgEq-125000)+ltcgOt;
+  const ltTaxable=Math.max(0,ltRaw-spill);
+  const stcgTax=stcgTaxable*0.20, ltcgTax=ltTaxable*0.125;
+  // 87A — eligibility on total income; never against 112A; new regime also not against 111A
   let rebate=0;
-  if(inp.resident==='r'){
-    if(inp.regime==='new'){
-      if(normalTI<=1200000) rebate=Math.min(normalTax,60000);
-      else{ const mr=normalTI-1200000; if(normalTax>mr){rebate=normalTax-mr;} } // marginal relief
-    } else if(totalTI<=500000) rebate=Math.min(normalTax,12500);
+  if(res){
+    if(isNew){
+      if(totalIncome<=1200000) rebate=Math.min(normalTax,60000);
+      else{ const due=normalTax+stcgTax+ltcgTax, excess=totalIncome-1200000; if(due>excess) rebate=Math.min(normalTax,due-excess); }
+    } else if(totalIncome<=500000) rebate=Math.min(normalTax+stcgTax,12500);
   }
-  const taxAfterRebate=Math.max(0,normalTax-rebate)+stcgTax+ltcgTax;
+  const rebN=Math.min(rebate,normalTax), rebS=rebate-rebN;
+  const normalAfter=normalTax-rebN, stcgAfter=stcgTax-rebS;
+  const taxAR=normalAfter+stcgAfter+ltcgTax;
+  // surcharge (15% cap on 111A/112A/112 gains and dividends)
+  const ti=totalIncome; let sr=0;
+  if(ti>50000000&&!isNew) sr=.37; else if(ti>20000000) sr=.25; else if(ti>10000000) sr=.15; else if(ti>5000000) sr=.10;
+  const divTax=normalTI>0?normalAfter*Math.min(1,div/normalTI):0;
+  const capped=stcgAfter+ltcgTax+divTax, uncapped=taxAR-capped;
+  let surcharge=uncapped*sr+capped*Math.min(sr,.15);
+  if(sr>0){ // marginal relief (approximation): extra tax+surcharge can't exceed income above threshold
+    const [th,prev]=sr===.37?[50000000,.25]:sr===.25?[20000000,.15]:sr===.15?[10000000,.10]:[5000000,0];
+    const excess=ti-th, mr=normalTI>=excess?0.30:0.125;
+    const taxTh=Math.max(0,taxAR-excess*mr);
+    surcharge=Math.max(0,Math.min(surcharge,taxTh*(1+prev)+excess-taxAR));
+  }
+  const cess=(taxAR+surcharge)*0.04;
+  const total=Math.round(taxAR+surcharge+cess);
+  return {normalTax,rebate,stcgTax,ltcgTax,surcharge,cess,total,totalIncome,normalTI,ded,sr};
+}
 
-  // surcharge
-  const ti=totalTI; let sr=0;
-  if(ti>50000000&&inp.regime==='old') sr=.37;
-  else if(ti>20000000) sr=.25;
-  else if(ti>10000000) sr=.15;
-  else if(ti>5000000) sr=.10;
-  const capSr=Math.min(sr,.15);
-  const specialTax=stcgTax+ltcgTax+ (div>0? (Math.max(0,normalTax-rebate))*(div/Math.max(1,normalTI)) :0);
-  const normalPart=Math.max(0,(Math.max(0,normalTax-rebate)+stcgTax+ltcgTax)-specialTax);
-  let surcharge=normalPart*sr+specialTax*capSr;
-  // simple marginal relief at thresholds
-  if(sr>0){
-    const th=ti>50000000?50000000:(ti>20000000?20000000:(ti>10000000?10000000:5000000));
-    const excess=ti-th;
-    const taxAtTh=taxAfterRebate; // approximation: cap increase to excess income
-    if(surcharge>excess) surcharge=excess;
+const ZERO_KEYS={sal:['salary','empNps','dHra'],int:['fdInt','savInt'],rent:['rent','muniTax','rentLoanInt'],biz:['bizReceipts','bizProfit'],div:['div'],cg:['stcgEq','ltcgEq','stcgOt','ltcgOt'],oth:['otherInc']};
+function zeroed(inp,keys){const o={...inp};keys.forEach(k=>{(ZERO_KEYS[k]||[]).forEach(f=>o[f]=0);});return o;}
+/* Layered attribution: salary first, then the rest — each layer's extra tax. Sums exactly to the total. */
+function drivers(inp){
+  const order=['sal','int','rent','biz','div','oth','cg'];
+  const out=[]; let prev=0;
+  for(let i=0;i<order.length;i++){
+    const off=order.slice(i+1);
+    const t=computeTax(zeroed(inp,off),4).total;
+    out.push({k:order[i],v:Math.max(0,t-prev)}); prev=Math.max(prev,t);
   }
-  const cess=(taxAfterRebate+surcharge)*0.04;
-  const total=Math.round(taxAfterRebate+surcharge+cess);
-  return {normalTax:Math.max(0,normalTax),rebate,stcgTax,ltcgTax,surcharge,cess,total,totalTI,normalTI};
+  return out;
 }
 
 function readInputs(){
+  const v=id=>$(id).value;
   return {
-    regime:$('regime').value, age:$('age').value, resident:$('resident').value, payMonth:Number($('payMonth').value),
+    regime:v('regime'), age:v('age'), resident:v('resident'), payMonth:Number(v('payMonth')),
     salary:num('salary'), empNps:num('empNps'), tdsSalary:num('tdsSalary'),
     fdInt:num('fdInt'), savInt:num('savInt'), tdsInt:num('tdsInt'),
     rent:num('rent'), muniTax:num('muniTax'), rentLoanInt:num('rentLoanInt'), tdsRent:num('tdsRent'),
-    stcgEq:num('stcgEq'), stcgEqQ:$('stcgEqQ').value, ltcgEq:num('ltcgEq'), ltcgEqQ:$('ltcgEqQ').value,
-    stcgOt:num('stcgOt'), stcgOtQ:$('stcgOtQ').value, ltcgOt:num('ltcgOt'), ltcgOtQ:$('ltcgOtQ').value,
-    div:num('divAmt'), divQ:$('divQ').value, tdsDiv:num('tdsDiv'),
-    bizType:$('bizType').value, bizReceipts:num('bizReceipts'), bizPct:Math.max(0,Math.min(100,Number($('bizPct').value)||0)), bizProfit:num('bizProfit'), tdsBiz:num('tdsBiz'),
+    stcgEq:num('stcgEq'), stcgEqQ:v('stcgEqQ'), ltcgEq:num('ltcgEq'), ltcgEqQ:v('ltcgEqQ'),
+    stcgOt:num('stcgOt'), stcgOtQ:v('stcgOtQ'), ltcgOt:num('ltcgOt'), ltcgOtQ:v('ltcgOtQ'),
+    div:num('divAmt'), divQ:v('divQ'), tdsDiv:num('tdsDiv'),
+    bizType:v('bizType'), bizReceipts:num('bizReceipts'), bizPct:Math.max(0,Math.min(100,Number(v('bizPct'))||0)), bizProfit:num('bizProfit'), tdsBiz:num('tdsBiz'),
     otherInc:num('otherInc'), tcs:num('tcs'),
     d80c:num('d80c'), d80ccd1b:num('d80ccd1b'), d80d:num('d80d'), dHra:num('dHra'), dSelfOcc:num('dSelfOcc'), dOther:num('dOther'),
     paid:[num('paid1'),num('paid2'),num('paid3'),num('paid4')]
   };
 }
 
-function calc(){
-  const inp=readInputs();
+function calc(inp,today){
+  inp=inp||readInputs(); today=today||NOW();
   const tds=inp.tdsSalary+inp.tdsInt+inp.tdsRent+inp.tdsDiv+inp.tdsBiz;
+  const credit=tds+inp.tcs;
   const full=computeTax(inp,4);
-  const netFull=Math.max(0,full.total-tds-inp.tcs);
+  const netFull=Math.max(0,full.total-credit);
   const presumptive=(inp.bizType==='44ada'||inp.bizType==='44ad');
   const seniorExempt=(inp.resident==='r'&&inp.age!=='lt60'&&inp.bizType==='none');
-  const applicable=netFull>10000&&!seniorExempt;
-
-  // per-installment required (CG/div gating)
-  const netQ=[1,2,3,4].map(q=>Math.max(0,computeTax(inp,q).total-tds-inp.tcs));
-  let req;
-  if(presumptive) req=[0,0,0,netFull];
-  else req=PCT.map((p,i)=>Math.round(p*netQ[i]));
+  const applicable=netFull>=10000&&!seniorExempt;
+  const netQ=[1,2,3,4].map(q=>Math.max(0,computeTax(inp,q).total-credit));
+  const req=presumptive?[0,0,0,netFull]:PCT.map((p,i)=>Math.round(p*netQ[i]));
   const cumPaid=inp.paid.reduce((a,v,i)=>{a.push((a[i-1]||0)+v);return a;},[]);
-
-  // 234C
-  const today=new Date();
-  let c234=[],c234tot=0;
+  const paidTotal=cumPaid[3];
+  const passed=DUE.map(d=>today>d);
+  let nextIdx=passed.indexOf(false); // -1 if all passed
+  if(presumptive&&nextIdx!==-1) nextIdx=3; // single installment by 15 March
+  // 234C — installments already passed
+  const c234=[0,0,0,0]; let c234tot=0;
+  const c234f=[0,0,0,0]; let c234ftot=0; // projected, if nothing more is paid
   if(applicable){
     for(let i=0;i<4;i++){
-      if(today<DUE[i]) {c234.push(null);continue;}
-      if(presumptive&&i<3){c234.push(0);continue;}
-      let short=Math.max(0,req[i]-cumPaid[i]);
-      // safe harbour
-      if(i===0&&cumPaid[0]>=0.12*netQ[0]) short=0;
-      if(i===1&&cumPaid[1]>=0.36*netQ[1]) short=0;
-      const base=Math.floor(short/100)*100;
       const months=i===3?1:3;
-      const intr=Math.round(base*0.01*months);
-      c234.push(intr); c234tot+=intr;
+      if(passed[i]){
+        let short=Math.max(0,req[i]-cumPaid[i]);
+        if(!presumptive&&i===0&&cumPaid[0]>=0.12*netQ[0]) short=0;
+        if(!presumptive&&i===1&&cumPaid[1]>=0.36*netQ[1]) short=0;
+        c234[i]=Math.round(Math.floor(short/100)*100*0.01*months); c234tot+=c234[i];
+      } else {
+        const short=Math.max(0,req[i]-paidTotal);
+        c234f[i]=Math.round(Math.floor(short/100)*100*0.01*months); c234ftot+=c234f[i];
+      }
     }
   }
-  // 234B projection
-  let b234=0,bMonths=0;
-  if(applicable){
-    const paidTotal=cumPaid[3];
-    if(paidTotal<0.90*netFull){
-      bMonths=inp.payMonth-3; // Apr(4)=1 month → payMonth-3
-      b234=Math.round(Math.floor((netFull-paidTotal)/100)*100*0.01*bMonths);
-    }
-  }
-  return {inp,tds,full,netFull,applicable,seniorExempt,presumptive,req,netQ,cumPaid,c234,c234tot,b234,bMonths,today};
+  // 234B — if nothing more is paid until the chosen month
+  let b234=0; const bMonths=Math.max(1,inp.payMonth-3);
+  if(applicable&&paidTotal<0.90*netFull) b234=Math.round(Math.floor((netFull-paidTotal)/100)*100*0.01*bMonths);
+  // catch-up plan: incremental amounts for each remaining installment
+  const plan=[]; let running=paidTotal;
+  if(applicable) for(let i=0;i<4;i++){ if(passed[i])continue; const add=Math.max(0,req[i]-running); plan.push({i,add,cum:req[i]}); running=Math.max(running,req[i]); }
+  const nx=plan.find(x=>x.i===nextIdx);
+  const owe=nextIdx===-1?Math.max(0,netFull-paidTotal):(nx?nx.add:0);
+  // interest avoided by paying the next installment on time (that installment's 234C + 234B if it gets you to 90%)
+  const saveNext=nextIdx>=0&&applicable?c234f[nextIdx]:0;
+  return {inp,tds,credit,full,netFull,applicable,seniorExempt,presumptive,req,netQ,cumPaid,paidTotal,passed,nextIdx,c234,c234tot,c234f,c234ftot,b234,bMonths,plan,owe,saveNext,today};
 }
 
 /* ================= render ================= */
 function statusOf(r,i){
-  const cum=r.cumPaid[i], need=r.req[i];
-  if(r.today>=DUE[i]) return cum>=need-1?'paid':'short';
-  // future: first upcoming = due
-  const firstFuture=DUE.findIndex(d=>r.today<d);
-  return i===firstFuture?'due':'up';
+  if(r.presumptive&&i<3) return 'skip';
+  if(r.passed[i]) return r.cumPaid[i]>=r.req[i]-1||(r.c234[i]===0)?'paid':'short';
+  return i===r.nextIdx?'due':'up';
 }
+const daysTo=(d,t)=>Math.max(0,Math.ceil((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(t.getFullYear(),t.getMonth(),t.getDate()))/864e5));
+
+function renderCountdown(){
+  const t=NOW(), idx=DUE.findIndex(d=>t<=d), el=$('countdown');
+  if(idx===-1){el.innerHTML=`<div class="cd-txt"><b>${T('cd_over')}</b><span>${T('cd_over_sub')}</span></div>`;return;}
+  const n=daysTo(DUE[idx],t);
+  el.innerHTML=`<div class="cd-days">${n===0?'0':n}<small>${n===0?T('cd_today'):T('cd_days')}</small></div>
+  <div class="cd-txt"><b>${T('cd_next')}: ${DUE_LBL[idx]}</b><span>${PCT[idx]*100}% ${T('cd_cum')}</span></div>`;
+}
+
 function render(){
   const r=calc();
+  saveState();
   // section summaries
-  $('sum-salary').textContent=r.inp.salary?fmt(r.inp.salary):'';
-  $('sum-interest').textContent=(r.inp.fdInt+r.inp.savInt)?fmt(r.inp.fdInt+r.inp.savInt):'';
-  $('sum-rent').textContent=r.inp.rent?fmt(r.inp.rent):'';
-  const cgT=r.inp.stcgEq+r.inp.ltcgEq+r.inp.stcgOt+r.inp.ltcgOt;
-  $('sum-cg').textContent=cgT?fmt(cgT):'';
-  $('sum-div').textContent=r.inp.div?fmt(r.inp.div):'';
-  const bizAmt=r.inp.bizType==='reg'?r.inp.bizProfit:(r.inp.bizType==='none'?0:r.inp.bizReceipts*r.inp.bizPct/100);
-  $('sum-biz').textContent=bizAmt?fmt(bizAmt):'';
-  $('sum-other').textContent=r.inp.otherInc?fmt(r.inp.otherInc):'';
-  $('sum-paid').textContent=r.cumPaid[3]?fmt(r.cumPaid[3]):'';
-  const dedT=r.inp.d80c+r.inp.d80ccd1b+r.inp.d80d+r.inp.dHra+r.inp.dSelfOcc+r.inp.dOther;
-  $('sum-ded').textContent=(r.inp.regime==='old'&&dedT)?fmt(dedT):'';
+  const s=(id,v)=>{$(id).textContent=v?words(v):'';};
+  s('sum-salary',r.inp.salary); s('sum-interest',r.inp.fdInt+r.inp.savInt); s('sum-rent',r.inp.rent);
+  s('sum-cg',r.inp.stcgEq+r.inp.ltcgEq+r.inp.stcgOt+r.inp.ltcgOt); s('sum-div',r.inp.div);
+  s('sum-biz',r.inp.bizType==='reg'?r.inp.bizProfit:(r.inp.bizType==='none'?0:r.inp.bizReceipts));
+  s('sum-other',r.inp.otherInc+r.inp.tcs); s('sum-paid',r.paidTotal);
+  const dedT=r.inp.d80c+r.inp.d80ccd1b+r.inp.d80d+r.inp.dHra+r.inp.dSelfOcc+r.inp.dOther; s('sum-ded',dedT);
+  renderVerdict(r); renderAlerts(r); renderRail(r); renderDrivers(r); renderRegime(r); renderInterest(r); renderWaterfall(r); buildCard(r);
+}
 
-  // verdict
-  const v=$('verdict'); const anyIncome=r.full.totalTI>0;
-  const firstFuture=DUE.findIndex(d=>r.today<d);
-  if(!anyIncome){ v.className='verdict na';
+function renderVerdict(r){
+  const v=$('verdict'); const any=r.full.totalIncome>0;
+  const riskTot=r.c234tot+r.c234ftot+r.b234;
+  const paidPct=r.netFull>0?Math.round(Math.min(1,r.paidTotal/r.netFull)*100):0;
+  let mb='';
+  if(!any){ v.className='verdict na';
     v.innerHTML=`<div class="v-label">${T('v_waiting')}</div><div class="v-amt">—</div><div class="v-sub">${T('v_waiting_sub')}</div>`;
   } else if(!r.applicable){ v.className='verdict ok';
     v.innerHTML=`<div class="v-label">${T('v_na')}</div><div class="v-amt">₹0</div><div class="v-sub">${r.seniorExempt?T('v_na_sub_senior'):T('v_na_sub_10k')}</div>`;
+    mb=`${T('v_na')}`;
+  } else if(r.nextIdx===-1){
+    const bal=Math.max(0,r.netFull-r.paidTotal);
+    v.className=bal>0?'verdict pay':'verdict ok';
+    v.innerHTML=`<div class="v-label">${T('v_over')}</div><div class="v-amt">${bal>0?fmt(bal):'✓'}</div><div class="v-sub">${bal>0?T('v_over_sub'):T('v_done_sub')}</div>${metaTags(r,paidPct,riskTot)}`;
+    mb=bal>0?`<span>${T('v_over')}</span> <b>${fmt(bal)}</b>`:T('v_done');
+  } else if(r.owe<=0){
+    const i=r.nextIdx; v.className='verdict ok';
+    v.innerHTML=`<div class="v-label">${T('v_done')}</div><div class="v-amt">✓</div><div class="v-sub">${T('v_next_ok')}: ${DUE_LBL[i]} · ${fmt(r.req[i])} ${T('v_cum')}</div>${metaTags(r,paidPct,riskTot)}`;
+    mb=T('v_done');
   } else {
-    let idx=firstFuture===-1?3:firstFuture;
-    const owe=Math.max(0,r.req[idx]-(r.cumPaid[idx]||0));
-    if(firstFuture===-1||owe<=0){
-      v.className='verdict ok';
-      v.innerHTML=`<div class="v-label">${T('v_done')}</div><div class="v-amt">✓</div><div class="v-sub">${firstFuture===-1?T('v_done_sub'):T('st_next')+': '+DUE_LBL[idx]+' · '+fmt(r.req[idx])+' ('+T('st_paid').toLowerCase()+': '+fmt(r.cumPaid[idx]||0)+')'}</div>`;
-    } else {
-      v.className='verdict pay';
-      v.innerHTML=`<div class="v-label">${T('v_pay')} ${DUE_LBL[idx]}</div><div class="v-amt">${fmt(owe)}</div>
-      <div class="v-sub">${T('st_next')}: ${PCT[idx]*100}% ${T('wf_total').toLowerCase()} · ${fmt(r.req[idx])} − ${fmt(r.cumPaid[idx]||0)} ${T('st_paid').toLowerCase()}</div>`;
-    }
+    const i=r.nextIdx, n=daysTo(DUE[i],r.today);
+    v.className='verdict pay';
+    v.innerHTML=`<div class="v-label">${T('v_pay')} ${DUE_LBL[i]} · ${n===0?T('v_today'):n+' '+T('v_days')}</div>
+      <div class="v-amt">${fmt(r.owe)}</div>
+      <div class="v-sub">${r.presumptive?T('plan_presump'):`${PCT[i]*100}% ${T('v_cum')}: ${fmt(r.req[i])} − ${fmt(r.paidTotal)} ${T('st_paid').toLowerCase()}`}</div>
+      ${metaTags(r,paidPct,riskTot)}
+      <div class="v-actions"><button class="btn sm" onclick="downloadIcs()">📅 ${T('b_remind')}</button><a class="btn ghost sm" href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">${T('b_portal')} ↗</a></div>
+      <details class="howpay"><summary>${T('b_howpay')}</summary><ol><li>${T('hp1')}</li><li>${T('hp2')}</li><li>${T('hp3')}</li><li>${T('hp4')}</li></ol></details>`;
+    mb=`<span>${T('v_pay')} ${DUE_SHORT[i]}</span> <b>${fmt(r.owe)}</b>`;
   }
+  $('mbarTxt').innerHTML=mb; MBAR_READY=!!mb; updMbar();
+}
+function metaTags(r,paidPct,riskTot){
+  return `<div class="v-meta"><span class="tagc ${paidPct>=100?'good':''}">${paidPct}% ${T('v_paidpct')}</span>${riskTot>0?`<span class="tagc bad">${fmt(riskTot)} ${T('v_risk')}</span>`:`<span class="tagc good">${T('v_norisk')}</span>`}</div>`;
+}
 
-  // rail
-  const stops=$('railStops'); stops.innerHTML='';
-  const paidFrac=r.netFull>0?Math.min(1,r.cumPaid[3]/r.netFull):0;
-  $('railFill').style.width=(paidFrac*100)+'%';
-  const stLbl={paid:T('st_paid'),short:T('st_short'),due:T('st_due'),up:T('st_up')};
+function renderAlerts(r){
+  const a=[]; const i=r.inp;
+  if(i.bizType==='44ada'&&i.bizReceipts>7500000) a.push(['warn',T('al_44ada')]);
+  if(i.bizType==='44ad'&&i.bizReceipts>30000000) a.push(['warn',T('al_44ad')]);
+  if(r.full.total>0&&r.credit>r.full.total+100) a.push(['info',T('al_tdsmore')]);
+  if(i.ltcgEq>0&&i.ltcgEq<=125000) a.push(['info',T('al_ltcgfree')]);
+  if(i.resident==='nr'&&(i.stcgEq+i.ltcgEq+i.ltcgOt)>0) a.push(['info',T('al_nr')]);
+  const others=i.fdInt+i.savInt+i.rent+i.div+i.otherInc+i.stcgEq+i.ltcgEq+i.stcgOt+i.ltcgOt+(i.bizType==='none'?0:1);
+  if(i.salary>0&&!others&&!r.applicable) a.push(['info',T('al_salonly')]);
+  $('alerts').innerHTML=a.map(([c,t])=>`<div class="alert ${c}"><span>${c==='warn'?'⚠️':'ℹ️'}</span><span>${t}</span></div>`).join('');
+}
+
+/* stops sit evenly at 12.5/37.5/62.5/87.5%; 'today' is placed piecewise between them */
+const STOP_X=[12.5,37.5,62.5,87.5];
+function railPos(d){const pts=[[FY_START,0],[DUE[0],12.5],[DUE[1],37.5],[DUE[2],62.5],[DUE[3],87.5],[FY_END,100]];
+  for(let k=1;k<pts.length;k++){if(d<=pts[k][0]){const[a,x0]=pts[k-1],[b,x1]=pts[k];return x0+(x1-x0)*Math.max(0,(d-a)/(b-a));}}return 100;}
+function renderRail(r){
+  const stLbl={paid:T('st_paid'),short:T('st_short'),due:T('st_due'),up:T('st_up'),skip:''};
+  const paidFrac=r.netFull>0?Math.min(1,r.paidTotal/r.netFull):0;
+  const fx=[[0,0],[.15,12.5],[.45,37.5],[.75,62.5],[1,87.5]]; let fillX=0;
+  for(let k=1;k<fx.length;k++){if(paidFrac<=fx[k][0]){const[a0,x0]=fx[k-1],[a1,x1]=fx[k];fillX=x0+(x1-x0)*(paidFrac-a0)/(a1-a0);break;}}
+  if(r.presumptive) fillX=paidFrac*87.5;
+  let h=`<div class="rail-track"><div class="rail-fill" style="width:${fillX.toFixed(1)}%"></div>`;
+  if(r.today>=FY_START&&r.today<=FY_END) h+=`<div class="rail-today" style="left:${railPos(r.today)}%"><span>${T('today')}</span></div>`;
+  h+=`</div>`;
   for(let i=0;i<4;i++){
     const st=r.applicable?statusOf(r,i):'up';
-    const req=r.applicable?r.req[i]:0;
-    stops.innerHTML+=`<div class="stop ${st}"><div class="dot">${i+1}</div>
-      <div class="s-pct">${r.presumptive?(i===3?'100%':'—'):(PCT[i]*100+'%')}</div>
-      <div class="s-date">${DUE_LBL[i]}</div>
-      <div class="s-amt">${r.applicable?fmt(req):'—'}</div>
+    const pos=STOP_X[i];
+    const pct=r.presumptive?(i===3?'100%':'—'):(PCT[i]*100+'%');
+    h+=`<div class="stop ${st}" style="left:${pos}%"><div class="dot">${st==='paid'?'✓':i+1}</div>
+      <div class="s-date">${DUE_SHORT[i]}</div><div class="s-pct">${pct}</div>
+      <div class="s-amt">${r.applicable&&r.req[i]?fmt(r.req[i]):'—'}</div>
       <div class="s-state">${r.applicable?stLbl[st]:''}</div></div>`;
   }
+  $('rail').innerHTML=h;
+  // plan
+  let p='';
+  if(r.applicable){
+    if(r.presumptive) p+=`<p class="hint" style="margin-bottom:6px">${T('plan_presump')}</p>`;
+    const rows=r.plan.filter(x=>x.add>0);
+    if(rows.length){ p+=`<h4>${T('plan_h')}</h4>`+rows.map(x=>`<div class="plan-row"><span>${T('plan_by')} ${DUE_LBL[x.i]}</span><b>${fmt(x.add)} ${T('plan_more')}</b></div>`).join('');
+      if(r.saveNext>0) p+=`<div class="saver">💡 ${tpl(T('saver'),{amt:fmt(r.owe),date:DUE_LBL[r.nextIdx],sav:fmt(r.saveNext)})}</div>`;
+    } else if(r.nextIdx!==-1) p+=`<p class="hint">${T('plan_none')}</p>`;
+  }
+  $('plan').innerHTML=p; $('plan').style.display=p?'block':'none';
+}
 
-  // waterfall
+const DRV_COL={sal:'#4a6fa5',int:'#e79c08',rent:'#8a63c9',biz:'#2a9d8f',div:'#d0607a',oth:'#7f8c9f',cg:'#c2472c'};
+function renderDrivers(r){
+  const d=drivers(r.inp).filter(x=>x.v>0);
+  const tot=d.reduce((a,x)=>a+x.v,0);
+  if(!tot){$('drivers').innerHTML=`<p class="hint">${T('drv_none')}</p>`;return;}
+  let h=`<div class="stack" role="img" aria-label="Tax by income source">`+d.map(x=>`<div style="width:${(x.v/tot*100).toFixed(2)}%;background:${DRV_COL[x.k]}" title="${T('src_'+x.k)}"></div>`).join('')+`</div>`;
+  h+=d.map(x=>`<div class="drv"><i style="background:${DRV_COL[x.k]}"></i><span>${T('src_'+x.k)}<small>${Math.round(x.v/tot*100)}%</small></span><b>${fmt(x.v)}</b></div>`).join('');
+  if(r.credit>0) h+=`<div class="drv"><i style="background:var(--leaf)"></i><span>${T('drv_tds')}</span><b class="neg">− ${fmt(Math.min(r.credit,tot))}</b></div>`;
+  const gap=Math.max(0,tot-r.credit);
+  if(r.credit>0){
+    if(gap<=0) h+=`<div class="insight">${T('drv_ins_full')}</div>`;
+    else{
+      const nonSal=d.filter(x=>x.k!=='sal').sort((a,b)=>b.v-a.v);
+      const src=(nonSal[0]||d[0]);
+      h+=`<div class="insight">${tpl(T('drv_ins_cover'),{cov:fmt(Math.min(r.credit,tot)),tot:fmt(tot),gap:fmt(gap),src:T('src_'+src.k).toLowerCase()})}</div>`;
+    }
+  }
+  h+=`<p class="hint" style="margin-top:8px">${T('drv_layer')}</p>`;
+  $('drivers').innerHTML=h;
+}
+
+function renderRegime(r){
+  const i=r.inp;
+  if(r.full.totalIncome<=0){$('regimeBox').innerHTML=`<p class="hint">${T('drv_none')}</p>`;return;}
+  const tn=computeTax({...i,regime:'new'},4).total, to=computeTax({...i,regime:'old'},4).total;
+  const nn=Math.max(0,tn-r.credit), no=Math.max(0,to-r.credit);
+  const win=tn===to?'':(tn<to?'new':'old');
+  const box=(k,t,n)=>`<div class="rbox ${win===k?'win':''}">${win===k?`<span class="badge">${T('rg_better')}</span>`:''}<div class="rn">${T('rg_'+k)}${i.regime===k?' · '+T('rg_current'):''}</div><div class="rv">${fmt(t)}</div><div class="rs">${T('wf_net')}: ${fmt(n)}</div></div>`;
+  let h=`<div class="regime">${box('new',tn,nn)}${box('old',to,no)}</div>`;
+  h+=`<p class="rnote">${win?tpl(T('rg_save'),{r:T('rg_'+win),amt:fmt(Math.abs(tn-to))}):T('rg_same')}</p>`;
+  const deds=i.d80c+i.d80ccd1b+i.d80d+i.dHra+i.dSelfOcc+i.dOther;
+  if(!deds) h+=`<p class="rnote">${T('rg_nodeds')}</p>`;
+  $('regimeBox').innerHTML=h;
+}
+
+function renderInterest(r){
+  let ib='';
+  if(!r.applicable||(r.c234tot+r.c234ftot+r.b234)===0) ib=`<div class="int-row"><span class="chip-ok">${T('int_none')}</span></div>`;
+  else{
+    for(let i=0;i<4;i++){
+      if(!r.passed[i]||(r.presumptive&&i<3))continue;
+      const sh=(!r.presumptive&&i<2&&r.req[i]>r.cumPaid[i]&&r.c234[i]===0)?(' ✓ '+T('int_sh')):' ✓';
+      ib+=`<div class="int-row"><span>234C · ${DUE_LBL[i]}</span><b class="${r.c234[i]>0?'chip-bad':'chip-ok'}">${r.c234[i]>0?fmt(r.c234[i]):sh}</b></div>`;
+    }
+    if(r.c234ftot>0) ib+=`<div class="int-row proj"><span>${T('int_proj')}</span><b class="chip-bad">${fmt(r.c234ftot)}</b></div>`;
+    if(r.b234>0) ib+=`<div class="int-row proj"><span>${T('int_234b')} ${['','','','','Apr','May','Jun','Jul','Aug','Sep'][r.inp.payMonth]} 2027 (${r.bMonths}×1%)</span><b class="chip-bad">${fmt(r.b234)}</b></div>`;
+    ib+=`<div class="int-row" style="border-bottom:0"><span><b style="font-family:var(--body)">${T('int_total')}</b></span><b class="chip-bad">${fmt(r.c234tot+r.c234ftot+r.b234)}</b></div>`;
+    ib+=`<div class="int-note">${T('int_paid_note')}</div>`;
+  }
+  $('intBox').innerHTML=ib;
+}
+
+function renderWaterfall(r){
   const f=r.full;
-  let wf=`<tr class="sub"><td>${T('wf_ti')}</td><td>${fmt(f.totalTI)}</td></tr>
+  let wf=`<tr class="sub"><td>${T('wf_ti')}</td><td>${fmt(f.totalIncome)}</td></tr>
+  <tr class="sub"><td>${T('wf_gti')}</td><td>${fmt(f.normalTI)}</td></tr>
+  <tr class="head"><td colspan="2">${T('wf_h_tax')}</td></tr>
   <tr><td>${T('wf_normal')}</td><td>${fmt(f.normalTax)}</td></tr>`;
-  if(f.rebate>0)wf+=`<tr><td>${T('wf_rebate')}</td><td class="neg">− ${fmt(f.rebate)}</td></tr>`;
   if(f.stcgTax>0)wf+=`<tr><td>${T('wf_stcg')}</td><td>${fmt(f.stcgTax)}</td></tr>`;
   if(f.ltcgTax>0)wf+=`<tr><td>${T('wf_ltcg')}</td><td>${fmt(f.ltcgTax)}</td></tr>`;
-  if(f.surcharge>0)wf+=`<tr><td>${T('wf_sur')}</td><td>${fmt(f.surcharge)}</td></tr>`;
+  if(f.rebate>0)wf+=`<tr><td>${T('wf_rebate')} <button class="why" onclick="openFaq('q-rebate')" aria-label="Explain">?</button></td><td class="neg">− ${fmt(f.rebate)}</td></tr>`;
+  if(f.surcharge>0)wf+=`<tr><td>${T('wf_sur')} <button class="why" onclick="openFaq('q-surcharge')" aria-label="Explain">?</button></td><td>${fmt(f.surcharge)}</td></tr>`;
   wf+=`<tr><td>${T('wf_cess')}</td><td>${fmt(f.cess)}</td></tr>
-  <tr><td>${T('wf_total')}</td><td>${fmt(f.total)}</td></tr>`;
+  <tr><td><b>${T('wf_total')}</b></td><td><b>${fmt(f.total)}</b></td></tr>`;
   if(r.tds>0)wf+=`<tr><td>${T('wf_tds')}</td><td class="neg">− ${fmt(r.tds)}</td></tr>`;
   if(r.inp.tcs>0)wf+=`<tr><td>${T('wf_tcs')}</td><td class="neg">− ${fmt(r.inp.tcs)}</td></tr>`;
   wf+=`<tr class="tot"><td>${T('wf_net')}</td><td>${fmt(r.netFull)}</td></tr>`;
   $('wfTable').innerHTML=wf;
-
-  // interest
-  let ib='';
-  if(!r.applicable||(r.c234tot===0&&r.b234===0)) ib=`<div class="int-row"><span class="chip-ok">${T('int_none')}</span></div>`;
-  else{
-    for(let i=0;i<4;i++){
-      if(r.c234[i]===null)continue;
-      const lbl=`234C · ${DUE_LBL[i]}`;
-      const okTxt=(i<2&&r.req[i]>r.cumPaid[i])?('✓ '+T('int_sh')):'✓';
-      ib+=`<div class="int-row"><span>${lbl}</span><b class="${r.c234[i]>0?'chip-bad':'chip-ok'}">${r.c234[i]>0?fmt(r.c234[i]):okTxt}</b></div>`;
-    }
-    if(r.c234tot>0)ib+=`<div class="int-row"><span><b>${T('int_234c')}</b></span><b class="chip-bad">${fmt(r.c234tot)}</b></div>`;
-    if(r.b234>0)ib+=`<div class="int-row"><span>${T('int_234b')} ${['','','','','Apr','May','Jun','Jul','Aug','Sep'][r.inp.payMonth]} 2027)</span><b class="chip-bad">${fmt(r.b234)}</b></div>`;
-    ib+=`<div class="int-note">${T('int_paid_note')}</div>`;
-  }
-  $('intBox').innerHTML=ib;
-
-  buildCard(r);
 }
 
-/* ================= share card ================= */
+/* ================= share / calendar ================= */
 function buildCard(r){
-  const sq=[0,1,2,3].map(i=>{
-    if(!r.applicable)return '⬜';
-    const st=statusOf(r,i);
-    return st==='paid'?'🟩':st==='short'?'🟥':st==='due'?'🟨':'⬜';
-  }).join('');
-  const firstFuture=DUE.findIndex(d=>new Date()<d);
-  let next='';
-  if(r.applicable&&firstFuture!==-1){
-    const owe=Math.max(0,r.req[firstFuture]-(r.cumPaid[firstFuture]||0));
-    if(owe>0)next=`\nNext: ${fmt(owe)} by ${DUE_LBL[firstFuture]}`;
-  }
-  $('shareCard').textContent=`MunVari · Advance Tax FY 2026-27\n${sq}  ${r.applicable?Math.round(Math.min(1,(r.cumPaid[3]/Math.max(1,r.netFull)))*100)+'% paid':'N/A'}${next}${r.c234tot+r.b234>0?`\nInterest at risk: ${fmt(r.c234tot+r.b234)}`:''}\nbabubl.github.io/munvari`;
+  r=r||calc();
+  const sq=[0,1,2,3].map(i=>{ if(!r.applicable)return '⬜'; const st=statusOf(r,i); return st==='paid'?'🟩':st==='short'?'🟥':st==='due'?'🟨':'⬜'; }).join('');
+  let lines=[`MunVari · Advance Tax FY 2026-27`,`${sq}  ${r.applicable?Math.round(Math.min(1,r.paidTotal/Math.max(1,r.netFull))*100)+'% paid':'Not applicable ✅'}`];
+  if(r.applicable&&r.nextIdx!==-1&&r.owe>0) lines.push(`Next: ${fmt(r.owe)} by ${DUE_LBL[r.nextIdx]}`);
+  const risk=r.c234tot+r.c234ftot+r.b234; if(r.applicable&&risk>0) lines.push(`Interest at risk: ${fmt(risk)}`);
+  lines.push(`Check yours in 60s → babubl.github.io/munvari`);
+  $('shareCard').textContent=lines.join('\n');
 }
-function toggleCard(){const c=$('shareCard');c.style.display=c.style.display==='block'?'none':'block';}
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),1800);}
 function copyCard(){
-  navigator.clipboard.writeText($('shareCard').textContent).then(()=>{
-    const b=$('btnCopy');const o=b.textContent;b.textContent=T('copied');setTimeout(()=>b.textContent=T(LANG==='en'?'b_copy':'b_copy'),1400);
-  });
+  const txt=$('shareCard').textContent;
+  const done=()=>toast(T('copied'));
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done,()=>fallbackCopy(txt,done));
+  else fallbackCopy(txt,done);
+}
+function fallbackCopy(txt,cb){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');cb();}catch(e){}ta.remove();}
+function downloadIcs(){
+  const r=calc(); const pad=n=>String(n).padStart(2,'0');
+  const ymd=d=>d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const esc=s=>s.replace(/[,;\\]/g,m=>'\\'+m);
+  let ev='';
+  for(let i=0;i<4;i++){
+    if(r.passed[i])continue;
+    const p=r.plan.find(x=>x.i===i);
+    const amt=r.applicable&&p?p.add:0;
+    const d=DUE[i], d2=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+    const sum=amt>0?`Advance tax: pay ${fmt(amt).replace('₹','Rs ')} (${PCT[i]*100}% cumulative)`:`Advance tax due date (${PCT[i]*100}% cumulative)`;
+    ev+=`BEGIN:VEVENT\r\nUID:munvari-fy2627-q${i+1}@babubl.github.io\r\nDTSTAMP:${stamp}\r\nDTSTART;VALUE=DATE:${ymd(d)}\r\nDTEND;VALUE=DATE:${ymd(d2)}\r\nSUMMARY:${esc(sum)}\r\nDESCRIPTION:${esc('incometax.gov.in > e-Pay Tax > Income Tax > AY 2027-28 > Advance Tax (100). Re-check your estimate: https://babubl.github.io/munvari/')}\r\nBEGIN:VALARM\r\nTRIGGER:-P3D\r\nACTION:DISPLAY\r\nDESCRIPTION:${esc(sum)}\r\nEND:VALARM\r\nEND:VEVENT\r\n`;
+  }
+  if(!ev){toast(T('cd_over'));return;}
+  const ics=`BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//MunVari//Advance Tax//EN\r\nCALSCALE:GREGORIAN\r\n${ev}END:VCALENDAR\r\n`;
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='munvari-advance-tax-2026-27.ics';
+  document.body.appendChild(a); a.click(); setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500); toast(T('ics_ok'));
 }
 
-/* ================= FAQ + lang + init ================= */
+/* ================= FAQ + language ================= */
 function buildFaq(){
-  $('faqList').innerHTML=FAQ.map(q=>{
-    const[qq,aa]=LANG==='ta'?q.ta:q.en;
-    return `<details class="qa" id="${q.id}"><summary>${qq}</summary><div class="a">${aa}</div></details>`;
-  }).join('');
+  $('faqList').innerHTML=FAQ.map(q=>{const[qq,aa]=LANG==='ta'?q.ta:q.en;return `<details class="qa" id="${q.id}"><summary>${qq}</summary><div class="a">${aa}</div></details>`;}).join('');
+  $('faqSub').textContent=tpl(T('faq_sub'),{n:FAQ.length});
+  let ld=document.getElementById('faqld'); if(!ld){ld=document.createElement('script');ld.type='application/ld+json';ld.id='faqld';document.head.appendChild(ld);}
+  ld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(q=>({"@type":"Question","name":q.en[0],"acceptedAnswer":{"@type":"Answer","text":q.en[1]}}))});
 }
 function openFaq(id){const el=$(id);if(!el)return;el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});}
 function setLang(l){
-  LANG=l;
-  $('lang-en').classList.toggle('on',l==='en');
-  $('lang-ta').classList.toggle('on',l==='ta');
-  document.querySelectorAll('[data-i]').forEach(el=>{
-    const k=el.getAttribute('data-i');const v=I18N[l][k];if(v===undefined)return;
-    if(el.children.length===0){el.textContent=v;return;}
-    for(const n of el.childNodes){if(n.nodeType===3&&n.textContent.trim()){n.textContent=v+' ';return;}}
-    el.insertBefore(document.createTextNode(v+' '),el.firstChild);
-  });
-  fillQuarterSelects(); buildFaq(); syncBiz(); 
-  if(typeof fillWizCgq==='function'){fillWizCgq();$('wNext').textContent=WSTEP===WLAST?T('w_see'):T('w_next');if(WSTEP===3)buildPaidFields();}
-  render();
+  LANG=l; document.documentElement.lang=l==='ta'?'ta-Latn':'en';
+  ['en','ta'].forEach(x=>{const b=$('lang-'+x);b.classList.toggle('on',x===l);b.setAttribute('aria-pressed',x===l);});
+  document.querySelectorAll('[data-i]').forEach(el=>{const v=I18N[l][el.getAttribute('data-i')];if(v!==undefined)el.textContent=v;});
+  try{localStorage.setItem('munvari.lang',l);}catch(e){}
+  fillQuarterSelects(); buildFaq(); syncDed(); renderCountdown(); wizUi(); if(WSTEP===3)buildPaidFields(); render();
 }
 function fillQuarterSelects(){
   document.querySelectorAll('.qsel').forEach(s=>{
@@ -880,128 +1235,153 @@ function fillQuarterSelects(){
     s.value=cur;
   });
 }
-function syncBiz(){
+function syncBiz(setPct){
   const t=$('bizType').value;
   $('bizFields').style.display=t==='none'?'none':'grid';
   $('f-receipts').style.display=t==='reg'?'none':'flex';
   $('f-deemed').style.display=t==='reg'?'none':'flex';
   $('f-profit').style.display=t==='reg'?'flex':'none';
-  if(t==='44ada')$('bizPct').value=50;
-  if(t==='44ad')$('bizPct').value=8;
+  if(setPct){ if(t==='44ada')$('bizPct').value=50; if(t==='44ad')$('bizPct').value=8; }
 }
-function syncDed(){
-  const old=$('regime').value==='old';
-  $('dedFields').style.display=old?'grid':'none';
-  $('dedHint').textContent=old?T('h_dedold'):T('h_dednew');
+function syncDed(){ $('dedHint').textContent=$('regime').value==='old'?T('h_dedold'):T('h_dednew'); }
+
+/* lakh / crore helper under money inputs */
+function initMoney(){
+  document.querySelectorAll('input.money').forEach(inp=>{
+    if(inp._amt)return;
+    const sp=document.createElement('span'); sp.className='amtw'; sp.setAttribute('aria-hidden','true');
+    inp.closest('.inwrap').after(sp); inp._amt=sp; updAmt(inp);
+  });
 }
-function onEdit(e){if(e.target.matches('input,select')){if(e.target.id==='bizType')syncBiz();if(e.target.id==='regime')syncDed();render();}}
+function updAmt(inp){ if(inp._amt){const n=Number(inp.value)||0; inp._amt.textContent=n>=1000?words(n):'';} }
+
+function onEdit(e){
+  const t=e.target; if(!t.matches||!t.matches('input,select'))return;
+  if(t.classList.contains('money'))updAmt(t);
+  if(t.closest('#wiz'))return;
+  if(t.id==='bizType')syncBiz(true);
+  if(t.id==='regime')syncDed();
+  if(t.id==='remember'){ if(!t.checked){try{localStorage.removeItem('munvari.v2');}catch(e){}} }
+  render();
+}
 document.addEventListener('input',onEdit);
 document.addEventListener('change',onEdit);
-/* ================= wizard ================= */
-Object.assign(I18N.en,{
-  w_t0:"Let's start simple", w_s0:"Two quick settings. Everything else adapts to you.",
-  w_t1:"Salary", w_s1:"Projected for the full year Apr 2026 – Mar 2027. No salary? Leave blank and continue.",
-  w_t2:"What else do you earn?", w_s2:"Tap everything that applies — only those get a field. This is what usually triggers advance tax.",
-  w_t3:"Advance tax already paid", w_s3:"Only challans paid as Advance Tax (100). Leave blank if none.",
-  c_int:"FD / interest", c_cg:"Capital gains", c_rent:"Rent", c_biz:"Freelance / business", c_div:"Dividends",
-  w_int:"Total interest for the year (FD + RD + savings)",
-  w_stcg:"Equity gains — held under 1 year (STCG)", w_ltcg:"Equity gains — held over 1 year (LTCG)",
-  w_ltcgot:"Other gains — US stocks / property / gold (long-term)", w_cgq:"Sold (or planning to sell) mostly in",
-  w_biztype:"Type of work", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
-  w_otds:"TDS already deducted on the above (if any)",
-  w_back:"Back", w_next:"Next", w_see:"See my estimate →", w_skip:"Skip — take me to the detailed form",
-  w_reopen:"← Quick wizard", w_refine:"Detailed mode — refine the estimate with NPS, deductions, TDS splits and more.",
-  w_paid_by:"Paid by", w_paid_since:"Paid since"
-});
-Object.assign(I18N.ta,{
-  w_t0:"Simple-a start pannalaam", w_s0:"Rendu quick settings dhaan. Meedhi ellam ungalukku etha maarum.",
-  w_t1:"Sambalam", w_s1:"Full year Apr 2026 – Mar 2027 projection. Sambalam illa-na blank vittu continue pannunga.",
-  w_t2:"Vera enna sambadhikkireenga?", w_s2:"Edhu apply aagudho adha tap pannunga — adhukku mattum field varum. Advance tax-a trigger pannuradhu idhu dhaan.",
-  w_t3:"Already katina advance tax", w_s3:"Advance Tax (100)-a katina challans mattum. Illa-na blank vidunga.",
-  c_int:"FD / vatti", c_cg:"Capital gains", c_rent:"Vaadagai", c_biz:"Freelance / business", c_div:"Dividends",
-  w_int:"Varusha motha vatti (FD + RD + savings)",
-  w_stcg:"Equity gains — 1 varusham-ku keezha (STCG)", w_ltcg:"Equity gains — 1 varusham mela (LTCG)",
-  w_ltcgot:"Vera gains — US stocks / property / gold (long-term)", w_cgq:"Eppo vithheenga (illa vikka plan)?",
-  w_biztype:"Enna maadhiri velai", w_prof:"Profession / freelance (44ADA)", w_trade:"Trading / small business (44AD)",
-  w_otds:"Idhu mela already pidicha TDS (irundha)",
-  w_back:"Back", w_next:"Next", w_see:"En estimate paaru →", w_skip:"Skip — direct-a detailed form-ku po",
-  w_reopen:"← Quick wizard", w_refine:"Detailed mode — NPS, deductions, TDS splits ellam vachu estimate-a refine pannalaam.",
-  w_paid_by:"Ithukkulla katinadhu:", w_paid_since:"Idhukku apparam katinadhu:"
-});
 
+/* ================= persistence (local only, opt-in) ================= */
+const PERSIST=['regime','age','resident','payMonth','salary','empNps','tdsSalary','fdInt','savInt','tdsInt','rent','muniTax','rentLoanInt','tdsRent','stcgEq','stcgEqQ','ltcgEq','ltcgEqQ','stcgOt','stcgOtQ','ltcgOt','ltcgOtQ','divAmt','divQ','tdsDiv','bizType','bizReceipts','bizPct','bizProfit','tdsBiz','otherInc','tcs','d80c','d80ccd1b','d80d','dHra','dSelfOcc','dOther','paid1','paid2','paid3','paid4'];
+function saveState(){
+  if(!$('remember').checked)return;
+  const o={}; PERSIST.forEach(id=>o[id]=$(id).value);
+  try{localStorage.setItem('munvari.v2',JSON.stringify(o));}catch(e){}
+}
+function loadState(){
+  let o=null; try{o=JSON.parse(localStorage.getItem('munvari.v2')||'null');}catch(e){}
+  if(!o)return false;
+  PERSIST.forEach(id=>{if(o[id]!==undefined)$(id).value=o[id];});
+  $('remember').checked=true; syncBiz(false); syncDed(); return true;
+}
+function clearAll(){
+  PERSIST.forEach(id=>{const el=$(id); if(el.tagName==='SELECT'){el.selectedIndex=0;} else el.value='';});
+  $('payMonth').value='7'; $('bizPct').value='50'; fillQuarterSelects();
+  document.querySelectorAll('#wiz input[type=number]').forEach(i=>i.value='');
+  document.querySelectorAll('.chip').forEach(c=>{c.setAttribute('aria-pressed','false');$('box-'+c.dataset.chip).classList.remove('on');});
+  try{localStorage.removeItem('munvari.v2');}catch(e){}
+  syncBiz(false); syncDed(); document.querySelectorAll('input.money').forEach(updAmt); render(); toast(T('cleared'));
+}
+
+/* ================= theme ================= */
+function toggleTheme(){
+  const cur=document.documentElement.getAttribute('data-theme');
+  const dark=cur?cur==='dark':matchMedia('(prefers-color-scheme: dark)').matches;
+  const nx=dark?'light':'dark'; document.documentElement.setAttribute('data-theme',nx);
+  try{localStorage.setItem('munvari.theme',nx);}catch(e){}
+}
+try{const th=localStorage.getItem('munvari.theme');if(th)document.documentElement.setAttribute('data-theme',th);}catch(e){}
+
+/* ================= wizard ================= */
 let WSTEP=0; const WLAST=3;
-function wizDots(){
-  $('wizDots').innerHTML=[0,1,2,3].map(i=>`<span class="${i<WSTEP?'done':i===WSTEP?'on':''}"></span>`).join('');
+function wizUi(){
+  $('wizCount').textContent=`${T('w_step')} ${WSTEP+1} ${T('w_of')} 4`;
+  $('wizBar').style.width=((WSTEP+1)/4*100)+'%';
+  $('wBack').style.visibility=WSTEP===0?'hidden':'visible';
+  $('wNext').textContent=WSTEP===WLAST?T('w_see'):T('w_next');
 }
 function wizGo(d){
   const steps=document.querySelectorAll('.wstep');
   if(WSTEP+d<0)return;
   if(WSTEP+d>WLAST){finishWizard(false);return;}
   steps[WSTEP].classList.remove('on'); WSTEP+=d; steps[WSTEP].classList.add('on');
-  $('wBack').style.visibility=WSTEP===0?'hidden':'visible';
-  $('wNext').textContent=WSTEP===WLAST?T('w_see'):T('w_next');
   if(WSTEP===3)buildPaidFields();
-  wizDots();
+  wizUi();
+  const f=steps[WSTEP].querySelector('input:not([type=hidden]),select,button'); if(f&&d>0)f.focus({preventScroll:true});
 }
-document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
-  c.classList.toggle('on');
-  const box=$('box-'+c.dataset.chip); box.classList.toggle('on',c.classList.contains('on'));
-  if(!c.classList.contains('on'))box.querySelectorAll('input').forEach(i=>i.value='');
-  const anyTds=['cint','ccg','crent','cbiz','cdiv'].some(k=>document.querySelector(`[data-chip=${k}]`).classList.contains('on'));
-  $('w_otdsWrap').style.display=anyTds?'flex':'none';
+document.querySelectorAll('.segpick').forEach(g=>g.addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  g.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  $(g.dataset.pick).value=b.dataset.v;
 }));
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  const on=c.getAttribute('aria-pressed')!=='true'; c.setAttribute('aria-pressed',on);
+  const box=$('box-'+c.dataset.chip); box.classList.toggle('on',on);
+  if(!on)box.querySelectorAll('input').forEach(i=>{i.value='';updAmt(i);});
+  else{const f=box.querySelector('input,select'); if(f)f.focus();}
+  const any=[...document.querySelectorAll('.chip')].some(x=>x.getAttribute('aria-pressed')==='true' && x.dataset.chip!=='ccg');
+  $('w_otdsWrap').style.display=any?'flex':'none';
+}));
+$('wiz').addEventListener('keydown',e=>{ if(e.key==='Enter'&&e.target.matches('input')){e.preventDefault();wizGo(1);} });
 function buildPaidFields(){
-  const today=new Date(); let k=DUE.filter(d=>today>=d).length; // installment dates passed
-  let html='';
-  const lbls=[T('w_paid_by')+' 15 Jun 2026',T('w_paid_by')+' 15 Sep 2026',T('w_paid_by')+' 15 Dec 2026',T('w_paid_by')+' 15 Mar 2027'];
-  const n=Math.min(4,k+1);
+  const today=NOW(); const k=DUE.filter(d=>today>d).length; // installment dates passed
+  const keep=[0,1,2,3].map(i=>{const el=$('w_paid'+i);return el?el.value:'';});
+  const n=Math.min(4,k+1); let html='';
   for(let i=0;i<n;i++){
-    const lbl=(i===k&&k<4)?(k===0?lbls[0]:T('w_paid_since')+' 16 '+['Jun','Sep','Dec'][k-1]+' 2026'):lbls[i];
-    html+=`<div class="f"><label>${lbl}</label><input type="number" id="w_paid${i}" min="0" placeholder="0"></div>`;
+    let lbl;
+    if(i===0) lbl=`${T('w_paid_by')} 15 Jun 2026`;
+    else if(i<k) lbl=`${T('w_paid_btw')} 16 ${['Jun','Sep','Dec'][i-1]} – ${DUE_LBL[i]}`;
+    else lbl=`${T('w_paid_since')} 16 ${['Jun','Sep','Dec'][i-1]} 2026`;
+    html+=`<div class="f"><label for="w_paid${i}">${lbl}</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="w_paid${i}" min="0" placeholder="0" value="${keep[i]}"></div></div>`;
   }
-  $('w_paidFields').innerHTML=html;
-}
-function fillWizCgq(){
-  const s=$('w_cgq'); const cur=s.value||'even';
-  s.innerHTML=`<option value="even">${T('q_even')}</option><option value="1">${T('q1')}</option><option value="2">${T('q2')}</option><option value="3">${T('q3')}</option><option value="4">${T('q4')}</option>`;
-  s.value=cur;
+  $('w_paidFields').innerHTML=html; initMoney();
 }
 function syncWizard(){
-  const wv=id=>{const el=$(id);return el?Math.max(0,Number(el.value)||0):0;};
-  $('regime').value=$('w_regime').value; $('age').value=$('w_age').value;
-  $('salary').value=$('w_salary').value; $('tdsSalary').value=$('w_tdsSalary').value;
-  const on=k=>document.querySelector(`[data-chip=${k}]`).classList.contains('on');
-  $('fdInt').value=on('cint')?$('w_int').value:'';
+  const wv=id=>{const el=$(id);return el?el.value:'';};
+  $('regime').value=wv('w_regime'); $('age').value=wv('w_age');
+  $('salary').value=wv('w_salary'); $('tdsSalary').value=wv('w_tdsSalary');
+  const on=k=>document.querySelector(`[data-chip=${k}]`).getAttribute('aria-pressed')==='true';
+  $('fdInt').value=on('cint')?wv('w_int'):''; $('savInt').value='';
   if(on('ccg')){
-    $('stcgEq').value=$('w_stcg').value; $('ltcgEq').value=$('w_ltcg').value; $('ltcgOt').value=$('w_ltcgot').value;
-    const q=$('w_cgq').value; $('stcgEqQ').value=q; $('ltcgEqQ').value=q; $('ltcgOtQ').value=q;
-  } else {$('stcgEq').value='';$('ltcgEq').value='';$('ltcgOt').value='';}
-  $('rent').value=on('crent')?$('w_rent').value:'';
-  if(on('cbiz')){ $('bizType').value=$('w_biztype').value; $('bizReceipts').value=$('w_receipts').value; }
-  else $('bizType').value='none';
-  syncBiz();
-  if(on('cbiz'))$('bizPct').value=$('w_biztype').value==='44ada'?50:8;
-  $('divAmt').value=on('cdiv')?$('w_div').value:'';
-  $('tdsInt').value=wv('w_otds')||'';
-  for(let i=0;i<4;i++){const el=$('w_paid'+i);if(el)$('paid'+(i+1)).value=el.value;}
+    $('stcgEq').value=wv('w_stcg'); $('ltcgEq').value=wv('w_ltcg'); $('ltcgOt').value=wv('w_ltcgot');
+    const q=wv('w_cgq'); ['stcgEqQ','ltcgEqQ','ltcgOtQ'].forEach(id=>$(id).value=q);
+  } else {['stcgEq','ltcgEq','ltcgOt'].forEach(id=>$(id).value='');}
+  $('rent').value=on('crent')?wv('w_rent'):'';
+  if(on('cbiz')){ $('bizType').value=wv('w_biztype'); $('bizReceipts').value=wv('w_receipts'); syncBiz(true); }
+  else { $('bizType').value='none'; syncBiz(false); }
+  $('divAmt').value=on('cdiv')?wv('w_div'):'';
+  $('tdsInt').value=wv('w_otds');
+  for(let i=0;i<4;i++){$('paid'+(i+1)).value=wv('w_paid'+i);}
+  syncDed();
 }
 function finishWizard(skip){
   if(!skip)syncWizard();
-  $('wiz').hidden=true;
-  document.querySelector('main').hidden=false;
-  if(!skip){document.querySelectorAll('details.sec').forEach(dd=>dd.open=false);
-    render();
-    const res=document.querySelector('.results');
-    if(res.scrollIntoView)res.scrollIntoView({behavior:'smooth'});}
-  else render();
+  $('wiz').hidden=true; $('app').hidden=false;
+  if(!skip) document.querySelectorAll('details.sec').forEach(dd=>dd.open=false);
+  document.querySelectorAll('input.money').forEach(updAmt);
+  render();
+  const target=window.matchMedia('(max-width:900px)').matches?$('results'):$('app');
+  target.scrollIntoView({behavior:'smooth',block:'start'});
 }
-function reopenWizard(){
-  document.querySelector('main').hidden=true;
-  $('wiz').hidden=false;
-}
-fillQuarterSelects(); buildFaq(); syncDed(); syncBiz(); render();
-fillWizCgq(); wizDots(); $('wBack').style.visibility='hidden';
+function reopenWizard(){ $('app').hidden=true; $('wiz').hidden=false; $('wiz').scrollIntoView({behavior:'smooth'}); }
 
+/* mobile sticky bar: show when verdict is off-screen */
+let MBAR_READY=false, VERDICT_VISIBLE=true;
+function updMbar(){ $('mbar').classList.toggle('on',MBAR_READY&&!VERDICT_VISIBLE&&!$('app').hidden); }
+if('IntersectionObserver' in window){ new IntersectionObserver(es=>{VERDICT_VISIBLE=es[0].isIntersecting;updMbar();}).observe($('verdict')); }
+
+/* ================= init ================= */
+fillQuarterSelects(); initMoney(); syncBiz(false); syncDed();
+const hadState=loadState();
+if(hadState) $('welcome').classList.add('on');
+let savedLang='en'; try{savedLang=localStorage.getItem('munvari.lang')||'en';}catch(e){}
+setLang(savedLang==='ta'?'ta':'en');
 </script>
 </body>
 </html>
