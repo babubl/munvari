@@ -80,6 +80,98 @@ header.topbar{background:color-mix(in srgb,var(--page) 88%,transparent)}
   .seg button{padding:0 9px;font-size:13px;height:34px}
   .iconbtn{width:36px;height:34px}
 }
+/* ---------- site navigation ---------- */
+.navlinks{display:flex;gap:2px;margin-left:auto;margin-right:8px}
+.navlinks a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:500;padding:0 12px;height:36px;display:inline-flex;align-items:center;border-radius:var(--btn-radius)}
+.navlinks a:hover{background:var(--paper)}
+.navlinks a[aria-current="page"]{background:var(--paper)}
+@media(max-width:700px){
+  .nav{flex-wrap:wrap;height:auto;padding-top:8px}
+  .nav .logo{flex:1}
+  .navlinks{order:3;width:100%;margin:0 0 6px;overflow-x:auto;scrollbar-width:none;gap:4px}
+  .navlinks::-webkit-scrollbar{display:none}
+  .navlinks a{padding:0 12px;height:34px;flex:0 0 auto}
+}
+.is-app .navlinks a[href="./"]::after{content:""}
+
+/* ---------- content pages (learn, law, ask) ---------- */
+.page{max-width:880px;margin:0 auto;padding:40px 16px 72px}
+.page-hero h1{font-size:clamp(32px,6vw,52px);font-weight:500;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+.page-hero p{color:var(--ink-2);font-size:clamp(16px,2vw,18px);margin-top:12px;max-width:40em;text-wrap:pretty}
+.stats{display:flex;flex-wrap:wrap;gap:24px 36px;margin:28px 0 8px}
+.stat b{display:block;font-size:30px;font-weight:500;letter-spacing:-.02em}
+.stat span{font-size:14px;color:var(--ink-soft)}
+@media(max-width:560px){.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 12px;margin:22px 0 0}.stat b{font-size:24px}.stat span{font-size:12.5px;display:block;line-height:1.35}}
+.msg.bot table+p{margin-top:10px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 8px}
+.toc a{font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;background:var(--paper);border-radius:999px;padding:8px 14px}
+.toc a:hover{background:var(--line-2)}
+.block{padding-top:48px;scroll-margin-top:72px}
+.block>h2{font-size:clamp(24px,3.4vw,32px);font-weight:500;letter-spacing:-.015em;margin-bottom:8px}
+.block>p,.block li{color:var(--ink-2);font-size:16px;line-height:1.65;max-width:42em}
+.block>p+p{margin-top:12px}
+.block ul.plain{padding-left:20px;display:grid;gap:8px;margin-top:12px}
+.block h3{font-size:18px;font-weight:600;margin:24px 0 6px}
+.law-chip{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:500;color:var(--blue-ink);background:var(--blue-soft);border-radius:999px;padding:3px 10px;text-decoration:none;margin:2px 4px 2px 0;white-space:nowrap}
+.law-chip:hover{text-decoration:underline}
+.tbl{width:100%;border-collapse:collapse;font-size:15px;margin-top:12px}
+.tbl th,.tbl td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line-2);vertical-align:top}
+.tbl th{font-size:14px;font-weight:600;color:var(--ink-soft)}
+.tbl td.num{text-align:right;white-space:nowrap}
+.tblwrap{overflow-x:auto}
+.callout{background:var(--paper);border-radius:var(--radius);padding:14px 16px;margin-top:16px;font-size:15px;color:var(--ink-2)}
+.callout a{font-weight:500;color:var(--blue-ink)}
+
+/* law library */
+.lib-tools{position:sticky;top:56px;z-index:5;background:var(--page);padding:16px 0 10px;margin-top:24px;border-bottom:1px solid var(--line-2)}
+@media(max-width:700px){.lib-tools{top:94px}}
+.lib-search{width:100%;height:48px;border:1px solid var(--line);border-radius:var(--btn-radius);padding:0 14px;background:var(--card);font-size:16px}
+.lib-search:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.tabs{display:flex;gap:4px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+.tabs button{border:0;background:transparent;height:38px;padding:0 14px;border-radius:var(--btn-radius);font-size:15px;font-weight:500;flex:0 0 auto}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--page)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.filters button{border:1px solid var(--line);background:var(--card);border-radius:999px;height:34px;padding:0 12px;font-size:14px}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--page)}
+.entries{margin-top:8px}
+.entry{display:grid;grid-template-columns:92px 1fr;gap:4px 16px;padding:18px 2px;border-bottom:1px solid var(--line-2);scroll-margin-top:200px}
+.entry:target{background:var(--blue-soft);border-radius:var(--radius);padding-left:10px;padding-right:10px}
+.entry .no{font-size:20px;font-weight:500;letter-spacing:-.01em}
+.entry .no small{display:block;font-size:13px;font-weight:400;color:var(--ink-soft);margin-top:2px}
+.entry h3{font-size:17px;font-weight:600;margin:0}
+.entry p{color:var(--ink-2);font-size:15px;margin-top:4px;line-height:1.6}
+.entry .meta{font-size:13px;color:var(--ink-soft);margin-top:6px}
+.entry .ask{font-size:14px;margin-top:6px;display:inline-block}
+@media(max-width:520px){.entry{grid-template-columns:1fr}.entry .no small{display:inline;margin-left:8px}}
+.empty{padding:32px 0;color:var(--ink-soft);text-align:center}
+
+/* chat */
+.chat{display:flex;flex-direction:column;min-height:calc(100vh - 56px);max-width:760px;margin:0 auto;padding:24px 16px 0}
+.chat-head h1{font-size:clamp(28px,5vw,40px);font-weight:500;letter-spacing:-.02em}
+.chat-head p{color:var(--ink-2);margin-top:8px;font-size:16px}
+.chat-log{flex:1;padding:16px 0 24px;display:grid;gap:16px;align-content:start}
+.msg{max-width:100%;font-size:16px;line-height:1.65}
+.msg.user{justify-self:end;background:var(--paper);border-radius:14px 14px 4px 14px;padding:10px 14px;max-width:85%}
+.msg.bot{color:var(--ink)}
+.msg.bot p+p,.msg.bot ul,.msg.bot ol,.msg.bot p+ul{margin-top:10px}
+.msg.bot ul,.msg.bot ol{padding-left:22px;display:grid;gap:4px}
+.msg.bot h4{font-size:16px;font-weight:600;margin-top:14px}
+.msg.bot code{font-family:ui-monospace,monospace;font-size:14px;background:var(--paper);padding:1px 5px;border-radius:4px}
+.msg.bot table{border-collapse:collapse;margin-top:10px;font-size:15px}
+.msg.bot td,.msg.bot th{border-bottom:1px solid var(--line-2);padding:6px 8px;text-align:left}
+.msg.err{color:var(--bad);font-size:15px}
+.typing{color:var(--ink-soft);font-size:15px}
+.starters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+@media(max-width:560px){.starters{grid-template-columns:1fr}}
+.starters button{text-align:left;border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:12px 14px;font-size:15px;min-height:52px;color:var(--ink)}
+.starters button:hover{border-color:var(--ink-soft)}
+.composer{position:sticky;bottom:0;background:var(--page);padding:12px 0 max(16px,env(safe-area-inset-bottom));border-top:1px solid var(--line-2)}
+.composer form{display:flex;gap:8px;align-items:flex-end}
+.composer textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-family:inherit;font-size:16px;min-height:48px;max-height:180px;background:var(--card);color:var(--ink);line-height:1.4}
+.composer textarea:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.composer .row2{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:8px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap}
+.composer select{border:1px solid var(--line);border-radius:var(--btn-radius);height:32px;padding:0 8px;background:var(--card);font-size:13px;color:var(--ink)}
+
 /* ---------- hero: the deadline is the headline ---------- */
 .hero{max-width:880px;margin:0 auto;padding:clamp(40px,9vh,96px) 20px 56px;text-align:center}
 .hero h1{text-wrap:balance;font-weight:500;font-size:clamp(32px,6vw,58px);line-height:1.1;letter-spacing:-.02em;color:var(--ink)}

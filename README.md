@@ -9,6 +9,9 @@ Free advance tax calculator for India (FY 2026-27). Tells you what to pay by the
 
 ```
 index.html                      calculator page
+learn.html                      tax essentials for individuals
+law.html                        law library: chapters, key sections, schedules, forms
+ask.html                        tax Q&A chatbot (Puter.js; users sign in to Puter)
 sources.html                    official sources, section map, simplifications, changelog
 privacy.html, terms.html        privacy policy and terms (needed for Play Store)
 REVIEW.md                       worked examples for a CA to verify and sign off
@@ -17,6 +20,8 @@ assets/js/rules-fy2026-27.js    every tax rate, limit and due date for the year
 assets/js/engine.js             tax engine: pure functions, no DOM
 assets/js/i18n.js               interface strings and FAQ
 assets/js/app.js                UI
+assets/js/law-data.js           law library data (also grounds the chatbot)
+assets/js/law.js, ask.js        library and chatbot scripts; site.js shared theme/text size
 assets/fonts/                   self-hosted Roboto (Apache 2.0)
 assets/icons/                   web icons, favicon, social image
 manifest.webmanifest, sw.js     installable web app + offline support
