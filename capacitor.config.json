@@ -1,0 +1,10 @@
+{
+  "appId": "com.babubl.munvari",
+  "appName": "MunVari",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#FFFFFF",
+    "allowMixedContent": false,
+    "captureInput": true
+  }
+}

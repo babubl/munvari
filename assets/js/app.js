@@ -1,5 +1,8 @@
 /* MunVari — UI. Depends on rules-fy2026-27.js, engine.js and i18n.js (loaded first). */
-const SITE_URL=(location.origin+location.pathname).replace(/index\.html$/,'');
+const IS_APP=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+if(IS_APP)document.documentElement.classList.add('is-app');
+/* Public address of the site: taken from the canonical link so the app and the web share one URL. */
+const SITE_URL=(document.querySelector('link[rel=canonical]')||{}).href||(location.origin+location.pathname).replace(/index\.html$/,'');
 const SITE_SHORT=SITE_URL.replace(/^https?:\/\//,'').replace(/\/$/,'');
 /* ================= helpers ================= */
 let LANG='en';
@@ -220,7 +223,7 @@ function buildCard(r){
   let lines=[`MunVari · Advance Tax FY 2026-27`,`${sq}  ${r.applicable?Math.round(Math.min(1,r.paidTotal/Math.max(1,r.netFull))*100)+'% paid':'Not applicable ✅'}`];
   if(r.applicable&&r.nextIdx!==-1&&r.owe>0) lines.push(`Next: ${fmt(r.owe)} by ${DUE_LBL[r.nextIdx]}`);
   const risk=r.c234tot+r.c234ftot+r.b234; if(r.applicable&&risk>0) lines.push(`Interest at risk: ${fmt(risk)}`);
-  lines.push(`Check yours in 60s → ${SITE_SHORT}`);
+  lines.push(`Check yours in 60 seconds: ${SITE_SHORT}`);
   $('shareCard').textContent=lines.join('\n');
 }
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('on'),1800);}
@@ -231,8 +234,18 @@ function copyCard(){
   else fallbackCopy(txt,done);
 }
 function fallbackCopy(txt,cb){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');cb();}catch(e){}ta.remove();}
+/* In the Android app, file downloads don't reach the calendar, so open Google Calendar with the next installment instead. */
+function appReminder(r){
+  const pad=n=>String(n).padStart(2,'0'), ymd=d=>d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  const i=r.passed.indexOf(false); if(i<0){toast(T('cd_over'));return;}
+  const p=r.plan.find(x=>x.i===i), amt=r.applicable&&p?p.add:0, d=DUE[i], d2=new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+  const text=amt>0?`Advance tax: pay ${fmt(amt).replace('₹','Rs ')} (${PCT[i]*100}% cumulative)`:`Advance tax due date (${PCT[i]*100}% cumulative)`;
+  const url='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(text)+'&dates='+ymd(d)+'/'+ymd(d2)+'&details='+encodeURIComponent('Pay at incometax.gov.in > e-Pay Tax > Advance Tax (100). Check your estimate: '+SITE_URL);
+  window.open(url,'_blank');
+}
 function downloadIcs(){
-  const r=calc(); const pad=n=>String(n).padStart(2,'0');
+  const r=calc();
+  if(IS_APP){appReminder(r);return;} const pad=n=>String(n).padStart(2,'0');
   const ymd=d=>d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
   const stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
   const esc=s=>s.replace(/[,;\\]/g,m=>'\\'+m);
@@ -253,17 +266,15 @@ function downloadIcs(){
 
 /* ================= FAQ + language ================= */
 function buildFaq(){
-  $('faqList').innerHTML=FAQ.map(q=>{const[qq,aa]=LANG==='ta'?q.ta:q.en;return `<details class="qa" id="${q.id}"><summary>${qq}</summary><div class="a">${aa}</div></details>`;}).join('');
+  $('faqList').innerHTML=FAQ.map(q=>{const[qq,aa]=q.en;return `<details class="qa" id="${q.id}"><summary>${qq}</summary><div class="a">${aa}</div></details>`;}).join('');
   $('faqSub').textContent=tpl(T('faq_sub'),{n:FAQ.length});
   let ld=document.getElementById('faqld'); if(!ld){ld=document.createElement('script');ld.type='application/ld+json';ld.id='faqld';document.head.appendChild(ld);}
   ld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"FAQPage","mainEntity":FAQ.map(q=>({"@type":"Question","name":q.en[0],"acceptedAnswer":{"@type":"Answer","text":q.en[1]}}))});
 }
 function openFaq(id){const el=$(id);if(!el)return;el.open=true;el.scrollIntoView({behavior:'smooth',block:'center'});}
 function setLang(l){
-  LANG=l; document.documentElement.lang=l==='ta'?'ta-Latn':'en';
-  ['en','ta'].forEach(x=>{const b=$('lang-'+x);b.classList.toggle('on',x===l);b.setAttribute('aria-pressed',x===l);});
+  LANG='en'; document.documentElement.lang='en-IN';
   document.querySelectorAll('[data-i]').forEach(el=>{const v=I18N[l][el.getAttribute('data-i')];if(v!==undefined)el.textContent=v;});
-  try{localStorage.setItem('munvari.lang',l);}catch(e){}
   fillQuarterSelects(); buildFaq(); syncDed(); renderCountdown(); wizUi(); if(WSTEP===3)buildPaidFields(); render();
 }
 function fillQuarterSelects(){
@@ -426,11 +437,11 @@ if('IntersectionObserver' in window){ new IntersectionObserver(es=>{VERDICT_VISI
 fillQuarterSelects(); initMoney(); syncBiz(false); syncDed();
 const hadState=loadState();
 if(hadState) $('welcome').classList.add('on');
-let savedLang='en'; try{savedLang=localStorage.getItem('munvari.lang')||'en';}catch(e){}
-setLang(savedLang==='ta'?'ta':'en');
+try{localStorage.removeItem('munvari.lang');}catch(e){}
+setLang('en');
 
 /* ================= installable app ================= */
-if('serviceWorker' in navigator && location.protocol==='https:'){
+if(!IS_APP && 'serviceWorker' in navigator && location.protocol==='https:'){
   window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 let INSTALL_EVT=null;

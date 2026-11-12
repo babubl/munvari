@@ -1,11 +1,11 @@
 /* MunVari service worker: works offline after the first visit.
    Bump VERSION whenever any file changes so users get the update. */
-const VERSION = 'munvari-v3.0.2';
+const VERSION = 'munvari-v3.1.0';
 const CORE = [
-  './', 'index.html', 'manifest.webmanifest',
-  'assets/css/app.css?v=3.0.2',
-  'assets/js/rules-fy2026-27.js?v=3.0.2', 'assets/js/engine.js?v=3.0.2',
-  'assets/js/i18n.js?v=3.0.2', 'assets/js/app.js?v=3.0.2',
+  './', 'index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest',
+  'assets/css/app.css?v=3.1.0',
+  'assets/js/rules-fy2026-27.js?v=3.1.0', 'assets/js/engine.js?v=3.1.0',
+  'assets/js/i18n.js?v=3.1.0', 'assets/js/app.js?v=3.1.0',
   'assets/fonts/roboto-latin.woff2', 'assets/fonts/roboto-latin-ext.woff2',
   'assets/icons/favicon.svg', 'assets/icons/icon-192.png'
 ];

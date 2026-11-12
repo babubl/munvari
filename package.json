@@ -1,11 +1,21 @@
 {
   "name": "munvari",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "description": "MunVari: free advance tax calculator for India",
   "scripts": {
     "test": "node --test tests/engine.test.js",
-    "serve": "python3 -m http.server 8080"
+    "serve": "python3 -m http.server 8080",
+    "build:web": "node scripts/build-web.mjs",
+    "android:sync": "npm run build:web && npx cap sync android",
+    "android:open": "npx cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/core": "^8.6.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.6.0"
   },
   "license": "UNLICENSED"
 }
