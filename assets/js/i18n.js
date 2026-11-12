@@ -11,7 +11,7 @@ const I18N = {
  "tr1": "No login",
  "tr2": "Nothing leaves your browser",
  "tr3": "Old vs new regime",
- "tr4": "234B / 234C interest",
+ "tr4": "Sec 424 / 425 (old 234B / 234C) interest",
  "tr5": "Works offline",
  "rates": "Budget 2026 rates",
  "cd_days": "days left",
@@ -19,7 +19,7 @@ const I18N = {
  "cd_next": "Next installment",
  "cd_cum": "of your year's tax, cumulative",
  "cd_over": "FY 2026-27 installments are over",
- "cd_over_sub": "Pay any balance as self-assessment tax before filing to stop 234B interest.",
+ "cd_over_sub": "Pay any balance as self-assessment tax before filing to stop Sec 424 (old 234B) interest.",
  "wb_txt": "Welcome back — your last estimate is saved on this device.",
  "wb_btn": "Open saved estimate",
  "w_step": "Step",
@@ -50,7 +50,7 @@ const I18N = {
  "l_nps": "Employer NPS — 80CCD(2)",
  "l_tdssal": "TDS on salary (projected full year)",
  "h_tdssal": "Monthly TDS on your payslip × 12 is a good estimate.",
- "h_nps": "Up to 14% of basic+DA (new regime), 10% (old)",
+ "h_nps": "Allowed up to 14% of salary (new regime) or 10% (old). MunVari applies the cap to gross salary; the law uses basic + DA.",
  "l_fdint": "FD / RD / bond interest (annual)",
  "l_svint": "Savings account interest",
  "l_tdsint": "TDS on interest",
@@ -60,10 +60,10 @@ const I18N = {
  "l_hloan": "Home loan interest (let-out property)",
  "l_tdsrent": "TDS on rent",
  "h_setoff": "Old regime: loss set-off capped at ₹2L. New regime: no set-off against other income.",
- "h_cgq": "Pick the quarter each gain was / will be realised — this drives the Section 234C relief.",
+ "h_cgq": "Pick the quarter each gain was / will be realised — this drives the Sec 425 (old 234C) relief.",
  "l_stcg_eq": "STCG — listed equity / equity MF (111A, 20%)",
  "l_ltcg_eq": "LTCG — listed equity / equity MF (112A, 12.5% over ₹1.25L)",
- "l_stcg_ot": "STCG — other assets (debt MF, US stocks < 24m — slab rate)",
+ "l_stcg_ot": "STCG — other assets (slab rate)",
  "l_ltcg_ot": "LTCG — other assets (property, US stocks ≥ 24m, gold — 12.5%)",
  "l_when": "Realised in",
  "l_when2": "Mostly received in",
@@ -73,8 +73,8 @@ const I18N = {
  "h_ltcg125": "First ₹1.25 lakh of this is tax-free.",
  "l_biztype": "Type",
  "o_bnone": "None",
- "o_b44ada": "Profession — presumptive 44ADA (50% of receipts)",
- "o_b44ad": "Business — presumptive 44AD (6% / 8%)",
+ "o_b44ada": "Profession — presumptive Sec 58 (old 44ADA, 50% of receipts)",
+ "o_b44ad": "Business — presumptive Sec 58 (old 44AD, 6% / 8%)",
  "o_breg": "Regular books — net profit",
  "l_receipts": "Gross receipts (annual)",
  "l_deemed": "Deemed / declared profit %",
@@ -105,7 +105,7 @@ const I18N = {
  "v_done": "You're on track",
  "v_over": "Year's installments are over",
  "v_na_sub_10k": "Your tax after TDS is ₹10,000 or less — pay any balance as self-assessment tax when you file.",
- "v_na_sub_senior": "Resident senior citizens with no business income are exempt from advance tax (Sec 207). Pay at filing with no 234B/234C interest.",
+ "v_na_sub_senior": "Resident senior citizens with no business income are exempt from advance tax. Pay at filing with no Sec 424/425 (old 234B/234C) interest.",
  "v_done_sub": "Nothing more due this year. Any small balance settles at filing.",
  "v_next_ok": "Next target",
  "v_cum": "cumulative",
@@ -114,14 +114,14 @@ const I18N = {
  "v_paidpct": "paid of year's tax",
  "v_risk": "interest at risk",
  "v_norisk": "No interest so far",
- "v_over_sub": "Pay the balance as self-assessment tax now — 234B interest runs at 1% a month from April.",
+ "v_over_sub": "Pay the balance as self-assessment tax now — Sec 424 (old 234B) interest runs at 1% a month from April.",
  "b_howpay": "How to pay",
  "b_portal": "Tax portal",
  "b_remind": "Add reminders",
- "hp1": "Go to incometax.gov.in → e-Pay Tax (no login needed).",
- "hp2": "Enter PAN and mobile → OTP.",
- "hp3": "Income Tax → Assessment Year 2027-28 → Advance Tax (100).",
- "hp4": "Pay by net banking, UPI or card. Save the CRN / challan receipt.",
+ "hp1": "Go to incometax.gov.in → e-Pay Tax. You can pay without logging in.",
+ "hp2": "Enter your PAN and mobile number, then the OTP.",
+ "hp3": "Choose Income Tax, Assessment Year 2027-28, and type of payment Advance Tax (100).",
+ "hp4": "Pay by net banking, UPI or card, and save the challan receipt (CRN) for your return.",
  "r_schedule": "Installment schedule",
  "r_computation": "Tax computation",
  "r_interest": "Interest exposure",
@@ -146,7 +146,7 @@ const I18N = {
  "wf_normal": "Tax on slab-rate income",
  "wf_stcg": "Tax on STCG @20% (111A)",
  "wf_ltcg": "Tax on LTCG @12.5%",
- "wf_rebate": "87A rebate",
+ "wf_rebate": "rebate under Sec 156 (old 87A)",
  "wf_sur": "Surcharge",
  "wf_cess": "Health & education cess @4%",
  "wf_total": "Total tax liability",
@@ -157,12 +157,12 @@ const I18N = {
  "wf_gti": "Slab-rate income (after deductions)",
  "wf_h_inc": "Income",
  "wf_h_tax": "Tax",
- "int_234c": "234C — installments missed so far",
- "int_234b": "234B — if nothing more is paid till",
+ "int_234c": "Sec 425 (old 234C) — installments missed so far",
+ "int_234b": "Sec 424 (old 234B) — if nothing more is paid till",
  "int_none": "No interest exposure so far.",
  "int_sh": "safe harbour met",
- "int_paid_note": "234B applies only if advance tax paid by 31 March stays below 90% of the year's tax. 234C is 1% a month on each installment's shortfall.",
- "int_proj": "234C — future installments, if you pay nothing more",
+ "int_paid_note": "Sec 424 (old 234B) applies only if advance tax paid by 31 March stays below 90% of the year's tax. Sec 425 (old 234C) is 1% a month on each installment's shortfall.",
+ "int_proj": "Sec 425 (old 234C) — future installments, if you pay nothing more",
  "int_total": "Total interest at risk",
  "saver": "Pay {amt} by {date} and you avoid about {sav} of interest.",
  "drv_layer": "Each income is layered on top of salary — so its bar shows the extra tax it adds.",
@@ -190,7 +190,7 @@ const I18N = {
  "al_tdsmore": "Your TDS/TCS exceeds the estimated tax — you're likely due a refund at filing, not advance tax.",
  "al_ltcgfree": "Your equity LTCG is within the ₹1.25 lakh yearly exemption — no tax on it.",
  "al_salonly": "Salary only? Your employer's TDS normally covers it. Advance tax kicks in when other income adds tax that isn't deducted.",
- "al_nr": "Non-residents: no 87A rebate and no basic-exemption adjustment against capital gains.",
+ "al_nr": "Non-residents: no rebate under Sec 156 (old 87A) and no basic-exemption adjustment against capital gains.",
  "faq_h": "How advance tax works",
  "faq_sub": "Plain-language answers to the {n} most common advance tax questions.",
  "disc": "MunVari is an educational estimator, not tax advice. Slab rates per Budget 2026 (unchanged from Budget 2025) under the Income-tax Act, 2025. Surcharge marginal relief is approximated near thresholds; indexation for pre-July-2024 property, AMT, foreign tax credits, clubbing and loss carry-forward are not modelled. Verify final figures on the official e-filing portal or with a tax professional before paying.",
@@ -222,8 +222,8 @@ const I18N = {
  "w_cgq": "Sold (or planning to sell) mostly in",
  "w_rent": "Rent received for the year",
  "w_biztype": "Type of work",
- "w_prof": "Profession / freelance (44ADA)",
- "w_trade": "Trading / small business (44AD)",
+ "w_prof": "Profession / freelance (Sec 58, old 44ADA)",
+ "w_trade": "Trading / small business (Sec 58, old 44AD)",
  "w_otds": "TDS already deducted on the above (if any)",
  "h_ais": "Check your AIS / Form 26AS on the income-tax portal.",
  "w_back": "Back",
@@ -234,7 +234,31 @@ const I18N = {
  "w_refine": "Detailed mode — refine with NPS, deductions, TDS splits and the quarter each gain lands in. Results update as you type.",
  "w_paid_by": "Paid by",
  "w_paid_since": "Paid since",
- "w_paid_btw": "Paid"
+ "w_paid_btw": "Paid",
+ "l_entity": "Taxpayer",
+ "w_huf": "Filing for an HUF or a partnership firm?",
+ "o_ind": "Individual",
+ "o_huf": "HUF",
+ "o_firm": "Partnership firm / LLP",
+ "h_ent_huf": "HUFs use the same slabs as individuals, with no rebate and no senior-citizen benefits.",
+ "h_ent_firm": "Firms and LLPs pay a flat 30%, plus 12% surcharge above ₹1 crore and 4% cess. Presumptive schemes aren't available to LLPs.",
+ "h_nr": "Non-residents: most Indian income already has TDS at higher rates, and a tax treaty (DTAA) may lower the tax. MunVari doesn't apply treaty rates — check with a CA if you claim treaty benefits.",
+ "h_debtmf": "Debt mutual funds bought on or after 1 April 2023 are taxed at slab rate however long you hold them — enter those gains as STCG on other assets.",
+ "s_losses": "Capital losses",
+ "l_stloss": "Short-term capital loss this year",
+ "l_ltloss": "Long-term capital loss this year",
+ "l_bfst": "Short-term loss brought forward",
+ "l_bflt": "Long-term loss brought forward",
+ "h_losses": "Short-term losses can reduce any capital gain; long-term losses only long-term gains. Brought-forward losses must come from returns filed on time (up to 8 years).",
+ "h_fno": "F&O or intraday trading? Choose Regular books and enter net profit. F&O is non-speculative business income; intraday equity is speculative. Audit and loss rules apply — see a CA if your turnover is large.",
+ "al_nps": "Employer NPS above the cap isn't deductible. MunVari allowed {amt}.",
+ "al_losscf": "Unabsorbed capital loss of {amt} carries forward to future years if you file your return on time.",
+ "wf_mr": "Marginal relief on surcharge",
+ "wf_loss": "Capital losses set off",
+ "hp_amt": "Amount to pay now",
+ "b_copyamt": "Copy amount",
+ "copied_amt": "Amount copied",
+ "hp5": "Firms and LLPs pick 'Income tax (other than companies)' — the rest is the same."
 }
 };
 
@@ -257,20 +281,20 @@ const FAQ = [
   "id": "q-catchup",
   "en": [
    "I missed June and September. Is it over?",
-   "Not at all. Advance tax is cumulative — pay the full 75% target by 15 December and the only damage is 234C interest on the two earlier shortfalls (1% × 3 months each). Reaching 90%+ by 31 March also keeps 234B fully away. The worst strategy is giving up and paying everything at filing: that stacks 234C on all installments plus 234B from April."
+   "Not at all. Advance tax is cumulative — pay the full 75% target by 15 December and the only damage is Sec 425 (old 234C) interest on the two earlier shortfalls (1% × 3 months each). Reaching 90%+ by 31 March also keeps Sec 424 (old 234B) fully away. The worst strategy is giving up and paying everything at filing: that stacks Sec 425 on all installments plus Sec 424 from April."
   ]
  },
  {
   "id": "q-234c",
   "en": [
-   "How does Section 234C interest work?",
+   "How does Sec 425 (old 234C) interest work?",
    "Miss an installment target and you pay simple interest at 1% per month on the shortfall — for 3 months on the June, September and December installments, and 1 month on the March one. It is computed on the shortfall rounded down to the nearest ₹100, so the amounts are usually annoying rather than devastating — but they add up across quarters if you keep skipping."
   ]
  },
  {
   "id": "q-234b",
   "en": [
-   "What is Section 234B then?",
+   "What is Sec 424 (old 234B) then?",
    "A second, separate meter. If your total advance tax paid by 31 March is less than 90% of the final assessed tax, interest runs at 1% per month on the whole unpaid balance from 1 April until you actually pay. Paying in July means four months of interest. This is why the detailed form asks when you plan to pay any balance."
   ]
  },
@@ -278,28 +302,28 @@ const FAQ = [
   "id": "q-safeharbour",
   "en": [
    "The 12% / 36% safe harbour",
-   "Small mercy in the law: no 234C interest on the June installment if you have paid at least 12% (instead of 15%), and none on September if you have paid at least 36% (instead of 45%). December and March get no such cushion."
+   "Small mercy in the law: no Sec 425 (old 234C) interest on the June installment if you have paid at least 12% (instead of 15%), and none on September if you have paid at least 36% (instead of 45%). December and March get no such cushion."
   ]
  },
  {
   "id": "q-cgrelief",
   "en": [
    "I sold shares in January — was I supposed to predict that in June?",
-   "No. For capital gains (and dividends), Section 234C has a relief: no interest for installments that fell before the gain arose, as long as you pay the tax on it within the remaining installments. That is why this estimator asks which quarter each gain lands in — a January gain only raises your March target, not June, September or December."
+   "No. For capital gains (and dividends), Sec 425 (old 234C) has a relief: no interest for installments that fell before the gain arose, as long as you pay the tax on it within the remaining installments. That is why this estimator asks which quarter each gain lands in — a January gain only raises your March target, not June, September or December."
   ]
  },
  {
   "id": "q-salaried",
   "en": [
    "I'm salaried — does my TDS cover me?",
-   "For pure salary, almost always yes. The trap: your employer doesn't know about your FD interest, capital gains, rent or side income unless you declare it. Tax on those, if the balance crosses ₹10,000, is your job to pay quarterly. Alternative: declare other income to your employer and let them deduct extra TDS — that also stops 234C."
+   "For pure salary, almost always yes. The trap: your employer doesn't know about your FD interest, capital gains, rent or side income unless you declare it. Tax on those, if the balance crosses ₹10,000, is your job to pay quarterly. Alternative: declare other income to your employer and let them deduct extra TDS — that also stops Sec 425 (old 234C)."
   ]
  },
  {
   "id": "q-44ada",
   "en": [
    "Freelancer on 44ADA / small business on 44AD?",
-   "Presumptive taxpayers get the best deal in the whole chapter: skip the three early installments and pay 100% in one shot by 15 March. Miss that single date and 234C charges just 1% for one month. This estimator switches to single-installment mode automatically when you pick 44ADA/44AD. Limits: ₹75 lakh receipts for 44ADA and ₹3 crore turnover for 44AD, when cash receipts are within 5%."
+   "Presumptive taxpayers get the best deal in the whole chapter: skip the three early installments and pay 100% in one shot by 15 March. Miss that single date and Sec 425 (old 234C) charges just 1% for one month. This estimator switches to single-installment mode automatically when you pick 44ADA/44AD. Limits: ₹75 lakh receipts for 44ADA and ₹3 crore turnover for 44AD, when cash receipts are within 5%."
   ]
  },
  {
@@ -333,7 +357,7 @@ const FAQ = [
  {
   "id": "q-rebate",
   "en": [
-   "Why doesn't the 87A rebate cover my capital gains?",
+   "Why doesn't the rebate under Sec 156 (old 87A) cover my capital gains?",
    "Two rules trip people up. First, eligibility is tested on total income — including capital gains. ₹10 lakh salary-income plus ₹3 lakh of LTCG is ₹13 lakh, so no rebate at all. Second, even when you're within ₹12 lakh, the rebate can't be used against tax on STCG (111A) or LTCG (112A) — that tax stays payable. Many first-time investors discover this at filing; better to discover it here."
   ]
  },
@@ -347,8 +371,8 @@ const FAQ = [
  {
   "id": "q-senior",
   "en": [
-   "Senior citizen exemption (Sec 207)",
-   "A resident aged 60 or more with no business or professional income is fully exempt from advance tax — whatever the amount. Pay it all as self-assessment tax at filing with zero 234B/234C interest. Relevant if you're estimating for a parent: their FD interest and capital gains alone don't trigger the quarterly treadmill."
+   "Senior citizen exemption ",
+   "A resident aged 60 or more with no business or professional income is fully exempt from advance tax — whatever the amount. Pay it all as self-assessment tax at filing with zero Sec 424/425 (old 234B/234C) interest. Relevant if you're estimating for a parent: their FD interest and capital gains alone don't trigger the quarterly treadmill."
   ]
  },
  {
@@ -362,7 +386,28 @@ const FAQ = [
   "id": "q-act2025",
   "en": [
    "Which law is this — I keep hearing about a new Act",
-   "From 1 April 2026 the Income-tax Act, 2025 replaces the 1961 Act. Rates, regimes, due dates, the ₹10,000 threshold and interest logic are unchanged for FY 2026-27; section numbers are renumbered (this tool keeps the familiar 234B/234C/111A/112A labels everyone still searches for). 'Tax Year' also replaces the FY/AY jargon — but portals and challans may still show AY 2027-28."
+   "From 1 April 2026 the Income-tax Act, 2025 replaces the 1961 Act. Rates, regimes, due dates, the ₹10,000 threshold and the interest rules are unchanged for FY 2026-27, but sections are renumbered. MunVari shows the new number with the old one in brackets: advance tax is Sec 404 (old 208), interest for not paying enough is Sec 424 (old 234B), interest for late installments is Sec 425 (old 234C), the rebate is Sec 156 (old 87A) and presumptive income is Sec 58 (old 44AD/44ADA). Deduction and capital-gains labels such as 80C, 111A and 112A are kept because the e-filing portal and AIS still use them widely. 'Tax year' replaces the FY/AY terms, though challans may still show AY 2027-28."
+  ]
+ },
+ {
+  "id": "q-debtmf",
+  "en": [
+   "How are debt mutual fund gains taxed?",
+   "Debt mutual funds (funds that invest more than 65% in debt and money-market instruments) bought on or after 1 April 2023 are taxed at your slab rate whatever the holding period — there is no long-term rate or indexation. Enter those gains as STCG on other assets. Units bought before that date follow the older rules: short-term at slab rate, long-term (over 24 months) at 12.5% without indexation."
+  ]
+ },
+ {
+  "id": "q-losses",
+  "en": [
+   "How do capital losses reduce my tax?",
+   "A short-term capital loss can be set off against any capital gain, short- or long-term. A long-term capital loss can only be set off against long-term gains. Capital losses cannot reduce salary, interest or business income. Unused losses carry forward for 8 years, but only if the return for the loss year was filed on time. MunVari sets losses off against the most heavily taxed gains first, and applies the ₹1.25 lakh 112A exemption after set-off."
+  ]
+ },
+ {
+  "id": "q-entity",
+  "en": [
+   "Does MunVari work for HUFs and firms?",
+   "Yes. HUFs use the same slabs as individuals but get no rebate and no senior-citizen exemption. Partnership firms and LLPs pay a flat 30%, a 12% surcharge when income exceeds ₹1 crore (with marginal relief) and 4% cess. Advance tax installments and interest rules are the same for all three. Companies and trusts are not covered."
   ]
  }
 ];

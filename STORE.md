@@ -6,16 +6,16 @@ Copy-paste text for the Play Console. Character limits are Google's.
 MunVari: Advance Tax Calculator
 
 ## Short description (80)
-Know what advance tax to pay, by when, and the 234B/234C interest you can avoid.
+Know what advance tax to pay, by when, and the interest you can avoid.
 
 ## Full description (4000)
 MunVari tells Indian taxpayers exactly how much advance tax to pay by the next due date, and how much interest they'll owe if they don't.
 
-Salary TDS rarely covers interest from fixed deposits, capital gains on shares and mutual funds, rent or freelance income. When it doesn't, the Income Tax Department charges interest under Sections 234B and 234C. MunVari works it out in about a minute.
+Salary TDS rarely covers interest from fixed deposits, capital gains on shares and mutual funds, rent or freelance income. When it doesn't, the Income Tax Department charges interest under Sections 424 and 425 of the Income-tax Act, 2025 (formerly 234B and 234C). MunVari works it out in about a minute.
 
 WHAT YOU GET
 • Your next installment: the amount and the date (15 June, 15 September, 15 December, 15 March)
-• Interest at risk under Sections 234B and 234C, and how much you save by paying on time
+• Interest at risk under Sections 424 and 425 (old 234B and 234C), and how much you save by paying on time
 • A catch-up plan if you've missed an installment
 • Old vs new tax regime, side by side
 • What's driving your tax: salary, interest, rent, business or capital gains
@@ -25,7 +25,7 @@ WHAT YOU GET
 COVERS
 • Salary, FD and savings interest, rental income, dividends, other income
 • Equity STCG (Section 111A) and LTCG (Section 112A, with the ₹1.25 lakh exemption), and other capital gains
-• Freelancers and small businesses under presumptive taxation (44ADA, 44AD), with the single 15 March installment
+• Freelancers and small businesses under presumptive taxation (Sec 58, old 44ADA / 44AD), with the single 15 March installment
 • Senior citizens' exemption from advance tax
 • TDS and TCS credits, and tax already paid
 

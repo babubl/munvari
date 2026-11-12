@@ -25,6 +25,19 @@
     ],
     surchargeCapOnGains: 0.15,
     cess: 0.04,
+    // Employer contribution to NPS: cap as a share of salary (basic + DA; MunVari uses gross salary as entered)
+    employerNpsCap: { new: 0.14, old: 0.10 },
+    // Partnership firms (incl. LLPs): flat rate, surcharge above ₹1 crore
+    firm: { rate: 0.30, surchargeAbove: 10000000, surcharge: 0.12 },
+    // Section references: Income-tax Act, 2025 with the Income-tax Act, 1961 equivalent
+    sections: {
+      advanceTax: { new: '404', old: '208' },
+      int234B: { new: '424', old: '234B' },
+      int234C: { new: '425', old: '234C' },
+      rebate: { new: '156', old: '87A' },
+      presumptive: { new: '58', old: '44AD/44ADA' }
+      // Deduction and capital-gains labels (80C, 111A, 112A…) are kept as the 1961 numbers until the official mapping is confirmed
+    },
     oldRegimeCaps: { c80: 150000, ccd1b: 50000, selfOccInterest: 200000, hpLossSetOff: 200000, tta: 10000, ttb: 50000 },
     advanceTax: {
       threshold: 10000,

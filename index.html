@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>MunVari — Advance Tax Calculator FY 2026-27 | Due Dates, 234B/234C Interest</title>
-<meta name="description" content="Free advance tax calculator for FY 2026-27. Find your next installment, 234B/234C interest, capital gains relief and old vs new regime in 60 seconds. No login — nothing leaves your browser.">
+<title>MunVari — Advance Tax Calculator FY 2026-27 | Due Dates, Sec 424/425 (234B/234C) Interest</title>
+<meta name="description" content="Free advance tax calculator for FY 2026-27. Find your next installment, Sec 424/425 (old 234B/234C) interest, capital gains relief and old vs new regime in 60 seconds. No login — nothing leaves your browser.">
 <meta name="author" content="Babu Balasubramanian">
 <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121418" media="(prefers-color-scheme: dark)">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="MunVari">
 <meta property="og:url" content="https://babubl.github.io/munvari/">
 <meta property="og:title" content="MunVari — Do you owe advance tax this quarter?">
-<meta property="og:description" content="Free FY 2026-27 advance tax calculator: next installment, 234B/234C interest, capital gains relief, old vs new regime. Nothing leaves your device.">
+<meta property="og:description" content="Free FY 2026-27 advance tax calculator: next installment, Sec 424/425 (234B/234C) interest, capital gains relief, old vs new regime. Nothing leaves your device.">
 <meta property="og:image" content="https://babubl.github.io/munvari/assets/icons/og-image.png">
 <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_IN">
@@ -28,10 +28,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="MunVari">
 <link rel="preload" href="assets/fonts/roboto-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/app.css?v=3.1.0">
+<link rel="stylesheet" href="assets/css/app.css?v=3.2.0">
 <script>try{var t=localStorage.getItem('munvari.theme');if(t)document.documentElement.setAttribute('data-theme',t);var z=localStorage.getItem('munvari.size');if(z)document.documentElement.setAttribute('data-size',z);}catch(e){}</script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"MunVari","alternateName":"MunVari Advance Tax Estimator","url":"https://babubl.github.io/munvari/","applicationCategory":"FinanceApplication","operatingSystem":"Web, Android","inLanguage":"en-IN","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Free advance tax calculator for India, FY 2026-27: quarterly installments, Section 234B/234C interest, capital gains relief, old vs new regime comparison. All calculations run in the browser.","author":{"@type":"Person","name":"Babu Balasubramanian","url":"https://babubl.github.io"}}
+{"@context":"https://schema.org","@type":"WebApplication","name":"MunVari","alternateName":"MunVari Advance Tax Estimator","url":"https://babubl.github.io/munvari/","applicationCategory":"FinanceApplication","operatingSystem":"Web, Android","inLanguage":"en-IN","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"description":"Free advance tax calculator for India, FY 2026-27: quarterly installments, Section 424/425 (old 234B/234C) interest, capital gains relief, old vs new regime comparison. All calculations run in the browser.","author":{"@type":"Person","name":"Babu Balasubramanian","url":"https://babubl.github.io"}}
 </script>
 </head>
 <body>
@@ -54,9 +54,9 @@
       <a class="btn" href="#wiz" data-i="cta_start">Check my advance tax</a>
     </div>
     <div class="trust">
-      <span data-i="tr1">No login</span><span data-i="tr2">Nothing leaves your browser</span><span data-i="tr3">Old vs new regime</span><span data-i="tr4">234B / 234C interest</span><span data-i="tr5">Works offline</span>
+      <span data-i="tr1">No login</span><span data-i="tr2">Nothing leaves your browser</span><span data-i="tr3">Old vs new regime</span><span data-i="tr4">Sec 424 / 425 (old 234B / 234C) interest</span><span data-i="tr5">Works offline</span>
     </div>
-    <div class="fybadge">FY 2026-27 · Income-tax Act, 2025 · <span data-i="rates">Budget 2026 rates</span></div>
+    <div class="fybadge">FY 2026-27 · Income-tax Act, 2025 · <span data-i="rates">Budget 2026 rates</span> · <a href="sources.html">Sources</a></div>
 </section>
 
 <section id="wiz" aria-labelledby="wizTitle">
@@ -84,6 +84,7 @@
           <button type="button" data-v="s80" aria-pressed="false">80+</button>
         </div></div>
       <input type="hidden" id="w_regime" value="new"><input type="hidden" id="w_age" value="lt60">
+      <p class="hint" style="margin-top:14px"><button type="button" class="linkbtn" onclick="startFor('huf')" data-i="w_huf">Filing for an HUF or a partnership firm?</button></p>
     </div>
 
     <div class="wstep" data-step="1">
@@ -153,18 +154,22 @@
   <summary><span class="caret">▶</span><span data-i="s_profile">Profile</span><span class="tag">basics</span></summary>
   <div class="secbody">
     <div class="grid2">
-      <div class="f"><label for="regime"><span data-i="l_regime">Tax regime</span> <button class="why" onclick="openFaq('q-regime')" aria-label="Explain regimes">?</button></label>
+      <div class="f"><label for="entity" data-i="l_entity">Taxpayer</label>
+        <select id="entity"><option value="ind" data-i="o_ind">Individual</option><option value="huf" data-i="o_huf">HUF</option><option value="firm" data-i="o_firm">Partnership firm / LLP</option></select></div>
+      <div class="f" id="f-regime"><label for="regime"><span data-i="l_regime">Tax regime</span> <button class="why" onclick="openFaq('q-regime')" aria-label="Explain regimes">?</button></label>
         <select id="regime"><option value="new" data-i="o_new">New regime (default)</option><option value="old" data-i="o_old">Old regime</option></select></div>
-      <div class="f"><label for="age" data-i="l_age">Age</label>
+      <div class="f" id="f-age"><label for="age" data-i="l_age">Age</label>
         <select id="age"><option value="lt60">&lt; 60</option><option value="s60">60 – 79</option><option value="s80">80+</option></select></div>
       <div class="f"><label for="resident" data-i="l_resident">Residential status</label>
         <select id="resident"><option value="r" data-i="o_res">Resident</option><option value="nr" data-i="o_nres">Non-resident</option></select></div>
-      <div class="f"><label for="payMonth"><span data-i="l_paymonth">If anything's left, you'll pay it in</span> <button class="why" onclick="openFaq('q-234b')" aria-label="Explain 234B">?</button></label>
+      <div class="f"><label for="payMonth"><span data-i="l_paymonth">If anything's left, you'll pay it in</span> <button class="why" onclick="openFaq('q-234b')" aria-label="Explain Section 424 interest">?</button></label>
         <select id="payMonth">
           <option value="4">Apr 2027</option><option value="5">May 2027</option><option value="6">Jun 2027</option>
           <option value="7" selected>Jul 2027</option><option value="8">Aug 2027</option><option value="9">Sep 2027</option>
         </select></div>
     </div>
+    <p class="hint" id="entityHint" hidden></p>
+    <p class="hint" id="nrHint" data-i="h_nr" hidden>Non-residents: most Indian income already has TDS at higher rates, and a tax treaty (DTAA) may lower the tax. MunVari doesn't apply treaty rates — check with a CA if you claim treaty benefits.</p>
   </div>
 </details>
 
@@ -177,7 +182,7 @@
       <div class="f"><label for="tdsSalary" data-i="l_tdssal">TDS on salary (projected full year)</label>
         <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="tdsSalary" min="0" placeholder="0"></div></div>
       <div class="f"><label for="empNps" data-i="l_nps">Employer NPS — 80CCD(2)</label>
-        <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="empNps" min="0" placeholder="0"></div><span class="hint" data-i="h_nps">Up to 14% of basic+DA (new regime), 10% (old)</span></div>
+        <div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="empNps" min="0" placeholder="0"></div><span class="hint" id="npsHint" data-i="h_nps">Allowed up to 14% of salary (new regime) or 10% (old). MunVari applies the cap to gross salary; the law uses basic + DA.</span></div>
     </div>
   </div>
 </details>
@@ -213,10 +218,20 @@
       <div class="f"><label for="stcgEqQ" data-i="l_when">Realised in</label><select id="stcgEqQ" class="qsel"></select></div></div>
     <div class="rowline"><div class="f"><label for="ltcgEq"><span data-i="l_ltcg_eq">LTCG — listed equity / equity MF (112A, 12.5% over ₹1.25L)</span> <button class="why" onclick="openFaq('q-ltcg')" aria-label="Explain">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="ltcgEq" min="0" placeholder="0"></div></div>
       <div class="f"><label for="ltcgEqQ" data-i="l_when">Realised in</label><select id="ltcgEqQ" class="qsel"></select></div></div>
-    <div class="rowline"><div class="f"><label for="stcgOt" data-i="l_stcg_ot">STCG — other assets (debt MF, US stocks &lt; 24m — slab rate)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="stcgOt" min="0" placeholder="0"></div></div>
+    <div class="rowline"><div class="f"><label for="stcgOt"><span data-i="l_stcg_ot">STCG — other assets (slab rate)</span> <button class="why" onclick="openFaq('q-debtmf')" aria-label="Explain debt fund gains">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="stcgOt" min="0" placeholder="0"></div></div>
       <div class="f"><label for="stcgOtQ" data-i="l_when">Realised in</label><select id="stcgOtQ" class="qsel"></select></div></div>
     <div class="rowline"><div class="f"><label for="ltcgOt"><span data-i="l_ltcg_ot">LTCG — other assets (property, US stocks ≥ 24m, gold — 12.5%)</span> <button class="why" onclick="openFaq('q-usstocks')" aria-label="Explain">?</button></label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="ltcgOt" min="0" placeholder="0"></div></div>
       <div class="f"><label for="ltcgOtQ" data-i="l_when">Realised in</label><select id="ltcgOtQ" class="qsel"></select></div></div>
+    <p class="hint" style="margin-top:12px" data-i="h_debtmf">Debt mutual funds bought on or after 1 April 2023 are taxed at slab rate however long you hold them — enter those gains as STCG on other assets.</p>
+    <h4 class="subhead" data-i="s_losses">Capital losses</h4>
+    <div class="rowline"><div class="f"><label for="stLoss" data-i="l_stloss">Short-term capital loss this year</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="stLoss" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="lossQ" data-i="l_when">Realised in</label><select id="lossQ" class="qsel"></select></div></div>
+    <div class="grid2">
+      <div class="f"><label for="ltLoss" data-i="l_ltloss">Long-term capital loss this year</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="ltLoss" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="bfStLoss" data-i="l_bfst">Short-term loss brought forward</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="bfStLoss" min="0" placeholder="0"></div></div>
+      <div class="f"><label for="bfLtLoss" data-i="l_bflt">Long-term loss brought forward</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="bfLtLoss" min="0" placeholder="0"></div></div>
+    </div>
+    <p class="hint" data-i="h_losses">Short-term losses can reduce any capital gain; long-term losses only long-term gains. Brought-forward losses must come from returns filed on time (up to 8 years).</p>
   </div>
 </details>
 
@@ -241,6 +256,7 @@
         <option value="44ad" data-i="o_b44ad">Business — presumptive 44AD (6% / 8%)</option>
         <option value="reg" data-i="o_breg">Regular books — net profit</option>
       </select></div>
+    <p class="hint" style="margin-top:8px" data-i="h_fno">F&amp;O or intraday trading? Choose Regular books and enter net profit. F&amp;O is non-speculative business income; intraday equity is speculative. Audit and loss rules apply — see a CA if your turnover is large.</p>
     <div class="grid2" id="bizFields" style="display:none">
       <div class="f" id="f-receipts"><label for="bizReceipts" data-i="l_receipts">Gross receipts (annual)</label><div class="inwrap rupee"><input type="number" class="money" inputmode="numeric" id="bizReceipts" min="0" placeholder="0"></div></div>
       <div class="f" id="f-deemed"><label for="bizPct" data-i="l_deemed">Deemed / declared profit %</label><input type="number" inputmode="decimal" id="bizPct" min="0" max="100" value="50"></div>
@@ -340,15 +356,15 @@
 <p class="disclaimer" data-i="disc">MunVari is an educational estimator, not tax advice.</p>
 
 <footer><div class="fw">
-  <span>Built by <a href="https://babubl.github.io" rel="author">Babu Balasubramanian</a> · MunVari 3.0 · <span data-i="ft">No trackers, no login — everything stays in your browser.</span></span>
+  <span>Built by <a href="https://babubl.github.io" rel="author">Babu Balasubramanian</a> · MunVari 3.2 · <span data-i="ft">No trackers, no login — everything stays in your browser.</span></span>
   <span data-i="ft2">Rates verified for FY 2026-27 (Budget 2026).</span>
-  <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
+  <span><a href="sources.html">Sources &amp; updates</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></span>
 </div></footer>
 
 <div class="mbar" id="mbar" role="status"><span id="mbarTxt"></span><button class="btn sm" onclick="document.getElementById('verdict').scrollIntoView({behavior:'smooth',block:'center'})" data-i="mbar_btn">Details</button></div>
-<script src="assets/js/rules-fy2026-27.js?v=3.1.0"></script>
-<script src="assets/js/engine.js?v=3.1.0"></script>
-<script src="assets/js/i18n.js?v=3.1.0"></script>
-<script src="assets/js/app.js?v=3.1.0"></script>
+<script src="assets/js/rules-fy2026-27.js?v=3.2.0"></script>
+<script src="assets/js/engine.js?v=3.2.0"></script>
+<script src="assets/js/i18n.js?v=3.2.0"></script>
+<script src="assets/js/app.js?v=3.2.0"></script>
 </body>
 </html>

@@ -96,3 +96,59 @@ test('paying in full clears all projected interest', () => {
   const r = E.calcPlan(inp({ otherInc: 1500000, paid: [base.netFull, 0, 0, 0] }), d('2026-05-01'));
   assert.equal(r.c234ftot + r.b234, 0);
 });
+
+// ---- v3.2: CA review fixes ----
+test('employer NPS (s.124, old 80CCD(2)) capped at 14% of salary in the new regime', () => {
+  const t = tax({ salary: 2000000, empNps: 500000 });
+  assert.equal(t.npsAllowed, 280000);
+  assert.equal(t.npsCapped, true);
+});
+
+test('employer NPS capped at 10% of salary in the old regime', () => {
+  assert.equal(tax({ salary: 2000000, empNps: 500000, regime: 'old' }).npsAllowed, 200000);
+});
+
+test('short-term capital loss offsets STCG', () => {
+  assert.equal(tax({ salary: 2000000, stcgEq: 200000, stLoss: 100000 }).stcgTax, 20000);
+});
+
+test('long-term capital loss cannot offset short-term gains and is carried forward', () => {
+  const t = tax({ salary: 2000000, stcgEq: 100000, ltLoss: 100000 });
+  assert.equal(t.stcgTax, 20000);
+  assert.equal(t.lossCarry.lt, 100000);
+});
+
+test('short-term loss can offset LTCG; 112A exemption applies after set-off', () => {
+  assert.equal(tax({ salary: 2000000, ltcgEq: 225000, stLoss: 100000 }).ltcgTax, 0);
+});
+
+test('brought-forward long-term loss offsets LTCG', () => {
+  assert.equal(tax({ salary: 2000000, ltcgEq: 325000, bfLtLoss: 100000 }).ltcgTax, 12500);
+});
+
+test('exact marginal relief at the ₹50L surcharge threshold', () => {
+  // Tax at 50L = 10,80,000; at 51L = 11,10,000 + surcharge capped so total <= 10,80,000 + 1,00,000
+  const t = tax({ otherInc: 5100000 });
+  assert.equal(Math.round(t.surcharge), 70000);
+  assert.equal(t.total, 1227200);
+});
+
+test('HUF gets no rebate', () => {
+  assert.equal(tax({ entity: 'huf', otherInc: 1000000 }).total, 41600);
+  assert.equal(tax({ otherInc: 1000000 }).total, 0);
+});
+
+test('partnership firm: flat 30% plus cess', () => {
+  assert.equal(tax({ entity: 'firm', bizType: 'reg', bizProfit: 5000000 }).total, 1560000);
+});
+
+test('firm: 12% surcharge above ₹1 crore with marginal relief', () => {
+  // 30.3L tax; relief limits tax + surcharge to 30L + 1L
+  assert.equal(tax({ entity: 'firm', bizType: 'reg', bizProfit: 10100000 }).total, 3224000);
+});
+
+test('firm is never exempt as a senior citizen', () => {
+  const r = E.calcPlan(inp({ entity: 'firm', age: 's60', otherInc: 3000000 }), d('2026-07-01'));
+  assert.equal(r.seniorExempt, false);
+  assert.equal(r.applicable, true);
+});

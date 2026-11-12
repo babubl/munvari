@@ -19,13 +19,14 @@ function calc(inp,today){ return calcPlan(inp||readInputs(), today||NOW()); }
 function readInputs(){
   const v=id=>$(id).value;
   return {
-    regime:v('regime'), age:v('age'), resident:v('resident'), payMonth:Number(v('payMonth')),
+    entity:v('entity'), regime:v('regime'), age:v('age'), resident:v('resident'), payMonth:Number(v('payMonth')),
     salary:num('salary'), empNps:num('empNps'), tdsSalary:num('tdsSalary'),
     fdInt:num('fdInt'), savInt:num('savInt'), tdsInt:num('tdsInt'),
     rent:num('rent'), muniTax:num('muniTax'), rentLoanInt:num('rentLoanInt'), tdsRent:num('tdsRent'),
     stcgEq:num('stcgEq'), stcgEqQ:v('stcgEqQ'), ltcgEq:num('ltcgEq'), ltcgEqQ:v('ltcgEqQ'),
     stcgOt:num('stcgOt'), stcgOtQ:v('stcgOtQ'), ltcgOt:num('ltcgOt'), ltcgOtQ:v('ltcgOtQ'),
     div:num('divAmt'), divQ:v('divQ'), tdsDiv:num('tdsDiv'),
+    stLoss:num('stLoss'), ltLoss:num('ltLoss'), lossQ:v('lossQ'), bfStLoss:num('bfStLoss'), bfLtLoss:num('bfLtLoss'),
     bizType:v('bizType'), bizReceipts:num('bizReceipts'), bizPct:Math.max(0,Math.min(100,Number(v('bizPct'))||0)), bizProfit:num('bizProfit'), tdsBiz:num('tdsBiz'),
     otherInc:num('otherInc'), tcs:num('tcs'),
     d80c:num('d80c'), d80ccd1b:num('d80ccd1b'), d80d:num('d80d'), dHra:num('dHra'), dSelfOcc:num('dSelfOcc'), dOther:num('dOther'),
@@ -90,7 +91,7 @@ function renderVerdict(r){
       <div class="v-sub">${r.presumptive?T('plan_presump'):`${PCT[i]*100}% ${T('v_cum')}: ${fmt(r.req[i])} − ${fmt(r.paidTotal)} ${T('st_paid').toLowerCase()}`}</div>
       ${metaTags(r,paidPct,riskTot)}
       <div class="v-actions"><button class="btn sm" onclick="downloadIcs()">${T('b_remind')}</button><a class="btn ghost sm" href="https://www.incometax.gov.in/iec/foportal/" target="_blank" rel="noopener">${T('b_portal')} ↗</a></div>
-      <details class="howpay"><summary>${T('b_howpay')}</summary><ol><li>${T('hp1')}</li><li>${T('hp2')}</li><li>${T('hp3')}</li><li>${T('hp4')}</li></ol></details>`;
+      <details class="howpay"><summary>${T('b_howpay')}</summary>${r.owe>0?`<div class="payamt"><span>${T('hp_amt')}: <b>${fmt(r.owe)}</b></span><button class="btn ghost sm" onclick="copyAmt(${r.owe})">${T('b_copyamt')}</button></div>`:''}<ol><li>${T('hp1')}</li><li>${T('hp2')}</li><li>${T('hp3')}</li><li>${T('hp4')}</li>${(r.inp.entity||'ind')==='firm'?`<li>${T('hp5')}</li>`:''}</ol></details>`;
     mb=`<span>${T('v_pay')} ${DUE_SHORT[i]}</span> <b>${fmt(r.owe)}</b>`;
   }
   $('mbarTxt').innerHTML=mb; MBAR_READY=!!mb; updMbar();
@@ -106,8 +107,10 @@ function renderAlerts(r){
   if(r.full.total>0&&r.credit>r.full.total+100) a.push(['info',T('al_tdsmore')]);
   if(i.ltcgEq>0&&i.ltcgEq<=125000) a.push(['info',T('al_ltcgfree')]);
   if(i.resident==='nr'&&(i.stcgEq+i.ltcgEq+i.ltcgOt)>0) a.push(['info',T('al_nr')]);
+  if(r.full.npsCapped) a.push(['warn',T('al_nps').replace('{amt}',fmt(r.full.npsAllowed))]);
+  const cf=r.full.lossCarry.st+r.full.lossCarry.lt; if(cf>0) a.push(['info',T('al_losscf').replace('{amt}',fmt(cf))]);
   const others=i.fdInt+i.savInt+i.rent+i.div+i.otherInc+i.stcgEq+i.ltcgEq+i.stcgOt+i.ltcgOt+(i.bizType==='none'?0:1);
-  if(i.salary>0&&!others&&!r.applicable) a.push(['info',T('al_salonly')]);
+  if((i.entity||'ind')==='ind'&&i.salary>0&&!others&&!r.applicable) a.push(['info',T('al_salonly')]);
   $('alerts').innerHTML=a.map(([c,t])=>`<div class="alert ${c}"><span class="ai" aria-hidden="true">${c==='warn'?'!':'i'}</span><span>${t}</span></div>`).join('');
 }
 
@@ -188,7 +191,7 @@ function renderInterest(r){
     for(let i=0;i<4;i++){
       if(!r.passed[i]||(r.presumptive&&i<3))continue;
       const sh=(!r.presumptive&&i<2&&r.req[i]>r.cumPaid[i]&&r.c234[i]===0)?(' ✓ '+T('int_sh')):' ✓';
-      ib+=`<div class="int-row"><span>234C · ${DUE_LBL[i]}</span><b class="${r.c234[i]>0?'chip-bad':'chip-ok'}">${r.c234[i]>0?fmt(r.c234[i]):sh}</b></div>`;
+      ib+=`<div class="int-row"><span>Sec 425 · ${DUE_LBL[i]}</span><b class="${r.c234[i]>0?'chip-bad':'chip-ok'}">${r.c234[i]>0?fmt(r.c234[i]):sh}</b></div>`;
     }
     if(r.c234ftot>0) ib+=`<div class="int-row proj"><span>${T('int_proj')}</span><b class="chip-bad">${fmt(r.c234ftot)}</b></div>`;
     if(r.b234>0) ib+=`<div class="int-row proj"><span>${T('int_234b')} ${['','','','','Apr','May','Jun','Jul','Aug','Sep'][r.inp.payMonth]} 2027 (${r.bMonths}×1%)</span><b class="chip-bad">${fmt(r.b234)}</b></div>`;
@@ -201,13 +204,14 @@ function renderInterest(r){
 function renderWaterfall(r){
   const f=r.full;
   let wf=`<tr class="sub"><td>${T('wf_ti')}</td><td>${fmt(f.totalIncome)}</td></tr>
-  <tr class="sub"><td>${T('wf_gti')}</td><td>${fmt(f.normalTI)}</td></tr>
+  <tr class="sub"><td>${T('wf_gti')}</td><td>${fmt(f.normalTI)}</td></tr>${(()=>{const i=r.inp,used=(i.stLoss+i.ltLoss+i.bfStLoss+i.bfLtLoss)-(f.lossCarry.st+f.lossCarry.lt);return used>0?`<tr class="sub"><td>${T('wf_loss')}</td><td class="neg">− ${fmt(used)}</td></tr>`:'';})()}
   <tr class="head"><td colspan="2">${T('wf_h_tax')}</td></tr>
   <tr><td>${T('wf_normal')}</td><td>${fmt(f.normalTax)}</td></tr>`;
   if(f.stcgTax>0)wf+=`<tr><td>${T('wf_stcg')}</td><td>${fmt(f.stcgTax)}</td></tr>`;
   if(f.ltcgTax>0)wf+=`<tr><td>${T('wf_ltcg')}</td><td>${fmt(f.ltcgTax)}</td></tr>`;
   if(f.rebate>0)wf+=`<tr><td>${T('wf_rebate')} <button class="why" onclick="openFaq('q-rebate')" aria-label="Explain">?</button></td><td class="neg">− ${fmt(f.rebate)}</td></tr>`;
-  if(f.surcharge>0)wf+=`<tr><td>${T('wf_sur')} <button class="why" onclick="openFaq('q-surcharge')" aria-label="Explain">?</button></td><td>${fmt(f.surcharge)}</td></tr>`;
+  if(f.surcharge>0||f.marginalRelief>0)wf+=`<tr><td>${T('wf_sur')} <button class="why" onclick="openFaq('q-surcharge')" aria-label="Explain">?</button></td><td>${fmt(f.surcharge+f.marginalRelief)}</td></tr>`;
+  if(f.marginalRelief>0)wf+=`<tr><td>${T('wf_mr')}</td><td class="neg">− ${fmt(f.marginalRelief)}</td></tr>`;
   wf+=`<tr><td>${T('wf_cess')}</td><td>${fmt(f.cess)}</td></tr>
   <tr><td><b>${T('wf_total')}</b></td><td><b>${fmt(f.total)}</b></td></tr>`;
   if(r.tds>0)wf+=`<tr><td>${T('wf_tds')}</td><td class="neg">− ${fmt(r.tds)}</td></tr>`;
@@ -275,7 +279,7 @@ function openFaq(id){const el=$(id);if(!el)return;el.open=true;el.scrollIntoView
 function setLang(l){
   LANG='en'; document.documentElement.lang='en-IN';
   document.querySelectorAll('[data-i]').forEach(el=>{const v=I18N[l][el.getAttribute('data-i')];if(v!==undefined)el.textContent=v;});
-  fillQuarterSelects(); buildFaq(); syncDed(); renderCountdown(); wizUi(); if(WSTEP===3)buildPaidFields(); render();
+  fillQuarterSelects(); buildFaq(); syncDed(); syncEntity(); renderCountdown(); wizUi(); if(WSTEP===3)buildPaidFields(); render();
 }
 function fillQuarterSelects(){
   document.querySelectorAll('.qsel').forEach(s=>{
@@ -291,6 +295,13 @@ function syncBiz(setPct){
   $('f-deemed').style.display=t==='reg'?'none':'flex';
   $('f-profit').style.display=t==='reg'?'flex':'none';
   if(setPct){ if(t==='44ada')$('bizPct').value=50; if(t==='44ad')$('bizPct').value=8; }
+}
+function syncEntity(){
+  const e=$('entity').value, firm=e==='firm', ind=e==='ind';
+  $('f-regime').hidden=firm; $('f-age').hidden=!ind;
+  $('sec-salary').hidden=!ind; $('sec-ded').hidden=firm;
+  const h=$('entityHint'); h.hidden=ind; h.textContent=firm?T('h_ent_firm'):e==='huf'?T('h_ent_huf'):'';
+  $('nrHint').hidden=$('resident').value!=='nr';
 }
 function syncDed(){ $('dedHint').textContent=$('regime').value==='old'?T('h_dedold'):T('h_dednew'); }
 
@@ -310,6 +321,7 @@ function onEdit(e){
   if(t.closest('#wiz'))return;
   if(t.id==='bizType')syncBiz(true);
   if(t.id==='regime')syncDed();
+  if(t.id==='entity'||t.id==='resident')syncEntity();
   if(t.id==='remember'){ if(!t.checked){try{localStorage.removeItem('munvari.v2');}catch(e){}} }
   render();
 }
@@ -317,7 +329,7 @@ document.addEventListener('input',onEdit);
 document.addEventListener('change',onEdit);
 
 /* ================= persistence (local only, opt-in) ================= */
-const PERSIST=['regime','age','resident','payMonth','salary','empNps','tdsSalary','fdInt','savInt','tdsInt','rent','muniTax','rentLoanInt','tdsRent','stcgEq','stcgEqQ','ltcgEq','ltcgEqQ','stcgOt','stcgOtQ','ltcgOt','ltcgOtQ','divAmt','divQ','tdsDiv','bizType','bizReceipts','bizPct','bizProfit','tdsBiz','otherInc','tcs','d80c','d80ccd1b','d80d','dHra','dSelfOcc','dOther','paid1','paid2','paid3','paid4'];
+const PERSIST=['entity','stLoss','ltLoss','lossQ','bfStLoss','bfLtLoss','regime','age','resident','payMonth','salary','empNps','tdsSalary','fdInt','savInt','tdsInt','rent','muniTax','rentLoanInt','tdsRent','stcgEq','stcgEqQ','ltcgEq','ltcgEqQ','stcgOt','stcgOtQ','ltcgOt','ltcgOtQ','divAmt','divQ','tdsDiv','bizType','bizReceipts','bizPct','bizProfit','tdsBiz','otherInc','tcs','d80c','d80ccd1b','d80d','dHra','dSelfOcc','dOther','paid1','paid2','paid3','paid4'];
 function saveState(){
   if(!$('remember').checked)return;
   const o={}; PERSIST.forEach(id=>o[id]=$(id).value);
@@ -327,7 +339,7 @@ function loadState(){
   let o=null; try{o=JSON.parse(localStorage.getItem('munvari.v2')||'null');}catch(e){}
   if(!o)return false;
   PERSIST.forEach(id=>{if(o[id]!==undefined)$(id).value=o[id];});
-  $('remember').checked=true; syncBiz(false); syncDed(); return true;
+  $('remember').checked=true; syncBiz(false); syncDed(); syncEntity(); return true;
 }
 function clearAll(){
   PERSIST.forEach(id=>{const el=$(id); if(el.tagName==='SELECT'){el.selectedIndex=0;} else el.value='';});
@@ -335,7 +347,7 @@ function clearAll(){
   document.querySelectorAll('#wiz input[type=number]').forEach(i=>i.value='');
   document.querySelectorAll('.chip').forEach(c=>{c.setAttribute('aria-pressed','false');$('box-'+c.dataset.chip).classList.remove('on');});
   try{localStorage.removeItem('munvari.v2');}catch(e){}
-  syncBiz(false); syncDed(); document.querySelectorAll('input.money').forEach(updAmt); render(); toast(T('cleared'));
+  syncBiz(false); syncDed(); syncEntity(); document.querySelectorAll('input.money').forEach(updAmt); render(); toast(T('cleared'));
 }
 
 /* ================= theme ================= */
@@ -417,6 +429,12 @@ function syncWizard(){
   for(let i=0;i<4;i++){$('paid'+(i+1)).value=wv('w_paid'+i);}
   syncDed();
 }
+/* HUFs and firms skip the wizard and start in detailed mode with the Profile open. */
+function startFor(ent){
+  finishWizard(true);
+  $('entity').value=ent; syncEntity(); render();
+  const pr=$('sec-profile'); pr.open=true; pr.scrollIntoView({behavior:'smooth',block:'start'}); $('entity').focus({preventScroll:true});
+}
 function finishWizard(skip){
   if(!skip)syncWizard();
   $('wiz').hidden=true; $('app').hidden=false;
@@ -448,3 +466,5 @@ let INSTALL_EVT=null;
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();INSTALL_EVT=e;const b=$('installBtn');if(b)b.hidden=false;});
 function installApp(){ if(!INSTALL_EVT)return; INSTALL_EVT.prompt(); INSTALL_EVT.userChoice.finally(()=>{INSTALL_EVT=null;$('installBtn').hidden=true;}); }
 window.addEventListener('appinstalled',()=>{const b=$('installBtn');if(b)b.hidden=true;});
+
+function copyAmt(n){ const t=String(Math.round(n)); (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast(T('copied_amt'))).catch(()=>toast(t)); }
