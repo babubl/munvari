@@ -1,12 +1,12 @@
 /* MunVari service worker: works offline after the first visit.
    Bump VERSION whenever any file changes so users get the update. */
-const VERSION = 'munvari-v3.0.0';
+const VERSION = 'munvari-v3.0.1';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
-  'assets/css/app.css?v=3.0.0',
-  'assets/js/rules-fy2026-27.js?v=3.0.0', 'assets/js/engine.js?v=3.0.0',
-  'assets/js/i18n.js?v=3.0.0', 'assets/js/app.js?v=3.0.0',
-  'assets/fonts/inter-latin.woff2', 'assets/fonts/inter-latin-ext.woff2',
+  'assets/css/app.css?v=3.0.1',
+  'assets/js/rules-fy2026-27.js?v=3.0.1', 'assets/js/engine.js?v=3.0.1',
+  'assets/js/i18n.js?v=3.0.1', 'assets/js/app.js?v=3.0.1',
+  'assets/fonts/montserrat-latin.woff2', 'assets/fonts/montserrat-latin-ext.woff2',
   'assets/icons/favicon.svg', 'assets/icons/icon-192.png'
 ];
 self.addEventListener('install', e => {

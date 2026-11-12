@@ -8,12 +8,12 @@ Live: https://babubl.github.io/munvari/
 
 ```
 index.html                      page markup
-assets/css/app.css              design system (Tesla-style palette, Inter)
+assets/css/app.css              design system (Tesla-style palette, Montserrat)
 assets/js/rules-fy2026-27.js    every tax rate, limit and due date for the year
 assets/js/engine.js             tax engine: pure functions, no DOM
 assets/js/i18n.js               English + Tanglish strings and FAQ
 assets/js/app.js                UI
-assets/fonts/                   self-hosted Inter (SIL OFL)
+assets/fonts/                   self-hosted Montserrat (SIL OFL)
 assets/icons/                   app icons, favicon, social image
 manifest.webmanifest, sw.js     installable app + offline support
 tests/engine.test.js            engine tests
